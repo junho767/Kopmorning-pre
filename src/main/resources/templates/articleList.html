@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>블로그 글 목록</title>
+    <link rel="stylesheet" href="http://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> <!-- ref=" stylesheet"은 외부 리소스 가져오는 것-->
+</head>
+<body>
+<div class="p-5 mb-5 text-center</> bg-light">
+    <h2 style="color:#FF0000" class="mb-3">콥들을 위한 리버풀 블로그!</h2>
+</div>
+
+<div class="container">
+    <button type="button" id="create-id"
+            th:onclick="|location.href='@{/new-article}'|"
+            class="btn btn-primary btn-sm mb-3">쓰기</button>
+    <div class="row-6">
+        <th:block th:each="item, i : ${articles}">
+            <div class="card">
+                <div class="card-header" th:text="${articles[articles.size() - i.index - 1].id}"></div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${articles[articles.size() - i.index - 1].title}"></h5>
+                    <p class="card-text" th:text="${articles[articles.size() - i.index - 1].content}"></p>
+                    <a th:href="@{/articles/{id}(id=${articles[articles.size() - i.index - 1].id})}" class="btn btn-primary">방문하기</a>
+                </div>
+            </div>
+            <br>
+        </th:block>
+    </div>
+    <button type="button" class="btn btn-secondary" onclick="location.href='/logout'">로그아웃</button>
+</div>
+<script src="/js/article.js"></script>
+<script src="/js/token.js"></script>
+</body>
+</html>
