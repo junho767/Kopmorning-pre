@@ -1,0 +1,32 @@
+.background-image-bg {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.center-text{
+    text-align:center;
+}
+.center-div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 0.4em inset #009688
+}
+body {
+    margin: 0; /* body의 기본 margin 제거 */
+    padding: 0; /* body의 기본 padding 제거 */
+    height: 100vh; /* 화면 전체 높이를 100vh로 설정 */
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    flex: 1; /* content가 남은 공간을 모두 차지하도록 설정 */
+    padding: 20px; /* 내용과 body 사이에 간격을 주기 위해 padding 추가 */
+}
+
+.bottom-div {
+    background-color: #f0f0f0; /* 배경색을 추가하거나 스타일을 원하는 대로 추가 */
+    padding: 10px;
+    text-align: center; /* 텍스트를 중앙 정렬 */
+}
