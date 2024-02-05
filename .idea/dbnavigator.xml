@@ -16,7 +16,7 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="2c968b81-f7a5-4ec6-8f2d-644fea604828">
+    <connection id="467a7bf8-6066-4a42-93bf-a1cd2499c8c4">
       <console name="Connection" type="STANDARD" schema="" session="Main" />
     </connection>
   </component>
@@ -46,15 +46,15 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="2c968b81-f7a5-4ec6-8f2d-644fea604828" active="true" signed="true">
+      <connection id="467a7bf8-6066-4a42-93bf-a1cd2499c8c4" active="true" signed="true">
         <database>
           <name value="Connection" />
           <description value="" />
           <database-type value="MYSQL" />
-          <config-type value="CUSTOM" />
-          <database-version value="9999.0" />
+          <config-type value="BASIC" />
+          <database-version value="8.0" />
           <driver-source value="BUNDLED" />
-          <driver-library value="C:\Users\wnsgh\mariadb-java-client-2.7.3.jar" />
+          <driver-library value="" />
           <driver value="" />
           <url-type value="DATABASE" />
           <host value="awseb-e-qhigra2mjf-stack-awsebrdsdatabase-eawmoygsmowg.c3qa4amago9u.ap-northeast-2.rds.amazonaws.com" />
@@ -63,7 +63,7 @@
           <tns-folder value="" />
           <tns-profile value="" />
           <type value="USER_PASSWORD" />
-          <user value="junholee" />
+          <user value="canine89" />
           <deprecated-pwd value="MTIzNDU2Nzg=" />
         </database>
         <properties>

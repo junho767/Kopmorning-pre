@@ -1,3 +1,4 @@
+//회원가입 메서드
 package me.junholee.springbootdeveloper.service;
 
 import lombok.RequiredArgsConstructor;
