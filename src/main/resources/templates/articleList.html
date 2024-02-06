@@ -8,23 +8,7 @@
 <body>
 <div class="p-5 mb-5 text-center bg-light">
     <h2 style="color:#FF0000" class="mb-3">콥들을 위한 리버풀 블로그!</h2>
-
-    <div th:if="${loggedIn}">
-        <p th:text="${articles[0].author}"></p>
-    </div>
-
-    <div th:unless="${loggedIn}">
-        <h2 class="center-text">로그인</h2>
-        <div>
-            <a href="/oauth2/authorization/google" onclick="location.reload();">
-                <img src="/img/google.png">
-            </a>
-        </div>
-    </div>
 </div>
-
-
-
 <div class="container">
     <button type="button" id="create-id"
             th:onclick="|location.href='@{/new-article}'|"

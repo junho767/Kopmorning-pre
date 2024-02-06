@@ -19,6 +19,7 @@ public class BlogApiController {
 
     private final BlogService blogService;
 
+    // "/api/articles" 경로로 POST 요청이 들어왔을 때 실행되는 메서드입니다. 여기서 주요한 기능은 새로운 글을 추가하고 그 결과를 응답하는 것입니다.
     @PostMapping("/api/articles")
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request, Principal principal) {
         Article savedArticle = blogService.save(request,principal.getName());

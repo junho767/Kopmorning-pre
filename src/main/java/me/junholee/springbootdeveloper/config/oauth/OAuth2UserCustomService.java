@@ -17,7 +17,9 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
 
-    @Override
+    @Override //이 메서드는 OAuth2 인증 프로세스에서 사용자 정보를 가져오고, 이를 저장하는 역할을 합니다.
+    // 만약 해당 사용자 정보가 이미 데이터베이스에 존재한다면 업데이트하고, 존재하지 않는다면 새로 추가합니다.
+    // 이를 통해 사용자 정보를 관리하고, 필요한 경우에 따라서는 추가적인 처리를 할 수 있습니다.
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User user = super.loadUser(userRequest); // ❶ 요청을 바탕으로 유저 정보를 담은 객체 반환
         saveOrUpdate(user);

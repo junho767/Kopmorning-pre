@@ -68,10 +68,11 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         authorizationRequestRepository.removeAuthorizationRequestCookies(request, response);
     }
 
-    private String getTargetUrl(String token) {
+    private String getTargetUrl(String token) { // 특정 경로로 리다이렉트하면서 동시에 발급된 토큰을 쿼리 파라미터로 전달하는 URL을 생성합니다.
         return UriComponentsBuilder.fromUriString(REDIRECT_PATH)
                 .queryParam("token", token)
                 .build()
                 .toUriString();
+            // UriComponentsBuilder는 주로 get으로 요청함.
     }
 }

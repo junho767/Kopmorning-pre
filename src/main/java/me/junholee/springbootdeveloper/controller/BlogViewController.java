@@ -2,7 +2,7 @@ package me.junholee.springbootdeveloper.controller;
 
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.dto.ArticleViewResponse;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.dto.ArticleListViewResponse;
@@ -18,17 +18,13 @@ import java.util.List;
 @Controller
 public class BlogViewController {
     private final BlogService blogService;
-    private boolean isLoggedIn(Authentication authentication) { // 로그인 여부에 따라 버튼 숨기는 지 판단하는 메소드
-        return authentication != null && authentication.isAuthenticated();
-    }
     @GetMapping("/articles")
-    public String getArticles(Model model, Authentication authentication){ // Model 객체는 HTML 쪽으로 값을 넘겨주는 객체이다.
+    public String getArticles(Model model){
         List<ArticleListViewResponse> articles = blogService.findAll().stream()
                 .map(ArticleListViewResponse::new)
                 .toList();
 
         model.addAttribute("articles", articles); // 블로그 글 리스트에 저장
-        model.addAttribute("loggedIn", isLoggedIn(authentication)); // 로그인 여부를 저장
 
         return "articleList";
     }
