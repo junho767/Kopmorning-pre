@@ -2,7 +2,6 @@ package me.junholee.springbootdeveloper.controller;
 
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.dto.ArticleViewResponse;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.dto.ArticleListViewResponse;
@@ -23,9 +22,7 @@ public class BlogViewController {
         List<ArticleListViewResponse> articles = blogService.findAll().stream()
                 .map(ArticleListViewResponse::new)
                 .toList();
-
         model.addAttribute("articles", articles); // 블로그 글 리스트에 저장
-
         return "articleList";
     }
 

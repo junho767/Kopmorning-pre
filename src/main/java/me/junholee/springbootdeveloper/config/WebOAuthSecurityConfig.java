@@ -56,15 +56,22 @@ public class WebOAuthSecurityConfig {
                 .anyRequest().permitAll();
 
         http.oauth2Login()
+                // OAuth2 로그인이 시작되는 페이지를 지정합니다. 사용자를 인증 페이지로 리다이렉트합니다.
                 .loginPage("/login")
+                // OAuth2 인증 요청의 상태를 저장하고 관리하는데 사용되는 인증 요청 저장소를 설정합니다.
                 .authorizationEndpoint()
                 .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
                 .and()
+                // OAuth2 로그인 성공 시 처리할 핸들러를 설정합니다.
                 .successHandler(oAuth2SuccessHandler())
+                // OAuth2 사용자 정보 엔드포인트의 구성을 시작합니다.
                 .userInfoEndpoint()
+                // 사용자 정보를 로드하는 데 사용되는 사용자 서비스를 설정합니다.
                 .userService(oAuth2UserCustomService);
 
         http.logout()
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
                 .logoutSuccessUrl("/login");
 
 
