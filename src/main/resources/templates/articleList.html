@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>블로그 글 목록</title>
     <link rel="stylesheet" href="/css/jun.css"> <!-- ref=" stylesheet"은 외부 리소스 가져오는 것-->
-
 </head>
 <body>
 <div class="competition">
@@ -14,37 +13,46 @@
     <a href="#"><img class="facup-logo" src="/img/FACUP_LOGO.png"></a>
     <a href="#"><img class="cflc-logo" src="/img/CFLC_LOGO.png"></a>
 </div>
-<div class="d-flex">
-    <nav class="menu">
-        <div>
-            <ul>
-                <li><a href="#">HISTORY</a></li>
-                <li><a href="#">NOTICE BOARD</a></li>
-                <li><a href="#">GAME RESULT</a></li>
-                <li><a href="#">SCHEDULE</a></li>
-            </ul>
-        </div>
-    </nav>
+<div>
+     <ul class="menu">
+           <li><a href="#">HISTORY</a></li>
+           <li><a href="#">ARTICLE</a></li>
+           <li><a href="#">PLAYER</a></li>
+           <li><a href="#">SCHEDULE</a></li>
+     </ul>
 </div>
 <div class="container">
+    <ul>
+        <li class="list-header">
+            <span>글 번호</span>
+            <span>제목</span>
+            <span>글쓴이</span>
+            <span>날짜</span>
+            <span>추천 수</span>
 
-    <div class="row-6">
-        <th:block th:each="item, i : ${articles}">
-            <div class="card">
-                <div class="card-header" th:text="${articles[articles.size() - i.index - 1].id}"></div>
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${articles[articles.size() - i.index - 1].title}"></h5>
-                    <p class="card-text" th:text="${articles[articles.size() - i.index - 1].content}"></p>
-                    <a th:href="@{/articles/{id}(id=${articles[articles.size() - i.index - 1].id})}" class="btn btn-primary">방문하기</a>
-                </div>
+        </li>
+        <li th:each="board:${list}">
+            <span th:text="${board.id}">1</span>
+            <span th:text="${board.title}">제목입니다.</span>
+            <button type="button" id="create-id"
+                    th:onclick="|location.href='@{/new-article}'|"
+                    class="btn btn-primary btn-sm mb-3">쓰기</button>
+            <div class="row-6">
+                <th:block th:each="item, i : ${articles}">
+                    <div class="card">
+                        <div class="card-header" th:text="${articles[articles.size() - i.index - 1].id}"></div>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${articles[articles.size() - i.index - 1].title}"></h5>
+                            <p class="card-text" th:text="${articles[articles.size() - i.index - 1].content}"></p>
+                            <a th:href="@{/articles/{id}(id=${articles[articles.size() - i.index - 1].id})}" class="btn btn-primary">방문하기</a>
+                        </div>
+                    </div>
+                    <br>
+                </th:block>
             </div>
-            <br>
-        </th:block>
-    </div>
-    <button type="button" class="btn btn-secondary" onclick="location.href='/logout'">로그아웃</button>
-    <button type="button" id="create-id"
-            th:onclick="|location.href='@{/new-article}'|"
-            class="btn btn-primary btn-sm mb-3">쓰기</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='/logout'">로그아웃</button>
+        </li>
+    </ul>
 </div>
 <script src="/js/article.js"></script>
 <script src="/js/token.js"></script>
