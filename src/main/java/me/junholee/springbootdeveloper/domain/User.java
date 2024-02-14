@@ -48,7 +48,7 @@ public class User implements UserDetails {
 
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities() { //- 사용자 권한 리스트 반환
         return List.of(new SimpleGrantedAuthority("user"));
     }
 

@@ -9,7 +9,6 @@
 </head>
 <body id="exampleElement" class="background-image-bg">
 <div class="container bg-dark">
-    <form action="/articles" method="POST">
         <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
         <div class="mt1 mb1 text-center">
             <h1 class="font-white">LOGIN</h1>
@@ -23,7 +22,6 @@
                 <img src="/img/google.png">
             </a>
         </div>
-    </form>
 </div>
 </body>
 </html>

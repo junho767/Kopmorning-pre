@@ -1,4 +1,4 @@
-// 토큰을 생성 및 올바른 토큰인지 유효성 검사하고 토큰에서 필요 정보를 가져오는 클래스
+// 토큰을 생성 및 올바른 토큰인지 유효성 검사하고 토큰에서 필요 정보를 가져오는 클래스 3
 package me.junholee.springbootdeveloper.config.jwt;
 
 import io.jsonwebtoken.Claims;

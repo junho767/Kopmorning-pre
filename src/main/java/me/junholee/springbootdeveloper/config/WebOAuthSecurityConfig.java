@@ -70,8 +70,6 @@ public class WebOAuthSecurityConfig {
                 .userService(oAuth2UserCustomService);
 
         http.logout()
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
                 .logoutSuccessUrl("/login");
 
 

@@ -1,5 +1,6 @@
 // 요청이 오면 헤더값을 비교해서 토큰이 있는지 확인 후 유효 토큰이라면 시큐리티 콘테스트 홀더에 인증 정보를 저장.
 // 액세스 토큰 값이 담긴 Authorization 헤더값을 가져와 엑세스 토큰이 유효하다면 인증 정보 저장.
+// 2
 package me.junholee.springbootdeveloper.config;
 
 import jakarta.servlet.FilterChain;

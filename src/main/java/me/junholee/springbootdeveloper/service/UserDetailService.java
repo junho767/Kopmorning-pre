@@ -19,4 +19,5 @@ public class UserDetailService implements UserDetailsService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException((email)));
     }
+
 }
