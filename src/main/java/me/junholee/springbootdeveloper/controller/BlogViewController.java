@@ -1,7 +1,15 @@
 package me.junholee.springbootdeveloper.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import me.junholee.springbootdeveloper.domain.Article;
+import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.ArticleViewResponse;
+import me.junholee.springbootdeveloper.service.UserDetailService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.dto.ArticleListViewResponse;
@@ -10,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.security.Principal;
 import java.util.List;
@@ -18,13 +27,33 @@ import java.util.List;
 @Controller
 public class BlogViewController {
     private final BlogService blogService;
+    private final UserDetailService userDetailService;
     @GetMapping("/articles")
-    public String getArticles(Model model){
+    public String getArticles(Model model, HttpSession session){
+        User info = (User)session.getAttribute("s_user");
+        System.out.println(info.getId());
+        System.out.println(info.getEmail());
+        System.out.println(info.getNickname());
+        System.out.println(info.getAuthorities());
         List<ArticleListViewResponse> articles = blogService.findAll().stream()
                 .map(ArticleListViewResponse::new)
                 .toList();
+        model.addAttribute("user",info);
         model.addAttribute("articles", articles); // 블로그 글 리스트에 저장
-        return "articleList";
+        return "articles";
+    }
+    @GetMapping("/test")
+    public String getTest(Model model,HttpSession session){
+        User info = (User)session.getAttribute("s_user");
+        System.out.println(info);
+        return "test";
+    }
+    @GetMapping("/main")
+    public String getMain(Model model, Authentication authentication, HttpSession session){
+        User user= userDetailService.loadUserByUsername(authentication.getName());
+        session.setAttribute("s_user", user);
+        model.addAttribute("user", user);
+        return "main";
     }
 
 

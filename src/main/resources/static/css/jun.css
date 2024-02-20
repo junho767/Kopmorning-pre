@@ -23,7 +23,7 @@
   padding: 0;
   border: none;
   background: rgb(255,27,0);
-background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
+  background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
 }
 .btn-5:hover {
   color: #f0094a;
@@ -69,9 +69,9 @@ background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
     font-style: normal;
 }
 @font-face {
-    font-family: 'Cafe24Supermagic-Bold-v1.0';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/Cafe24Supermagic-Bold-v1.0.woff2') format('woff2');
-    font-weight: 700;
+    font-family: 'TTHakgyoansimYeohaengR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimYeohaengR.woff2') format('woff2');
+    font-weight: normal;
     font-style: normal;
 }
 
@@ -115,7 +115,6 @@ body {
 }
 
 .font-white{
-    text-align:center;
     color: white;
 }
 .text-center{ text-align: center; }
@@ -215,16 +214,33 @@ a{
     height:100vh;
 }
 .container-side{
-    font-family: 'Cafe24Supermagic-Bold-v1.0';
+    font-family: 'TTHakgyoansimYeohaengR';
     width: 230px;
     height: 300px;
     text-align: center;
-    background-color: #343a40;
+    background: linear-gradient(to bottom, #ff0000, #ffffff);
     border-radius:10px;
     padding:10px 10px;
 }
-.login-form{
+.userinfo{
     margin:25px auto;
+}
+.userinfo p{
+    color:#ffffff;
+    font-size: 23px;
+}
+.logout-btn{
+    border: none;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+        7px 7px 20px 0px rgba(0,0,0,.1),
+        4px 4px 5px 0px rgba(0,0,0,.1);
+    background: #f0094a;
+    background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
+}
+.my-profile{
+    border: none;
+    background: rgb(255,27,0);
+    background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
 }
 .logo2{
     width:80px;

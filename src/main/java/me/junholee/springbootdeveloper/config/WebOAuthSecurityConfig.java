@@ -37,7 +37,7 @@ public class WebOAuthSecurityConfig {
                 .requestMatchers("/img/**", "/css/**", "/js/**");
     }
 
-    @Bean
+    @Bean //HttpSecurity 매개변수는 Spring Security를 사용하여 웹 보안을 구성하는 데 필요한 도구를 제공합니다.
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .httpBasic().disable()
@@ -46,9 +46,6 @@ public class WebOAuthSecurityConfig {
 
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
 
         http.authorizeRequests()
                 .requestMatchers("/api/token").permitAll()
@@ -77,7 +74,8 @@ public class WebOAuthSecurityConfig {
                 .defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
                         new AntPathRequestMatcher("/api/**"));
 
-
+        //JWT 인증을 위하여 직접 구현한 필터를 UsernamePasswordAuthenticationFilter 전에 실행
+        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

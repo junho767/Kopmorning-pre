@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Enumeration;
 
 @RequiredArgsConstructor
 @Component
@@ -24,14 +25,18 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public static final String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
     public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14);
     public static final Duration ACCESS_TOKEN_DURATION = Duration.ofDays(1);
-    public static final String REDIRECT_PATH = "/articles";
+    public static final String REDIRECT_PATH = "/main";
 
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
     private final UserService userService;
 
+    //이 메서드는 사용자가 성공적으로 인증될 때 호출되는데, 즉, 사용자가 로그인에 성공했을 때 실행
     @Override
+    //HTTP 요청 객체를 나타냅니다. 이 객체는 클라이언트로부터 받은 요청에 대한 정보를 제공합니다.
+    //HTTP 응답 객체를 나타냅니다. 이 객체를 사용하여 클라이언트로 응답을 보낼 수 있습니다.
+    //인증된 사용자에 대한 정보를 나타냅니다. 이 객체는 사용자의 인증 상태, 사용자 이름, 권한 등의 정보를 포함합니다.
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         User user = userService.findByEmail((String) oAuth2User.getAttributes().get("email"));
