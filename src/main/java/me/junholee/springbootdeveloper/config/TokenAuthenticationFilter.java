@@ -20,7 +20,7 @@ import java.util.Enumeration;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final TokenProvider tokenProvider;
     private final static String HEADER_AUTHORIZATION = "Authorization";
-    private final static String TOKEN_PREFIX = "token=";
+    private final static String TOKEN_PREFIX = "Bearer ";
 
     //FilterChain은 여러 필터가 연결된 구조에서 현재 필터가 다음에 적용될 필터 또는 서블릿으로 요청을 전달하는 역할을 합니다.
     // 따라서 이 객체를 사용하여 다음 필터 또는 서블릿으로 요청을 전달할 수 있습니다.
@@ -30,7 +30,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain)  throws ServletException, IOException {
 
-        String authorizationHeader = request.getQueryString();
+        String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
         String token = getAccessToken(authorizationHeader);
 
         if (tokenProvider.validToken(token)) {

@@ -32,15 +32,21 @@ public class User implements UserDetails {
     @Column(name = "nickname", unique = true)
     private String nickname;
 
+    @Column(name = "picture")
+    private String picture;
+
+
     @Builder
-    public User(String email, String password, String nickname) {
-        this.email = email;
-        this.password = password;
+    public User(String nickname,String password, String email, String picture) {
         this.nickname = nickname;
+        this.password = password;
+        this.email = email;
+        this.picture = picture;
     }
 
-    public User update(String nickname) {
+    public User update(String nickname, String picture) {
         this.nickname = nickname;
+        this.picture = picture;
 
         return this;
     }

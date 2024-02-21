@@ -2,6 +2,7 @@ package me.junholee.springbootdeveloper.service;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
+import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.AddArticleRequest;
 import me.junholee.springbootdeveloper.dto.UpdateArticleRequest;
 import me.junholee.springbootdeveloper.repository.BlogRepository;
@@ -16,6 +17,7 @@ import java.util.List;
 public class BlogService {
 
     private final BlogRepository blogRepository;
+    private final UserDetailService userDetailService;
 
     public Article save(AddArticleRequest request, String userName) {
         return blogRepository.save(request.toEntity(userName));
@@ -50,9 +52,10 @@ public class BlogService {
     }
 
     // 게시글을 작성한 유저인지 확인
-    private static void authorizeArticleAuthor(Article article) {
+    private void authorizeArticleAuthor(Article article) {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (!article.getAuthor().equals(userName)) {
+        User user = userDetailService.loadUserByUsername(userName);
+        if (!article.getAuthor().equals(user.getNickname())) {
             throw new IllegalArgumentException("not authorized");
         }
     }
