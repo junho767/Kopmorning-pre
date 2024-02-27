@@ -75,7 +75,6 @@
     font-style: normal;
 }
 
-
 .header{
     display: flex;
     background-color: #000000;
@@ -215,7 +214,7 @@ a{
 }
 .container-side{
     font-family: 'TTHakgyoansimYeohaengR';
-    width: 230px;
+    width: 300px;
     height: 300px;
     text-align: center;
     background: linear-gradient(to bottom, #ff0000, #ffffff);
@@ -250,4 +249,31 @@ a{
     background-size: cover;
     margin: 0px auto;
     border-radius:50%;
+}
+.standings{
+    border: 1px solid black;
+    width: 300px;
+    font-size: 13px;
+}
+
+.position{
+    width: 25px;
+}
+.team-name{
+    width: 125px;
+}
+.played-games{
+    width: 30px;
+}
+.won{
+    width: 30px;
+}
+.draw{
+    width: 30px;
+}
+.points{
+    width: 30px;
+}
+.goal-difference{
+    width: 30px;
 }

@@ -1,9 +1,23 @@
 package me.junholee.springbootdeveloper.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.SessionUser;
+import me.junholee.springbootdeveloper.domain.Standings;
 import me.junholee.springbootdeveloper.dto.ArticleViewResponse;
+
+import me.junholee.springbootdeveloper.dto.StandingsRequest;
+import me.junholee.springbootdeveloper.dto.StandingsResponse;
+import me.junholee.springbootdeveloper.repository.StandingRepository;
+import me.junholee.springbootdeveloper.service.StandingService;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.dto.ArticleListViewResponse;
@@ -12,15 +26,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
-import java.security.Principal;
 import java.util.List;
+
 
 @RequiredArgsConstructor
 @Controller
 public class BlogViewController {
     private final BlogService blogService;
     private final HttpSession httpSession;
+    private final StandingService standingService;
+    private final StandingsRequest standingsRequest;
     @GetMapping("/articles")
     public String getArticles(Model model){
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
@@ -33,9 +50,15 @@ public class BlogViewController {
     }
 
     @GetMapping("/main")
-    public String getMain(Model model){
+    public String getMain(Model model) throws ParseException {
+        standingsRequest.addStandings();;
+        List<StandingsResponse> standingsList = standingService.findAll().stream()
+                .map(StandingsResponse::new)
+                .toList();
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        model.addAttribute("standing",standingsList);
         model.addAttribute("user", user);
+
         return "main";
     }
 

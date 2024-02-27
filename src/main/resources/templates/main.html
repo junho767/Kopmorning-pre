@@ -27,8 +27,6 @@
 
     </div>
     <div class="section">
-
-
     </div>
     <div class="aside">
         <div class="container-side">
@@ -42,6 +40,22 @@
                 <div class="mt2">
                     <button type="button" class="my-profile" onclick="">내 정보</button>
                     <button type="button" class="logout-btn" onclick="location.href='/logout'">로그아웃</button>
+                </div>
+            </div>
+                <div class="standings">
+                    <th:block th:each="team : ${standing}">
+                        <ul>
+                            <li class="position mt2"><span th:text="${team.position}"></span> </li>
+<!--                            <li class="team-name mt2"><span th:text="${team.team_shortName}"></span></li>-->
+                            <li class="played-games mt2"><span th:text="${team.played_games}"></span></li>
+                            <li class="won mt2"><span th:text="${team.won}"></span></li>
+                            <li class="draw mt2"><span th:text="${team.draw}"></span></li>
+                            <li class="goal-difference mt2"><span th:text="${team.goal_difference}"></span></li>
+                            <li class="points mt2"><span th:text="${team.points}"> </span></li>
+<!--                            <li><span th:text="team.image"></span></li>-->
+                        </ul>
+                    </th:block>
+
                 </div>
             </div>
         </div>
