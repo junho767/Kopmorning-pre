@@ -3,35 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>블로그 글</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jun.css">
 </head>
 <body>
-<div class="p-5 mb-5 text-center</> bg-light">
-    <h1 class="mb-3">My Blog</h1>
-    <h4 class="mb-3">블로그에 오신 것을 환영합니다.</h4>
+<div class="header">
+    <a href="#"><img class="pl-logo" src="/img/PL_LOGO.png"></a>
+    <a href="#"><img class="uel-logo" src="/img/UEL_LOGO.png"></a>
+    <a href="#"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
+    <a href="#"><img class="facup-logo" src="/img/FACUP_LOGO.png"></a>
+    <a href="#"><img class="cflc-logo" src="/img/CFLC_LOGO.png"></a>
 </div>
 
-<div class="container mt-5">
-    <div class="row">
+<div class="nav-menu">
+    <span><a href="#">HISTORY</a></span>
+    <span><a href="articles">ARTICLE</a></span>
+    <span><a href="test">PLAYER</a></span>
+    <span><a href="#">SCHEDULE</a></span>
+</div>
+
+<div class="container">
+
+    <div class="advertisement">
+
+    </div>
+
+    <div class="section">
         <div class="col-lg-8">
+            <button type="button" id="modify-btn"
+                    th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${article.id})}'|"
+                    class="btn btn-primary btn-sm">수정</button>
+            <button type="button" id="delete-btn"
+                    class="btn btn-secondary btn-sm">삭제</button>
+
             <article>
                 <input type="hidden" id="article-id" th:value="${article.id}">
-                <header class="mb-4">
-                    <h1 class="fw-bolder mb-1" th:text="${article.title}"></h1>
-                    <div class="text-muted fst-italic mb-2" th:text="|Posted on ${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')} By ${article.author}|"></div>
+                <input type="hidden" id="user-id" th:value="${user.id}">
+                <header class="mb2">
+                    <p class="f30 mb1" th:text="${article.title}"></p>
+                    <div class="mb2" th:text="|Posted on ${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')} By ${article.author}|"></div>
                 </header>
-                <section class="mb-5">
-                    <p class="fs-5 mb-4" th:text="${article.content}"></p>
+                <section class="mb67">
+                    <p class="f15" th:text="${article.content}"></p>
                 </section>
-                <button type="button" id="modify-btn"
-                        th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${article.id})}'|"
-                        class="btn btn-primary btn-sm">수정</button>
-                <button type="button" id="delete-btn"
-                        class="btn btn-secondary btn-sm">삭제</button>
             </article>
         </div>
+        <div class="comment-box">
+            <input type="text"  id="comment-text" placeholder="댓글 작성..">
+            <button onclick="submitComment()">댓글 달기</button>
+            <p>댓글 목록</p>
+        </div>
+    </div>
+
+    <div class="aside">
+
     </div>
 </div>
-
 <script src="/js/article.js"></script>
 </body>

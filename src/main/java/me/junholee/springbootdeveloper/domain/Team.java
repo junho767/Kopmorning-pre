@@ -13,12 +13,10 @@ import lombok.Setter;
 @Table(name = "Team")
 public class Team {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id //엔티티 클래스에서 기본 키(primary key)를 나타냅니다
+    @Column(name = "id")
+    private int id;
 
-    @Id
-    @Column(name = "team_id")
-    private Long team_id;
     @Column(name = "team_name")
     private String team_name;
 
@@ -31,12 +29,16 @@ public class Team {
     @Column(name = "team_crest")
     private String team_crest;
 
+    @Column(name = "venue")
+    private String venue;
+
     @Builder
-    public Team(Long team_id, String team_name, String team_tla, String team_shortName, String team_crest){
-        this.team_id = team_id;
+    public Team(int id, String team_name, String team_tla, String team_shortName, String team_crest, String venue){
+        this.id = id;
         this.team_name = team_name;
         this.team_tla = team_tla;
         this.team_shortName = team_shortName;
         this.team_crest = team_crest;
+        this.venue = venue;
     }
 }

@@ -18,6 +18,12 @@ if (deleteButton) {
     });
 }
 
+const writeComment = document.getElementById('writeComment');
+if(writeComment){
+    writeComment.addEventListener('click',event => {
+        let
+    })
+}
 // 수정 기능
 const modifyButton = document.getElementById('modify-btn');
 

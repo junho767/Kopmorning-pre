@@ -51,23 +51,7 @@
     </div>
 
     <div class="section">
-        <div class="test">
-            <div class="teamInfo">
-                <div class="homeTeam">
-                    <img class="mb2" th:src="@{${match.home_team.team_crest}}" alt="no">
-                    <p class="fw tc" th:text="${match.home_score}"></p>
-                </div>
-                <div class="matchInfo">
-                    <a th:href="@{/match/{id}(id=${match.match_day})}"><p class="fw tc mb67" th:text="Match+${match.match_day}"></p></a>
-                    <p class="fw tc mb67">VS</p>
-                    <p class="fw tc pb6p" th:text="${match.home_team.venue}"></p>
-                </div>
-                <div class="awayTeam">
-                    <img class="mb2" th:src="@{${match.away_team.team_crest}}" alt="no">
-                    <p class="fw tc" th:text="${match.away_score}"></p>
-                </div>
-            </div>
-        </div>
+
     </div>
 
     <div class="aside">

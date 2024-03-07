@@ -77,10 +77,10 @@
 
 .header{
     display: flex;
-    background-color: #000000;
     text-align: center;
     align-items: center;
     justify-content: space-evenly;
+    background-color: #3b3b3b;
 }
 .liv-logo{
     width:120px;
@@ -113,22 +113,25 @@ body {
     padding:0;
 }
 
-.font-white{
-    color: white;
-}
+.fw{color: white;}
 .text-center{ text-align: center; }
 .mb1{ margin-bottom : 0.5rem; }
 .mb2{ margin-bottom : 1rem; }
+.mb67{ margin-bottom : 67px; }
 .mt1{ margin-top : 0.5rem; }
 .mt2{ margin-top : 1rem; }
-.w70 {width:70px; }
-.w600 {width:600px; }
-.w130 {width:130px; }
-.w170 {width:170px; }
-.w100 {width:100px; }
+.pb6p{ padding-bottom: 6px;}
+.w30 { width: 30px; }
+.w70 { width:70px; }
+.w600 { width:600px; }
+.w140 { width:140px; }
+.w170 { width:170px; }
+.w100 { width:100px; }
 .fl {float:left; }
 .fr {float:right; }
 .tc {text-align:center; }
+.f15{ font-size: 15px; }
+.f30{ font-size: 30px; }
 li{
     list-style:none;
     float: left;
@@ -166,8 +169,10 @@ a{
     margin-top:30px;
 }
 .advertisement{
-    width:200px;
+    width:300px;
     height:100vh;
+    text-align: center;
+    padding:10px 10px;
 }
 .section{
     font-family: 'Orbit-Regular';
@@ -209,25 +214,33 @@ a{
 }
 
 .aside{
-    width:350px;
+    width:370px;
     height:100vh;
 }
 .container-side{
     font-family: 'TTHakgyoansimYeohaengR';
-    width: 300px;
+    width: 280px;
     height: 300px;
     text-align: center;
+    padding:10px 10px;
     background: linear-gradient(to bottom, #ff0000, #ffffff);
     border-radius:10px;
-    padding:10px 10px;
+
 }
-.userinfo{
+.container-userinfo{
     margin:25px auto;
 }
-.userinfo p{
+.container-userinfo p{
     color:#ffffff;
     font-size: 23px;
 }
+.container-userinfo > img{
+    width:80px;
+    height:80px;
+    margin: 0px auto;
+    border-radius:50%;
+}
+
 .logout-btn{
     border: none;
     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
@@ -241,39 +254,70 @@ a{
     background: rgb(255,27,0);
     background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
 }
-.logo2{
-    width:80px;
-    height:80px;
-    text-align: center;
-    background-image: url('/img/LIVLOGO2.png');
-    background-size: cover;
-    margin: 0px auto;
-    border-radius:50%;
-}
-.standings{
+
+.container-standings{
     border: 1px solid black;
-    width: 300px;
+    width: 280px;
     font-size: 13px;
 }
+.standings{
+    text-size: 11px;
+    height:40px;
+    line-height:40px;
+    border-bottom: 1px solid #B22222;
+}
+.standings > img{
+    margin-left: 5px;
+    width:30px;
+    height:30px;
+}
 
-.position{
-    width: 25px;
+.test{
+    justify-content:center;
+    border-radius:10px;
+    align-items : center;
+    width:300px;
+    height:200px;
+    background-image : url('/img/football_venue.jpg')
 }
-.team-name{
-    width: 125px;
+
+.teamInfo{
+    display:flex;
+    justify-content: space-evenly;
+    align-items : center;
+    width : 300px;
+    height : 200px;
 }
-.played-games{
-    width: 30px;
+.homeTeam > img {
+    width: 100px;
+    height: 100px;
+    filter: brightness(90%)
 }
-.won{
-    width: 30px;
+.homeTeam{
+    font-family: 'WarhavenB';
+    width: 130 px;
+    height: 250 px;
 }
-.draw{
-    width: 30px;
+.matchInfo{
+    display: block;
+    align-items: center;
+    flex-direction: column;
+    height: 200px;
+    font-size: 12px;
+    font-family: 'WarhavenB';
 }
-.points{
-    width: 30px;
+
+.awayTeam > img{
+    width: 100px;
+    height: 100px;
+    filter: brightness(90%)
 }
-.goal-difference{
-    width: 30px;
+
+.awayTeam{
+    font-family: 'WarhavenB';
+    width: 130 px;
+    height: 250 px;
+}
+.comment-box{
+    width: 90%;
 }
