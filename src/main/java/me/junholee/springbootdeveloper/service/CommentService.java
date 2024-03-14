@@ -1,17 +1,34 @@
 package me.junholee.springbootdeveloper.service;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.Comment;
-import me.junholee.springbootdeveloper.repository.ComentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import me.junholee.springbootdeveloper.domain.User;
+import me.junholee.springbootdeveloper.dto.CommentRequest;
+import me.junholee.springbootdeveloper.repository.BlogRepository;
+import me.junholee.springbootdeveloper.repository.CommentRepository;
+import me.junholee.springbootdeveloper.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @Service
 public class CommentService {
-    private ComentRepository comentRepository;
+    private final CommentRepository commentRepository;
+    private final BlogRepository blogRepository;
+    private final UserRepository userRepository;
+    @Transactional
+    public Long commentSave(String email, Long id, CommentRequest request){
+        User user = userRepository.findByEmail(email).orElse(null);
+        Article article = blogRepository.findById(id).orElse(null);
+        request.setUser(user);
+        request.setArticle(article);
+        Comment comment = request.toEntity();
+        commentRepository.save(comment);
 
-    @Autowired
-    public CommentService(ComentRepository comentRepository) { this.comentRepository = comentRepository; }
-    public Comment SaveComment(Comment comment){
-        return comentRepository.save(comment);
+        return request.getId();
     }
+
 }

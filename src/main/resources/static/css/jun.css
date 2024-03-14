@@ -107,6 +107,7 @@ body {
     margin: 0; /* body의 기본 margin 제거 */
     padding: 0; /* body의 기본 padding 제거 */
     min-height: 100vh; /* 화면 전체 높이를 100vh로 설정 */
+    background-color: #333333;
 }
 *{
     margin:0;
@@ -223,7 +224,8 @@ a{
     height: 300px;
     text-align: center;
     padding:10px 10px;
-    background: linear-gradient(to bottom, #ff0000, #ffffff);
+    background-color: #3b3b3b;
+
     border-radius:10px;
 
 }
@@ -265,6 +267,7 @@ a{
     height:40px;
     line-height:40px;
     border-bottom: 1px solid #B22222;
+    color: white;
 }
 .standings > img{
     margin-left: 5px;

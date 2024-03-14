@@ -8,6 +8,7 @@ import me.junholee.springbootdeveloper.domain.SessionUser;
 import me.junholee.springbootdeveloper.domain.Standings;
 import me.junholee.springbootdeveloper.dto.*;
 
+import me.junholee.springbootdeveloper.service.CommentService;
 import me.junholee.springbootdeveloper.service.MatchService;
 import me.junholee.springbootdeveloper.service.StandingService;
 import net.minidev.json.parser.ParseException;
@@ -29,6 +30,7 @@ public class BlogViewController {
     private final HttpSession httpSession;
     private final StandingService standingService;
     private final MatchService matchService;
+    private final CommentService commentService;
     @GetMapping("/articles")
     public String getArticles(Model model){
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
@@ -42,7 +44,7 @@ public class BlogViewController {
 
     @GetMapping("/main")
     public String getMain(Model model) {
-        Standings team_info = standingService.findByid(64);
+        Standings team_info = standingService.findByTeamId(64);
         int match_day = team_info.getPlayedGames();
         Match match = matchService.findById(match_day);
         List<StandingsResponse> standingsList = standingService.findAll().stream()
@@ -75,7 +77,10 @@ public class BlogViewController {
 
     @GetMapping("/articles/{id}")
     public String getArticle(@PathVariable Long id, Model model) {
+
         Article article = blogService.findById(id);
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        model.addAttribute("user", user);
         model.addAttribute("article", new ArticleViewResponse(article)); // article 객체에 저장
 
         return "article"; // article.html 뷰 조회

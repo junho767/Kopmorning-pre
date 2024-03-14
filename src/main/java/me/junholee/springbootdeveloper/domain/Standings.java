@@ -1,10 +1,7 @@
 package me.junholee.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
@@ -14,6 +11,8 @@ import lombok.Setter;
 public class Standings {
 
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "position")
@@ -34,9 +33,6 @@ public class Standings {
     @Column(name = "goals_for")
     private int goalsFor;
 
-    @Column(name = "team_tla")
-    private String team_tla;
-
     @Column(name = "draw")
     private int draw;
 
@@ -49,19 +45,14 @@ public class Standings {
     @Column(name = "points")
     private int points;
 
-    @Column(name = "team_crest")
-    private String team_crest;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 
     @Builder
-    public Standings(Team team, int position, String team_tla ,int id,int playedGames, int won, int draw, int goalDifference,int goalsAgainst,int goalsFor, int points, String form, String team_crest){
+    public Standings(Team team, int position ,int playedGames, int won, int draw, int goalDifference,int goalsAgainst,int goalsFor, int points, String form){
         this.position = position;
-        this.id = id;
         this.team = team;
-        this.team_tla = team_tla;
         this.playedGames = playedGames;
         this.won = won;
         this.draw = draw;
@@ -70,7 +61,6 @@ public class Standings {
         this.goalsAgainst = goalsAgainst;
         this.goalsFor = goalsFor;
         this.points = points;
-        this.team_crest = team_crest;
     }
 }
 

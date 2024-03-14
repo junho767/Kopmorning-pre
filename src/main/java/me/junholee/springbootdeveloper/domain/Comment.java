@@ -4,39 +4,30 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "comment")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-
+@Table(name = "Comment")
+@Builder
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "User_id")
-    private User user_id;
+    private Long id;
 
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "created_date")
     @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime created_at;
+    private String createdDate;
 
     @ManyToOne
-    @JoinColumn(name = "Article_id")
-    private Article article_id;
+    @JoinColumn(name = "article_id")
+    private Article article;
 
-    @Builder
-    public Comment(int id, User user_id, String comment){
-        this.id = id;
-        this.user_id = user_id;
-        this.comment = comment;
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

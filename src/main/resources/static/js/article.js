@@ -17,26 +17,40 @@ if (deleteButton) {
         httpRequest('DELETE',`/api/articles/${id}`, null, success, fail);
     });
 }
-
+//댓글 작성
 const writeComment = document.getElementById('writeComment');
-if(writeComment){
-    writeComment.addEventListener('click',event => {
-        let
-    })
+if (writeComment) {
+    writeComment.addEventListener('click', event => {
+        let id = document.getElementById('article-id').value;
+        body = JSON.stringify({
+            comment: document.getElementById('comment').value,
+            email: document.getElementById('user-id').value
+        });
+        function success() {
+            alert('댓글 등록 성공');
+            location.replace(`/articles/${id}`);
+        }
+        function fail() {
+            alert(JSON.stringify(error));
+            location.replace(`/articles/${id}`);
+        }
+       httpRequest('POST', `/api/articles/${id}/comment` , body, success, fail);
+    });
 }
+
+
 // 수정 기능
 const modifyButton = document.getElementById('modify-btn');
 
 if (modifyButton) {
     modifyButton.addEventListener('click', event => {
-        let params = new URLSearchParams(location.search);
+        let params = new URLSearchParams(location.search); // 파라미터에서 값 찾기
         let id = params.get('id');
 
-        body = JSON.stringify({
+        body = JSON.stringify({ //JavaScript 객체나 배열을 JSON 문자열로 변환하는 메서드입니다
             title: document.getElementById('title').value,
             content: document.getElementById('content').value
         })
-
         function success() {
             alert('수정 완료되었습니다.');
             location.replace(`/articles/${id}`);
@@ -103,6 +117,7 @@ function httpRequest(method, url, body, success, fail) {
         },
         body: body,
     }).then(response => {
+        alert(url);
         if (response.status === 200 || response.status === 201) {
             return success();
         }

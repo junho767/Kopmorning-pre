@@ -45,8 +45,6 @@ public class StandingsRequest {
 
             int id = (int) jsonTeam.get("id");
             Team team = teamRepository.findById(id).orElse(null);
-            String team_tla = team.getTeam_tla();
-            String team_crest = team.getTeam_crest();
             int position = (int) jsonStanding.get("position");
             String form = (String) jsonStanding.get("form");
             int playedGames = (int) jsonStanding.get("playedGames");
@@ -60,10 +58,8 @@ public class StandingsRequest {
 
             Standings standings = Standings.builder()
                     .position(position)
-                    .team_tla(team_tla)
                     .playedGames(playedGames)
                     .form(form)
-                    .id(id)
                     .team(team)
                     .goalsFor(goalsFor)
                     .goalsAgainst(goalAgainst)
@@ -71,7 +67,6 @@ public class StandingsRequest {
                     .draw(draw)
                     .goalDifference(goalDifference)
                     .points(points)
-                    .team_crest(team_crest)
                     .build();
 
             standingService.saveStandings(standings);
