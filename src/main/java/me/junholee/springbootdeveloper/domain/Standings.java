@@ -2,19 +2,17 @@ package me.junholee.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Setter
 @Getter
 @Entity
 @Table(name = "Standings")
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Standings {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
     @Column(name = "position")
     private int position;
 

@@ -6,11 +6,13 @@ import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.AddArticleRequest;
 import me.junholee.springbootdeveloper.dto.UpdateArticleRequest;
 import me.junholee.springbootdeveloper.repository.BlogRepository;
+import org.springframework.boot.context.config.ConfigDataLocationNotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -18,6 +20,7 @@ public class BlogService {
 
     private final BlogRepository blogRepository;
     private final UserDetailService userDetailService;
+
 
     public Article save(AddArticleRequest request, String userName) {
         return blogRepository.save(request.toEntity(userName));
@@ -32,6 +35,12 @@ public class BlogService {
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
     }
 
+    public void updateView(long id){
+        Optional<Article> article = this.blogRepository.findById(id);
+        Article article1 = article.get();
+        article1.setView(article1.getView()+1);
+        this.blogRepository.save(article1);
+    }
     public void delete(long id) {
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));

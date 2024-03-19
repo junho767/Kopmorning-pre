@@ -2,10 +2,7 @@ package me.junholee.springbootdeveloper.controller;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.server.PathParam;
-import me.junholee.springbootdeveloper.domain.Article;
-import me.junholee.springbootdeveloper.domain.Match;
-import me.junholee.springbootdeveloper.domain.SessionUser;
-import me.junholee.springbootdeveloper.domain.Standings;
+import me.junholee.springbootdeveloper.domain.*;
 import me.junholee.springbootdeveloper.dto.*;
 
 import me.junholee.springbootdeveloper.service.CommentService;
@@ -44,17 +41,32 @@ public class BlogViewController {
 
     @GetMapping("/main")
     public String getMain(Model model) {
-        Standings team_info = standingService.findByTeamId(64);
-        int match_day = team_info.getPlayedGames();
-        Match match = matchService.findById(match_day);
         List<StandingsResponse> standingsList = standingService.findAll().stream()
                 .map(StandingsResponse::new)
                 .toList();
+        List<MatchRespones> matchList = matchService.findAll().stream()
+                .map(MatchRespones::new)
+                .toList();
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        model.addAttribute("match", match);
         model.addAttribute("standing",standingsList);
         model.addAttribute("user", user);
+        model.addAttribute("matchList",matchList);
         return "main";
+    }
+
+    @GetMapping("/schedule")
+    public String getSchedule(Model model){
+      List<MatchRespones> matchList = matchService.findAll().stream()
+              .map(MatchRespones::new)
+              .toList();
+      List<StandingsResponse> standingsList = standingService.findAll().stream()
+              .map(StandingsResponse::new)
+              .toList();
+      SessionUser user = (SessionUser) httpSession.getAttribute("user");
+      model.addAttribute("matchList", matchList);
+      model.addAttribute("user", user);
+      model.addAttribute("standing",standingsList);
+      return "schedule";
     }
 
     @GetMapping("/match/{id}")
@@ -77,9 +89,14 @@ public class BlogViewController {
 
     @GetMapping("/articles/{id}")
     public String getArticle(@PathVariable Long id, Model model) {
-
         Article article = blogService.findById(id);
+        ArticleViewResponse dto = new ArticleViewResponse(article);
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        List<CommentResponse> commentList = dto.getComment();
+        if(commentList!=null && !commentList.isEmpty()){
+            model.addAttribute("comment",commentList);
+        }
+        blogService.updateView(id);
         model.addAttribute("user", user);
         model.addAttribute("article", new ArticleViewResponse(article)); // article 객체에 저장
 

@@ -1,6 +1,7 @@
 package me.junholee.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -11,6 +12,7 @@ import org.springframework.data.annotation.CreatedDate;
 @Entity
 @Table(name = "Comment")
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

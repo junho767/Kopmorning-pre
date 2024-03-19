@@ -14,6 +14,12 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 @RequiredArgsConstructor
 //주로 생성자를 자동으로 생성하는 데 사용됩니다.
 // 이 애노테이션을 사용하면 클래스의 필드를 기반으로한 생성자를 자동으로 생성해 줍니다.
@@ -42,37 +48,59 @@ public class MatchRequest {
             JSONObject objectCompetition = (JSONObject) objectMatch.get("competition");
             JSONObject objectResult = (JSONObject) objectMatch.get("score");
             JSONObject objectfullTime = (JSONObject) objectResult.get("fullTime");
+
             int homeTeam_id = (int) objectHomeTeam.get("id");
             int awayTeam_id = (int) objectAwayTeam.get("id");
 
             String league = (String) objectCompetition.get("name");
             Team home_team = teamRepository.findById(homeTeam_id).orElse(null);
             Team away_team = teamRepository.findById(awayTeam_id).orElse(null);
+            String match_time = (String) objectMatch.get("utcDate");
             int match_id = (int) objectMatch.get("id");
             int match_day = (int) objectMatch.get("matchday");
             String status = (String) objectMatch.get("status");
 
-            if(!status.equals("FINISHED")){
-                break;
+            ZonedDateTime zonedDateTime = ZonedDateTime.parse(match_time);
+            ZonedDateTime koreaDateTime = zonedDateTime.withZoneSameInstant(ZoneId.of("Asia/Seoul"));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            String GameTime = koreaDateTime.format(formatter);
+
+            if(status.equals("FINISHED")){
+                String winner = (String) objectResult.get("winner");
+                int home_score = (int) objectfullTime.get("home");
+                int away_score = (int) objectfullTime.get("away");
+                Match match = Match.builder()
+                        .league(league) // 리그 이름
+                        .home_team(home_team) // 홈 팀 객체
+                        .away_team(away_team) // 어웨이 팀 객체
+                        .id(match_id) // 매치 ID
+                        .match_day(match_day) // 매치 날짜
+                        .status(status) // 매치 상태
+                        .winner(winner) // 매치 승자
+                        .home_score(home_score) // 홈 팀 점수
+                        .away_score(away_score) // 어웨이 팀 점수
+                        .match_time(GameTime) // 경기 시간
+                        .build();
+                matchService.saveMatch(match); //DB에 저장
             }
-
-            String winner = (String) objectResult.get("winner");
-            int home_score = (int) objectfullTime.get("home");
-            int away_score = (int) objectfullTime.get("away");
-
-            Match match = Match.builder()
-                    .league(league) // 리그 이름
-                    .home_team(home_team) // 홈 팀 객체
-                    .away_team(away_team) // 어웨이 팀 객체
-                    .id(match_id) // 매치 ID
-                    .match_day(match_day) // 매치 날짜
-                    .status(status) // 매치 상태
-                    .winner(winner) // 매치 승자
-                    .home_score(home_score) // 홈 팀 점수
-                    .away_score(away_score) // 어웨이 팀 점수
-                    .build();
-
-            matchService.saveMatch(match);
+            else{
+                String winner = "TIMED";
+                int home_score = 0;
+                int away_score = 0;
+                Match match = Match.builder()
+                        .league(league) // 리그 이름
+                        .home_team(home_team) // 홈 팀 객체
+                        .away_team(away_team) // 어웨이 팀 객체
+                        .id(match_id) // 매치 ID
+                        .match_day(match_day) // 매치 날짜
+                        .status(status) // 매치 상태
+                        .winner(winner) // 매치 승자
+                        .home_score(home_score) // 홈 팀 점수
+                        .away_score(away_score) // 어웨이 팀 점수
+                        .match_time(GameTime) // 경기 시간
+                        .build();
+                matchService.saveMatch(match);
+            }
         }
     }
 }

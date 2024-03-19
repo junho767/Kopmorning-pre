@@ -5,6 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface StandingRepository extends JpaRepository<Standings,Object> {
-    Optional<Standings> findByTeamId(int id);
+public interface StandingRepository extends JpaRepository<Standings,Integer> {
 }

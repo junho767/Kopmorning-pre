@@ -19,5 +19,6 @@ public class CommentResponse {
         this.nickname = comment.getUser().getNickname();
         this.comment = comment.getComment();
         this.articleId = comment.getArticle().getId();
+        this.createdDate = comment.getCreatedDate();
     }
 }

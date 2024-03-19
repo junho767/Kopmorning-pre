@@ -40,7 +40,7 @@
                 <input type="hidden" id="user-id" th:value="${user.email}">
                 <header class="mb2">
                     <p class="f30 mb1" th:text="${article.title}"></p>
-                    <div class="mb2" th:text="|Posted on ${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')} By ${article.author}|"></div>
+                    <div class="mb2" th:text="|Posted on ${#temporals.format(article.createdAt, 'MM-dd HH:mm')} By ${article.author}|"></div>
                 </header>
                 <section class="mb67">
                     <p class="f15" th:text="${article.content}"></p>
@@ -49,6 +49,11 @@
                     <input type="text" id="comment" placeholder="댓글 작성..">
                     <button type="button" id="writeComment">댓글 달기</button>
                     <p>댓글 목록</p>
+                    <ul th:each="comment : ${comment}">
+                        <li><span th:text="${comment.comment}"></span></li>
+<!--                        <li><span th:text="|${#temporals.format(comment.createdDate, 'yyyy-MM-dd HH:mm')}|"></span></li>-->
+                        <li><span th:text="${comment.nickname}"></span></li>
+                    </ul>
                 </div>
             </article>
         </div>

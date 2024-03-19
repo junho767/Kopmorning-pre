@@ -50,7 +50,7 @@
                         <a th:href="@{/articles/{id}(id=${item.id})}" class="fl tc w600 list" th:text="${item.title}"></a>
                     </li>
                     <li><span th:text="${item.author}" class="fl tc w170 list"></span></li>
-                    <li><span th:text="${#temporals.format(item.createdAt, 'yyyy-MM-dd HH:mm')}" class="fl tc w170 list"></span></li>
+                    <li><span th:text="${#temporals.format(item.createdAt, 'MM-dd HH:mm')}" class="fl tc w170 list"></span></li>
                     <li><span class="fl tc w70 list"></span></li>
                 </th:block>
             </ul>

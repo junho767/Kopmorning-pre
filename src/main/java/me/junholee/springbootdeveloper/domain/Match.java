@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "Match")
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "Game")
 @NoArgsConstructor
 public class Match {
 
@@ -38,15 +40,18 @@ public class Match {
     @Column(name = "winner")
     private String winner;
 
-    @Column(name = "home_score")
+    @Column(columnDefinition = "integer default 0")
     private int home_score;
 
-    @Column(name = "away_score")
+    @Column(columnDefinition = "integer default 0")
     private int away_score;
 
+    @Column(name = "match_time")
+    private String match_time;
 
     @Builder
-    public Match(int away_score, int home_score, String winner, int id, String league, String status, int match_day, Team home_team, Team away_team){
+    public Match(int away_score, int home_score, String winner, int id, String league, String status, int match_day, Team home_team, Team away_team, String match_time){
+        this.match_time = match_time;
         this.id = id;
         this.league = league;
         this.status = status;

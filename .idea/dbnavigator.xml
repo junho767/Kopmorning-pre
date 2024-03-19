@@ -16,8 +16,8 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="467a7bf8-6066-4a42-93bf-a1cd2499c8c4">
-      <console name="Connection" type="STANDARD" schema="" session="Main" />
+    <connection id="a489a247-c6f3-4380-a516-7ce6631d3600">
+      <console name="Connection" type="STANDARD" schema="" session="Main"><![CDATA[select now();]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -27,7 +27,10 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="003917bf-0687-4abf-8b56-8446b9d148dd" />
+    <connection id="a489a247-c6f3-4380-a516-7ce6631d3600" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="a489a247-c6f3-4380-a516-7ce6631d3600" dataset="blog.article" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
@@ -46,25 +49,25 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="467a7bf8-6066-4a42-93bf-a1cd2499c8c4" active="true" signed="true">
+      <connection id="a489a247-c6f3-4380-a516-7ce6631d3600" active="true" signed="true">
         <database>
           <name value="Connection" />
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
-          <database-version value="8.0" />
+          <database-version value="5.5" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
           <url-type value="DATABASE" />
-          <host value="awseb-e-qhigra2mjf-stack-awsebrdsdatabase-eawmoygsmowg.c3qa4amago9u.ap-northeast-2.rds.amazonaws.com" />
+          <host value="localhost" />
           <port value="3306" />
-          <database value="mysql" />
+          <database value="blog" />
           <tns-folder value="" />
           <tns-profile value="" />
           <type value="USER_PASSWORD" />
-          <user value="canine89" />
-          <deprecated-pwd value="MTIzNDU2Nzg=" />
+          <user value="root" />
+          <deprecated-pwd value="MDkxMw==" />
         </database>
         <properties>
           <auto-commit value="false" />

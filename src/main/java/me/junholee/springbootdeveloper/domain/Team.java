@@ -5,12 +5,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @Entity
 @Table(name = "Team")
+@EntityListeners(AuditingEntityListener.class)
 public class Team {
 
     @Id //엔티티 클래스에서 기본 키(primary key)를 나타냅니다
