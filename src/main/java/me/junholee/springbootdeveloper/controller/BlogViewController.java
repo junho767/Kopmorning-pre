@@ -27,7 +27,6 @@ public class BlogViewController {
     private final HttpSession httpSession;
     private final StandingService standingService;
     private final MatchService matchService;
-    private final CommentService commentService;
     @GetMapping("/articles")
     public String getArticles(Model model){
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
@@ -72,12 +71,13 @@ public class BlogViewController {
     @GetMapping("/match/{id}")
     public String getMatch(@PathVariable int id, Model model){
         Match match = matchService.findById(id);
+        MatchRespones matchInfo = new MatchRespones(match);
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
         List<StandingsResponse> standingsList = standingService.findAll().stream()
                 .map(StandingsResponse::new)
                 .toList();
         model.addAttribute("standing",standingsList);
-        model.addAttribute("match",match);
+        model.addAttribute("match",matchInfo);
         model.addAttribute("user", user);
         return "match";
     }

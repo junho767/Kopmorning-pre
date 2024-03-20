@@ -64,6 +64,16 @@ if (modifyButton) {
         httpRequest('PUT',`/api/articles/${id}`, body, success, fail);
     });
 }
+//const matchInfo = document.getElementById('matchInfo');
+//if (matchInfo) {
+//    matchInfo.addEventListener('click', event => {
+//        let matchDay = document.getElementById('match-day').value;
+//        function success(){
+//            location.replace(`/match/${matchDay}`);
+//        }
+//        httpRequest('GET',)
+//    })
+//}
 
 // 생성 기능
 const createButton = document.getElementById('create-btn');

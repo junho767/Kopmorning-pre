@@ -17,9 +17,9 @@
 
 <div class="nav-menu">
     <span><a href="#">HISTORY</a></span>
-    <span><a href="articles">ARTICLE</a></span>
-    <span><a href="test">PLAYER</a></span>
-    <span><a href="#">SCHEDULE</a></span>
+    <span><a href="/articles">ARTICLE</a></span>
+    <span><a href="#">PLAYER</a></span>
+    <span><a href="/schedule">SCHEDULE</a></span>
 </div>
 
 <div class="container">
@@ -57,27 +57,16 @@
                         <li class="score-box fw"><span th:text="${matchList.home.team_tla}"></span></li>
                         <li class="score-box fw"><img th:src="@{${matchList.home.team_crest}}"></li>
                         <li class="score-box fw">
-                            <button class="match-b" type="button" id="match-fetch">
-                                <div th:if="${(matchList.home_score < matchList.away_score && matchList.away.id == 64) || (matchList.home_score > matchList.away_score && matchList.home.id == 64)}" class="score liv-won">
-                                    <p th:text="${matchList.home_score}"></p>
-                                    <p> : </p>
-                                    <p th:text="${matchList.away_score}"></p>
-                                </div>
-                                <div th:if="${(matchList.home_score < matchList.away_score && matchList.away.id != 64) || (matchList.home_score > matchList.away_score && matchList.home.id != 64)}" class="score liv-lose">
-                                    <p th:text="${matchList.home_score}"></p>
-                                    <p> : </p>
-                                    <p th:text="${matchList.away_score}"></p>
-                                </div>
-                                <div th:if="${matchList.status =='FINISHED' && matchList.home_score == matchList.away_score}" class="score liv-draw">
+                            <a th:href="@{/match/{id}(id=${matchList.match_day})}">
+                                <div th:class="${matchList.status == 'FINISHED' ? (matchList.home_score == matchList.away_score ? 'score liv-draw' : (matchList.home.id == 64 ? (matchList.home_score > matchList.away_score ? 'score liv-won' : 'score liv-lose') : (matchList.away.id == 64 ? (matchList.home_score < matchList.away_score ? 'score liv-won' : 'score liv-lose') : ''))) : ''}">
                                     <p th:text="${matchList.home_score}"></p>
                                     <p> : </p>
                                     <p th:text="${matchList.away_score}"></p>
                                 </div>
                                 <div th:unless="${matchList.status =='FINISHED'}">
-                                    <p class="fw" th:if="${matchList.match_time.substring(11, 13)}!= 12">오전</p>
-                                    <p class="fw" th:text="${matchList.match_time.substring(11,16)}"></p>
+
                                 </div>
-                            </button>
+                            </a>
                         </li>
                         <li class="score-box fw"><img th:src="@{${matchList.away.team_crest}}"></li>
                         <li class="score-box fw"><span th:text="${matchList.away.team_tla}"></span></li>
@@ -86,10 +75,10 @@
             </th:block>
         </div>
     </div>
-
     <div class="aside">
         <div class="container-side">
             <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}"/>
+
             <div class="container-userinfo">
                 <img th:src="@{${user.picture}}" alt="no">
                 <div class="mt2 mb2">

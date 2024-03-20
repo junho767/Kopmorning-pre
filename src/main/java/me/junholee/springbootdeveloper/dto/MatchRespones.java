@@ -13,12 +13,14 @@ public class MatchRespones {
     private int home_score;
     private int away_score;
     private int match_day;
+    private String league;
     private String status;
     private String winner;
     private String match_time;
 
     public MatchRespones(Match match){
         this.match_time = match.getMatch_time();
+        this.league = match.getLeague();
         this.home = match.getHome_team();
         this.away = match.getAway_team();
         this.home_score = match.getHome_score();

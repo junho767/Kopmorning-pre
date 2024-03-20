@@ -176,7 +176,6 @@ a{
     padding:10px 10px;
 }
 .section{
-    font-family: 'Orbit-Regular';
     width:1080px;
     height:100vh;
 }
@@ -307,7 +306,6 @@ a{
     flex-direction: column;
     height: 200px;
     font-size: 12px;
-    font-family: 'WarhavenB';
 }
 
 .awayTeam > img{
@@ -356,6 +354,18 @@ a{
     width: 30px;
     height: 30px;
 }
+.score-container{
+    display: flex;
+    height: 200px;
+    width: 200px;
+    align-items:center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.score-container > p{
+    font-size: 20px;
+    color: white;
+}
 .score{
     border-radius: 10px;
     display: flex;
@@ -363,6 +373,13 @@ a{
     align-items: center; /* 요소들을 수직으로 가운데 정렬 */
     width:50px;
     height: 25px;
+}
+.score > p{
+    font-size: 25px;
+    color: white;
+}
+.match-time{
+
 }
 .liv-won{
     background-color: #008000;
@@ -374,5 +391,28 @@ a{
     background-color: #800000;
 }
 .match-b{
-
+    border-radius:10px;
+    background-color: #333333;
 }
+.matchLeague{
+    width:780px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+.matchLeague > p{
+    font-size: 30px;
+    text-align: center;
+}
+.match-result-container{
+    width: 780px;
+    height: 200px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.match-result > img {
+    width: 100px;
+    height: 100px;
+}
+.
