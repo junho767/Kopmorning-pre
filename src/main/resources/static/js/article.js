@@ -64,16 +64,29 @@ if (modifyButton) {
         httpRequest('PUT',`/api/articles/${id}`, body, success, fail);
     });
 }
-//const matchInfo = document.getElementById('matchInfo');
-//if (matchInfo) {
-//    matchInfo.addEventListener('click', event => {
-//        let matchDay = document.getElementById('match-day').value;
-//        function success(){
-//            location.replace(`/match/${matchDay}`);
-//        }
-//        httpRequest('GET',)
-//    })
-//}
+// 유저 정보 수정하기 버튼
+const UserModifyButton = document.getElementById('modify-userInfo');
+if (UserModifyButton) {
+    UserModifyButton.addEventListener('click', event => {
+        let userEmail = document.getElementById('userEmail').value;
+        let userReason = document.getElementById('userReason').value;
+        let year = document.getElementById('year').value;
+        body = JSON.stringify({
+            email: userEmail,
+            reason: userReason,
+            year: year
+        });
+        function success(){
+            alert('정보 수정 완료되었습니다.');
+            location.reload();
+        }
+        function fail(){
+            alert('ERROR');
+            location.reload();
+        }
+        httpRequest('PUT' , '/api/myProFil' , body , success , fail);
+    });
+}
 
 // 생성 기능
 const createButton = document.getElementById('create-btn');

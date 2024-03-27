@@ -1,10 +1,8 @@
 package me.junholee.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import me.junholee.springbootdeveloper.dto.UpdateUserRequest;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
+@Setter
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails {
 
@@ -37,6 +36,11 @@ public class User implements UserDetails {
     @Column(name = "picture")
     private String picture;
 
+    @Column(name = "reason")
+    private String reason;
+
+    @Column(nullable = true)
+    private Long year;
 
     @Builder
     public User(String nickname,String password, String email, String picture) {
@@ -49,7 +53,14 @@ public class User implements UserDetails {
     public User update(String nickname, String picture) {
         this.nickname = nickname;
         this.picture = picture;
+        return this;
+    }
 
+    public User modify_User(String name, String picture, String reason, long year){
+        this.nickname = name;
+        this.picture = picture;
+        this.reason = reason;
+        this.year = year;
         return this;
     }
 

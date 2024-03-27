@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>블로그 글 목록</title>
+    <link rel="stylesheet" href="/css/jun.css"> <!-- ref=" stylesheet"은 외부 리소스 가져오는 것-->
+</head>
+
+<body>
+<div class="header">
+    <a href="#"><img class="pl-logo" src="/img/PL_LOGO.png"></a>
+    <a href="#"><img class="uel-logo" src="/img/UEL_LOGO.png"></a>
+    <a href="#"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
+    <a href="#"><img class="facup-logo" src="/img/FACUP_LOGO.png"></a>
+    <a href="#"><img class="cflc-logo" src="/img/CFLC_LOGO.png"></a>
+</div>
+
+<div class="nav-menu">
+    <span><a href="#">HISTORY</a></span>
+    <span><a href="/articles">ARTICLE</a></span>
+    <span><a href="test">PLAYER</a></span>
+    <span><a href="/schedule">SCHEDULE</a></span>
+</div>
+
+<div class="container">
+    <div class="advertisement">
+
+    </div>
+
+    <div class="test-userinfo">
+        <img th:src="@{${user.picture}}" alt="no">
+        <p th:text="|이름 : ${user.name}|"></p>
+        <p id="userEmail" th:text="|이메일 : ${user.email}|"></p>
+        <p>좋아하게 된 계기</p>
+        <input class="reason-box" type="text" id="userReason" placeholder="좋아하게 된 이유와 연도 선택...">
+        <label class="fw">팬이 된 년도(2004~2024):</label>
+        <input type="number" id="year" name="year" min="2004" max="2024">
+        <button type="button" id="modify-userInfo" class="btn btn-primary btn-sm">수정하기</button>
+    </div>
+    <div class="aside">
+
+    </div>
+</div>
+<script src="/js/article.js"></script>
+<script src="/js/token.js"></script>
+</body>
+</html>

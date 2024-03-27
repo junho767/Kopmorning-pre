@@ -1,17 +1,12 @@
 package me.junholee.springbootdeveloper.controller;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
-import me.junholee.springbootdeveloper.domain.SessionUser;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.AddArticleRequest;
-import me.junholee.springbootdeveloper.dto.ArticleResponse;
-import me.junholee.springbootdeveloper.dto.CommentRequest;
-import me.junholee.springbootdeveloper.dto.UpdateArticleRequest;
+import me.junholee.springbootdeveloper.dto.*;
 import me.junholee.springbootdeveloper.service.BlogService;
-import me.junholee.springbootdeveloper.service.CommentService;
 import me.junholee.springbootdeveloper.service.UserDetailService;
+import me.junholee.springbootdeveloper.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +20,7 @@ public class BlogApiController {
 
     private final BlogService blogService;
     private final UserDetailService userDetailService;
-    private final CommentService commentService;
-    private final HttpSession httpSession;
+    private final UserService userService;
     // "/api/articles" 경로로 POST 요청이 들어왔을 때 실행되는 메서드입니다. 여기서 주요한 기능은 새로운 글을 추가하고 그 결과를 응답하는 것입니다.
     @PostMapping("/api/articles") // 글 생성
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request, Principal principal) {
@@ -64,5 +58,12 @@ public class BlogApiController {
 
         return ResponseEntity.ok()
                 .body(updatedArticle);
+    }
+    @PutMapping("/api/myProFil")
+    public ResponseEntity<User> updateUser(@RequestBody UpdateUserRequest request){
+        User updateUser = userService.UpdateUser(request);
+
+        return ResponseEntity.ok()
+                .body(updateUser);
     }
 }

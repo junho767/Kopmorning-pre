@@ -378,9 +378,7 @@ a{
     font-size: 25px;
     color: white;
 }
-.match-time{
 
-}
 .liv-won{
     background-color: #008000;
 }
@@ -415,4 +413,16 @@ a{
     width: 100px;
     height: 100px;
 }
-.
+
+.test-userinfo{
+    width:500px;
+    height:500px;
+    border: 1px solid red;
+}
+.test-userinfo > p{
+    color: white;
+}
+.reason-box{
+    width: 300px;
+    height: 200px;
+}

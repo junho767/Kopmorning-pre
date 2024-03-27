@@ -9,6 +9,7 @@ import me.junholee.springbootdeveloper.service.CommentService;
 import me.junholee.springbootdeveloper.service.MatchService;
 import me.junholee.springbootdeveloper.service.StandingService;
 import net.minidev.json.parser.ParseException;
+import org.springframework.boot.Banner;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.service.BlogService;
@@ -81,7 +82,13 @@ public class BlogViewController {
         model.addAttribute("user", user);
         return "match";
     }
+    @GetMapping("/myprofil")
+    public String getMyProFil(Model model){
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        model.addAttribute("user", user);
 
+        return "myprofil";
+    }
 
     // 주어진 ID에 해당하는 게시물을 찾고,
     // 그 게시물을 ArticleViewResponse로 변환하여 모델에 추가한 후 "article" 뷰를 반환합니다.
