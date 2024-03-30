@@ -38,9 +38,9 @@ public class UserService {
     //트랜잭션을 관리하기 위해 사용됩니다.
     // 이 어노테이션을 메서드나 클래스에 적용하면, 해당 메서드나 클래스의 실행이 트랜잭션 내에서 이루어지게 됩니다.
     // 즉, 메서드나 클래스의 실행이 한 논리적 단위로 묶여서 일관된 상태를 유지하도록 도와줍니다.
-    public User UpdateUser(UpdateUserRequest request){
-        User user = findByEmail(request.getEmail());
-        user.modify_User(request.getName(), request.getPicture(), request.getReason(), request.getYear());
+    public User UpdateUser(String email,UpdateUserRequest request){
+        User user = findByEmail(email);
+        user.modify_User(request.getNickname(), request.getReason(), request.getYear());
         return user;
     }
 }

@@ -2,7 +2,6 @@ package me.junholee.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.junholee.springbootdeveloper.dto.UpdateUserRequest;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,6 +38,9 @@ public class User implements UserDetails {
     @Column(name = "reason")
     private String reason;
 
+    @Column(name="name")
+    private String name;
+
     @Column(nullable = true)
     private Long year;
 
@@ -56,9 +58,8 @@ public class User implements UserDetails {
         return this;
     }
 
-    public User modify_User(String name, String picture, String reason, long year){
-        this.nickname = name;
-        this.picture = picture;
+    public User modify_User(String name, String reason, long year){
+        this.name = name;
         this.reason = reason;
         this.year = year;
         return this;

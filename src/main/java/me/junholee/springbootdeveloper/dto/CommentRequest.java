@@ -14,7 +14,6 @@ import java.time.format.DateTimeFormatter;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class CommentRequest {
     private Long id;
     private String comment;
@@ -23,6 +22,7 @@ public class CommentRequest {
     private Article article;
 
 
+    @Builder
     // Dto -> Entity
     public Comment toEntity(){
         Comment comments = Comment.builder()

@@ -10,13 +10,13 @@
 <div class="header">
     <a href="#"><img class="pl-logo" src="/img/PL_LOGO.png"></a>
     <a href="#"><img class="uel-logo" src="/img/UEL_LOGO.png"></a>
-    <a href="#"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
+    <a href="/main"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
     <a href="#"><img class="facup-logo" src="/img/FACUP_LOGO.png"></a>
     <a href="#"><img class="cflc-logo" src="/img/CFLC_LOGO.png"></a>
 </div>
 
 <div class="nav-menu">
-    <span><a href="#">HISTORY</a></span>
+    <span><a href="/history">HISTORY</a></span>
     <span><a href="/articles">ARTICLE</a></span>
     <span><a href="#">PLAYER</a></span>
     <span><a href="/schedule">SCHEDULE</a></span>
@@ -62,7 +62,7 @@
             <div class="userinfo">
                 <div class="logo2 mt2 mb2"></div>
                 <div class="mt2 mb2">
-                    <p th:text="${user.nickname + '님 어서오세요!'}"></p>
+                    <p th:text="${user.name + '님 어서오세요!'}"></p>
                     <p> n년차 콥</p>
                 </div>
                 <div class="mt2">

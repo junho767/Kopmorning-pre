@@ -10,9 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateUserRequest {
-    private String picture;
-    private String name;
+    private String nickname;
     private String reason;
-    private String email;
     private Long year;
 }

@@ -5,14 +5,11 @@ import jakarta.websocket.server.PathParam;
 import me.junholee.springbootdeveloper.domain.*;
 import me.junholee.springbootdeveloper.dto.*;
 
-import me.junholee.springbootdeveloper.service.CommentService;
-import me.junholee.springbootdeveloper.service.MatchService;
-import me.junholee.springbootdeveloper.service.StandingService;
+import me.junholee.springbootdeveloper.service.*;
 import net.minidev.json.parser.ParseException;
 import org.springframework.boot.Banner;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
-import me.junholee.springbootdeveloper.service.BlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,26 +25,45 @@ public class BlogViewController {
     private final HttpSession httpSession;
     private final StandingService standingService;
     private final MatchService matchService;
+    private final UserService userService;
     @GetMapping("/articles")
     public String getArticles(Model model){
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        model.addAttribute("user", user);
+
+        SessionUser Session_user = (SessionUser) httpSession.getAttribute("user");
+        User user = userService.findByEmail(Session_user.getEmail());
+
         List<ArticleListViewResponse> articles = blogService.findAll().stream()
                 .map(ArticleListViewResponse::new)
                 .toList();
+
+        model.addAttribute("user", user);
         model.addAttribute("articles", articles); // 블로그 글 리스트에 저장
         return "articles";
     }
 
+    @GetMapping("/history")
+    public String getHistory(Model model){
+        SessionUser Session_user = (SessionUser) httpSession.getAttribute("user");
+        User user = userService.findByEmail(Session_user.getEmail());
+
+        model.addAttribute("user", user);
+
+        return "history";
+    }
     @GetMapping("/main")
     public String getMain(Model model) {
+
         List<StandingsResponse> standingsList = standingService.findAll().stream()
                 .map(StandingsResponse::new)
                 .toList();
+
         List<MatchRespones> matchList = matchService.findAll().stream()
                 .map(MatchRespones::new)
                 .toList();
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        SessionUser Session_user = (SessionUser) httpSession.getAttribute("user");
+        User user = userService.findByEmail(Session_user.getEmail());
+
         model.addAttribute("standing",standingsList);
         model.addAttribute("user", user);
         model.addAttribute("matchList",matchList);
@@ -56,13 +72,18 @@ public class BlogViewController {
 
     @GetMapping("/schedule")
     public String getSchedule(Model model){
+
       List<MatchRespones> matchList = matchService.findAll().stream()
               .map(MatchRespones::new)
               .toList();
+
       List<StandingsResponse> standingsList = standingService.findAll().stream()
               .map(StandingsResponse::new)
               .toList();
-      SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+      SessionUser Session_user = (SessionUser) httpSession.getAttribute("user");
+      User user = userService.findByEmail(Session_user.getEmail());
+
       model.addAttribute("matchList", matchList);
       model.addAttribute("user", user);
       model.addAttribute("standing",standingsList);
@@ -71,20 +92,29 @@ public class BlogViewController {
 
     @GetMapping("/match/{id}")
     public String getMatch(@PathVariable int id, Model model){
+
         Match match = matchService.findById(id);
         MatchRespones matchInfo = new MatchRespones(match);
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        SessionUser Session_user = (SessionUser) httpSession.getAttribute("user");
+        User user = userService.findByEmail(Session_user.getEmail());
+
         List<StandingsResponse> standingsList = standingService.findAll().stream()
                 .map(StandingsResponse::new)
                 .toList();
+
+        model.addAttribute("user", user);
         model.addAttribute("standing",standingsList);
         model.addAttribute("match",matchInfo);
-        model.addAttribute("user", user);
+
         return "match";
     }
     @GetMapping("/myprofil")
     public String getMyProFil(Model model){
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        SessionUser Session_user = (SessionUser) httpSession.getAttribute("user");
+        User user = userService.findByEmail(Session_user.getEmail());
+
         model.addAttribute("user", user);
 
         return "myprofil";
@@ -96,13 +126,19 @@ public class BlogViewController {
 
     @GetMapping("/articles/{id}")
     public String getArticle(@PathVariable Long id, Model model) {
+
         Article article = blogService.findById(id);
         ArticleViewResponse dto = new ArticleViewResponse(article);
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        SessionUser Session_user = (SessionUser) httpSession.getAttribute("user");
+        User user = userService.findByEmail(Session_user.getEmail());
+
         List<CommentResponse> commentList = dto.getComment();
+
         if(commentList!=null && !commentList.isEmpty()){
             model.addAttribute("comment",commentList);
         }
+
         blogService.updateView(id);
         model.addAttribute("user", user);
         model.addAttribute("article", new ArticleViewResponse(article)); // article 객체에 저장

@@ -68,21 +68,21 @@ if (modifyButton) {
 const UserModifyButton = document.getElementById('modify-userInfo');
 if (UserModifyButton) {
     UserModifyButton.addEventListener('click', event => {
-        let userEmail = document.getElementById('userEmail').value;
-        let userReason = document.getElementById('userReason').value;
+        let nickname = document.getElementById('userNickname').value;
+        let reason = document.getElementById('userReason').value;
         let year = document.getElementById('year').value;
         body = JSON.stringify({
-            email: userEmail,
-            reason: userReason,
+            nickname : nickname,
+            reason: reason,
             year: year
         });
         function success(){
             alert('정보 수정 완료되었습니다.');
-            location.reload();
+            location.replace('/myprofil');
         }
         function fail(){
             alert('ERROR');
-            location.reload();
+            location.replace('/myprofil');
         }
         httpRequest('PUT' , '/api/myProFil' , body , success , fail);
     });

@@ -29,8 +29,9 @@
 
     <div class="test-userinfo">
         <img th:src="@{${user.picture}}" alt="no">
-        <p th:text="|이름 : ${user.name}|"></p>
-        <p id="userEmail" th:text="|이메일 : ${user.email}|"></p>
+        <p th:text="|이름 : ${user.nickname}|"></p>
+        <p>이메일 : <span id="userEmail" th:text="${user.email}"> </span></p>
+        <p>닉네임 : <input type="text" id="userNickname" th:placeholder="${user.name}"></p>
         <p>좋아하게 된 계기</p>
         <input class="reason-box" type="text" id="userReason" placeholder="좋아하게 된 이유와 연도 선택...">
         <label class="fw">팬이 된 년도(2004~2024):</label>
