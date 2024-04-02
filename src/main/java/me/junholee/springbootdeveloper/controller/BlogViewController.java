@@ -48,7 +48,7 @@ public class BlogViewController {
 
         model.addAttribute("user", user);
 
-        return "history";
+        return "teamhistory";
     }
     @GetMapping("/main")
     public String getMain(Model model) {
