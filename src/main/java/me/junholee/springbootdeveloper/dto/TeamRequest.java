@@ -35,7 +35,7 @@ public class TeamRequest {
 
             JSONObject jsonTeam = (JSONObject) teams.get(i);
             String team_name = (String) jsonTeam.get("name");
-            int id = (int) jsonTeam.get("id");
+            int team_id = (int) jsonTeam.get("id");
             String team_tla = (String) jsonTeam.get("tla");
             String team_crest = (String) jsonTeam.get("crest");
             String team_shortName = (String) jsonTeam.get("shortName");
@@ -44,7 +44,7 @@ public class TeamRequest {
             Team team = Team.builder()
                     .team_crest(team_crest)
                     .team_shortName(team_shortName)
-                    .id(id)
+                    .id((long) team_id)
                     .team_name(team_name)
                     .team_tla(team_tla)
                     .venue(team_venue)

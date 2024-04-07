@@ -17,7 +17,7 @@ public class Team {
 
     @Id //엔티티 클래스에서 기본 키(primary key)를 나타냅니다
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name = "team_name")
     private String team_name;
@@ -35,7 +35,7 @@ public class Team {
     private String venue;
 
     @Builder
-    public Team(int id, String team_name, String team_tla, String team_shortName, String team_crest, String venue){
+    public Team(long id, String team_name, String team_tla, String team_shortName, String team_crest, String venue){
         this.id = id;
         this.team_name = team_name;
         this.team_tla = team_tla;

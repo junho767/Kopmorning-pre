@@ -10,16 +10,16 @@
 <div class="header">
     <a href="#"><img class="pl-logo" src="/img/PL_LOGO.png"></a>
     <a href="#"><img class="uel-logo" src="/img/UEL_LOGO.png"></a>
-    <a href="/main"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
+    <a th:href="@{/main}"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
     <a href="#"><img class="facup-logo" src="/img/FACUP_LOGO.png"></a>
     <a href="#"><img class="cflc-logo" src="/img/CFLC_LOGO.png"></a>
 </div>
 
 <div class="nav-menu">
-    <span><a href="/history">HISTORY</a></span>
-    <span><a href="/articles">ARTICLE</a></span>
-    <span><a href="test">PLAYER</a></span>
-    <span><a href="/schedule">SCHEDULE</a></span>
+    <span><a th:href="@{/history}">HISTORY</a></span>
+    <span><a th:href="@{/articles}">ARTICLE</a></span>
+    <span><a href="/test">PLAYER</a></span>
+    <span><a th:href="@{/schedule}">SCHEDULE</a></span>
 </div>
 
 <div class="container">
@@ -60,7 +60,9 @@
             <div class="container-userinfo">
                 <img th:src="@{${user.picture}}" alt="no">
                 <div class="mt2 mb2">
-                    <p th:text="${user.name + '님 어서오세요!'}"></p>
+<!--                    <p th:text="${user.name + '님 어서오세요!'}"></p>-->
+                    <p th:if="${user.name == null}" th:text="|${user.nickname}님 어서오세요!|"></p>
+                    <p th:unless="${user.name == null}" th:text="|${user.name}님 어서오세요!|"></p>
                 </div>
                 <div class="mt2">
                     <button type="button" class="my-profile" onclick="location.href='/myprofil'">내 정보</button>

@@ -47,6 +47,10 @@ public class Article {
     @OrderBy("id asc")
     private List<Comment> comment;
 
+    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("id asc")
+    private List<ArticleImage> articleImage;
+
     @Builder
     public Article(String author, String title, String content) {
         this.author = author;

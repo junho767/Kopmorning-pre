@@ -15,8 +15,9 @@ public class Player {
     @Column(name = "player_key")
     private long player_key;
 
-    @Column(name = "team_id")
-    private long team;
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     @Column(name = "player_image")
     private String player_image;
@@ -70,7 +71,7 @@ public class Player {
     private int player_age;
 
     @Builder
-    public Player(long team,int player_age ,long player_key, String player_image, String player_name, String player_injured, int player_number, String player_type, int player_match_played, int player_goals, float player_rating, int player_substitutes_on_bench, int player_assists, int player_passes, int player_dribble_attempts, int player_dribble_succ, int player_key_passes, int player_tackles, String player_birthdate) {
+    public Player(Team team,int player_age ,long player_key, String player_image, String player_name, String player_injured, int player_number, String player_type, int player_match_played, int player_goals, float player_rating, int player_substitutes_on_bench, int player_assists, int player_passes, int player_dribble_attempts, int player_dribble_succ, int player_key_passes, int player_tackles, String player_birthdate) {
         this.team = team;
         this.player_age = player_age;
         this.player_key = player_key;

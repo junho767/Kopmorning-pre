@@ -78,11 +78,11 @@ if (UserModifyButton) {
         });
         function success(){
             alert('정보 수정 완료되었습니다.');
-            location.replace('/myprofil');
+            location.reload();
         }
         function fail(){
             alert('ERROR');
-            location.replace('/myprofil');
+            location.reload();
         }
         httpRequest('PUT' , '/api/myProFil' , body , success , fail);
     });
@@ -97,6 +97,7 @@ if (createButton) {
         body = JSON.stringify({
             title: document.getElementById('title').value,
             content: document.getElementById('content').value
+//            image: document.getElementById('article-Image').value
         });
         function success() {
             alert('등록 완료되었습니다.');

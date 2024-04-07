@@ -3,6 +3,7 @@ package me.junholee.springbootdeveloper.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
+import me.junholee.springbootdeveloper.domain.ArticleImage;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ArticleViewResponse {
     private LocalDateTime createdAt;
     private String author;
     private List<CommentResponse> comment;
-
+    private List<String> imageUrl;
     public ArticleViewResponse(Article article) {
         this.id = article.getId();
         this.title = article.getTitle();
@@ -26,5 +27,6 @@ public class ArticleViewResponse {
         this.createdAt = article.getCreatedAt();
         this.author = article.getAuthor();
         this.comment = article.getComment().stream().map(CommentResponse::new).collect(Collectors.toList());
+        this.imageUrl = article.getArticleImage().stream().map(ArticleImage::getUrl).collect(Collectors.toList());
     }
 }

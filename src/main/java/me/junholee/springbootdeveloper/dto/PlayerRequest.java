@@ -1,7 +1,5 @@
 package me.junholee.springbootdeveloper.dto;
 
-import com.google.gson.Gson;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Player;
 import me.junholee.springbootdeveloper.domain.Team;
@@ -18,16 +16,15 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Set;
 
 @RequiredArgsConstructor
 //주로 생성자를 자동으로 생성하는 데 사용됩니다.
 // 이 애노테이션을 사용하면 클래스의 필드를 기반으로한 생성자를 자동으로 생성해 줍니다.
 @Component
-public class TestRequest {
+public class PlayerRequest {
     private final TeamService teamService;
     private final PlayerService playerService;
-    public void Test_request() throws ParseException, URISyntaxException {
+    public void Player_request() throws ParseException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
         String api_url = "https://apiv3.apifootball.com/?action=get_teams&league_id=152";
         String apiKey = "91f7214ad9ff0500ece16da3c413f6d25ac0e88dd92b14b2c288a7e353d1570f";
@@ -37,9 +34,8 @@ public class TestRequest {
         String jsonString = resultBody.getBody();
         JSONParser jsonParser = new JSONParser();
         JSONArray jsonArray = (JSONArray) jsonParser.parse(jsonString);
-
         for(int i=0 ; i<20 ; i++){
-
+            Team team = null;
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
             JSONArray jsonCoaches = (JSONArray) jsonObject.get("coaches");
             JSONObject jsonCoache = (JSONObject) jsonCoaches.get(0);
@@ -47,10 +43,23 @@ public class TestRequest {
             JSONObject jsonVenue = (JSONObject) jsonObject.get("venue");
             JSONArray jsonPlayers = (JSONArray) jsonObject.get("players");
 
+            String team_name = (String) jsonObject.get("team_name");
+            String team_badge = (String) jsonObject.get("team_badge");
+            String coach_name = (String) jsonCoache.get("coach_name");
+            String venue_name = (String) jsonVenue.get("venue_name");
+            String venue_city = (String) jsonVenue.get("venue_city");
+
+
+            if(team_name.equals("Luton Town")){
+                team = teamService.findById(389);
+            } else if (team_name.equals("Brentford")) {
+                team = teamService.findById(402);
+            } else{
+                team = teamService.findByVenue_teamId(venue_name);
+            }
+
             // 선수 정보 저장 하는 반복문
             for(int j=0;j<jsonPlayers.size();j++){
-                String team_key = (String) jsonObject.get("team_key");
-                long team_id = Long.parseLong(team_key);
 
                 JSONObject jsonPlayer = (JSONObject) jsonPlayers.get(j);
 
@@ -95,7 +104,7 @@ public class TestRequest {
 
 
                 Player player = Player.builder()
-                        .team(team_id)
+                        .team(team)
                         .player_age(age)
                         .player_birthdate(player_birthdate)
                         .player_assists(assists)
@@ -118,13 +127,6 @@ public class TestRequest {
 
                 playerService.save(player);
             }
-
-            String team_name = (String) jsonObject.get("team_name");
-            String team_badge = (String) jsonObject.get("team_badge");
-            String coach_name = (String) jsonCoache.get("coach_name");
-            String venue_name = (String) jsonVenue.get("venue_name");
-            String venue_city = (String) jsonVenue.get("venue_city");
-
         }
     }
 }

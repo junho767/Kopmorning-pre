@@ -9,16 +9,16 @@
 <div class="header">
     <a href="#"><img class="pl-logo" src="/img/PL_LOGO.png"></a>
     <a href="#"><img class="uel-logo" src="/img/UEL_LOGO.png"></a>
-    <a href="#"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
+    <a th:href="@{/main}"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
     <a href="#"><img class="facup-logo" src="/img/FACUP_LOGO.png"></a>
     <a href="#"><img class="cflc-logo" src="/img/CFLC_LOGO.png"></a>
 </div>
 
 <div class="nav-menu">
-    <span><a href="#">HISTORY</a></span>
-    <span><a href="articles">ARTICLE</a></span>
-    <span><a href="test">PLAYER</a></span>
-    <span><a href="#">SCHEDULE</a></span>
+    <span><a th:href="@{/history}">HISTORY</a></span>
+    <span><a th:href="@{/articles}">ARTICLE</a></span>
+    <span><a href="/test">PLAYER</a></span>
+    <span><a th:href="@{/schedule}">SCHEDULE</a></span>
 </div>
 
 <div class="container">

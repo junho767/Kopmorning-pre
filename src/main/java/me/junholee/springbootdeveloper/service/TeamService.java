@@ -18,8 +18,11 @@ public class TeamService {
         return teamRepository.save(team);
     }
 
-    public Optional<Team> findById(int id){
-        return teamRepository.findById(id);
+    public Team findByVenue_teamId(String venue) {
+        return teamRepository.findByVenue(venue);
+    }
+    public Team findById(long id){
+        return teamRepository.findById(id).orElse(null);
     }
 
 }

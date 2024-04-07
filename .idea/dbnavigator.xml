@@ -60,7 +60,7 @@
           <driver-library value="" />
           <driver value="" />
           <url-type value="DATABASE" />
-          <host value="54.83.98.244" />
+          <host value="15.164.225.151" />
           <port value="3306" />
           <database value="blog" />
           <tns-folder value="" />

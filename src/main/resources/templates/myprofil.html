@@ -7,19 +7,26 @@
 </head>
 
 <body>
+    <script>
+        date = new Date();
+        year = date.getFullYear();
+        month = date.getMonth() + 1;
+        day = date.getDate();
+        document.getElementById("current_date").innerHTML = month + "/" + day + "/" + year;
+    </script>
 <div class="header">
     <a href="#"><img class="pl-logo" src="/img/PL_LOGO.png"></a>
     <a href="#"><img class="uel-logo" src="/img/UEL_LOGO.png"></a>
-    <a href="#"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
+    <a th:href="@{/main}"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
     <a href="#"><img class="facup-logo" src="/img/FACUP_LOGO.png"></a>
     <a href="#"><img class="cflc-logo" src="/img/CFLC_LOGO.png"></a>
 </div>
 
 <div class="nav-menu">
-    <span><a href="#">HISTORY</a></span>
-    <span><a href="/articles">ARTICLE</a></span>
-    <span><a href="test">PLAYER</a></span>
-    <span><a href="/schedule">SCHEDULE</a></span>
+    <span><a th:href="@{/history}">HISTORY</a></span>
+    <span><a th:href="@{/articles}">ARTICLE</a></span>
+    <span><a href="/test">PLAYER</a></span>
+    <span><a th:href="@{/schedule}">SCHEDULE</a></span>
 </div>
 
 <div class="container">
@@ -27,21 +34,36 @@
 
     </div>
 
+
+    <!--div를 양 옆으로 나누자 ex  이름   : ??
+                               닉네임  : ??  -->
     <div class="test-userinfo">
         <img th:src="@{${user.picture}}" alt="no">
         <p th:text="|이름 : ${user.nickname}|"></p>
-        <p>이메일 : <span id="userEmail" th:text="${user.email}"> </span></p>
-        <p>닉네임 : <input type="text" id="userNickname" th:placeholder="${user.name}"></p>
-        <p>좋아하게 된 계기</p>
-        <input class="reason-box" type="text" id="userReason" placeholder="좋아하게 된 이유와 연도 선택...">
-        <label class="fw">팬이 된 년도(2004~2024):</label>
-        <input type="number" id="year" name="year" min="2004" max="2024">
-        <button type="button" id="modify-userInfo" class="btn btn-primary btn-sm">수정하기</button>
+        <p th:text="|이메일 : ${user.email}"></p>
+        <p th:text="|닉네임 : ${user.name}"></p>
+        <p class="fw" th:if="${user.reason == 'null'}">좋아하는 이유 : [미입력]</p>
+        <p class="fw" th:if="${user.year == null}">콥 : 0년차</p>
+        <p class="fw" th:unless="${user.reason == null}" th:text="|좋아하는 이유 : ${user.reason}"></p>
+        <p class="fw" th:unless="${user.year == null}" th:text="|콥 : ${user.year}|"></p>
+        <div id="editForm" style="display: none;">
+            <input type="text" id="userReason" placeholder="좋아하는 이유를 입력하세요">
+            <input type="number" id="year" placeholder="년도을 입력하세요">
+            <input type="text" id="userNickname" placeholder="닉네임을 입력하세요">
+            <input type="file" id="image" accept="image/png, image/jpg">
+        </div>
+        <button id="editButton" class="btn btn-primary btn-sm">수정하기</button>
+        <button type="button" id="modify-userInfo" class="btn btn-primary btn-sm">완료</button>
     </div>
     <div class="aside">
 
     </div>
 </div>
+    <script>
+        document.getElementById("editButton").addEventListener("click", function() {
+            document.getElementById("editForm").style.display = "block";
+        });
+    </script>
 <script src="/js/article.js"></script>
 <script src="/js/token.js"></script>
 </body>

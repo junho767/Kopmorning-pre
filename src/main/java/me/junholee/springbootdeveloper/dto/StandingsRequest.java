@@ -44,7 +44,7 @@ public class StandingsRequest {
             JSONObject jsonTeam = (JSONObject) jsonStanding.get("team");
 
             int id = (int) jsonTeam.get("id");
-            Team team = teamRepository.findById(id).orElse(null);
+            Team team = teamRepository.findById((long) id).orElse(null);
             int position = (int) jsonStanding.get("position");
             String form = (String) jsonStanding.get("form");
             int playedGames = (int) jsonStanding.get("playedGames");

@@ -15,6 +15,9 @@ public class AddArticleRequest {
     @JsonProperty("content")
     private String content;
 
+//    @JsonProperty("article-Image")
+//    private String articleImage;
+
     public Article toEntity(String author) {
         return Article.builder()
                 .title(title)

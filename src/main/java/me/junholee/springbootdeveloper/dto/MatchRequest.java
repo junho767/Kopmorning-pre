@@ -53,8 +53,8 @@ public class MatchRequest {
             int awayTeam_id = (int) objectAwayTeam.get("id");
 
             String league = (String) objectCompetition.get("name");
-            Team home_team = teamRepository.findById(homeTeam_id).orElse(null);
-            Team away_team = teamRepository.findById(awayTeam_id).orElse(null);
+            Team home_team = teamRepository.findById((long) homeTeam_id).orElse(null);
+            Team away_team = teamRepository.findById((long) awayTeam_id).orElse(null);
             String match_time = (String) objectMatch.get("utcDate");
             int match_id = (int) objectMatch.get("id");
             int match_day = (int) objectMatch.get("matchday");
