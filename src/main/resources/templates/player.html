@@ -16,8 +16,7 @@
             <a th:href="@{/story}">TEAM</a>
             <ul class="submenu">
                 <li><a href="#">역사 </a></li>
-                <li><a href="#">경력 </a></li>
-                <li><a href="#">선수 </a></li>
+                <li><a th:href="@{team/64}">선수 </a></li>
                 <li><a th:href="@{schedule}">경기 일정 </a></li>
             </ul>
         </li>
@@ -48,7 +47,6 @@
 </div>
 
 <div class="container">
-
     <div class="advertisement">
         <div class="container-standings">
             <ul>
@@ -76,40 +74,7 @@
     </div>
 
     <div class="section">
-        <div class="matchLeague">
-            <p class="fw" th:text="|${match.league} ${match.match_day} ROUND|"></p>
-        </div>
-<!--        경기 정보-->
-        <div class="match-result-container">
-            <a class="homeTeam" th:href="@{/team/{id}(id=${match.home.id})}">
-                <img th:src="@{${match.home.team_crest}}">
-                <p class="fw" th:text="${match.home.team_name}"></p>
-            </a>
-<!--            경기 끝났을 때-->
-            <div th:if="${match.status=='FINISHED'}" class="score-container">
-                <p>FULL TIME</p>
-                <div class="score">
-                    <p th:text="|${match.home_score}-${match.away_score}|"></p>
-                </div>
-                <p th:text="${match.home.venue}"></p>
-            </div>
-<!--            경기시작 안 함-->
-            <div th:unless="${match.status=='FINISHED'}" class="score-container">
-                <p th:text="${match.match_time}"></p>
-            </div>
-            <a class="awayTeam" th:href="@{/team/{id}(id=${match.away.id})}">
-                <img th:src="@{${match.away.team_crest}}">
-                <p class="fw" th:text="${match.away.team_name}"></p>
-            </a>
-        </div>
-<!--        포메이션, 평점-->
-        <div>
 
-        </div>
-<!--        댓글-->
-        <div>
-
-        </div>
     </div>
 
     <div class="aside">

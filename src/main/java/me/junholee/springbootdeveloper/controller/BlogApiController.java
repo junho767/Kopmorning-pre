@@ -33,21 +33,21 @@ public class BlogApiController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedArticle);
     }
-    @GetMapping("/api/articles") // 글 조회
-    public ResponseEntity<List<ArticleResponse>> findAllArticles(){
-        List<ArticleResponse> articles= blogService.findAll()
-                .stream()
-                .map(ArticleResponse::new)
-                .toList();
-        return ResponseEntity.ok()
-                .body(articles);
-    }
-    @GetMapping("/api/articles/{id}")  //
-    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id){ // @PathVariable 에너테이션은  URL에서 값을 가져오는 것.
-        Article article = blogService.findById(id);
-        return ResponseEntity.ok()
-                .body(new ArticleResponse(article));
-    }
+//    @GetMapping("/api/articles") // 글 조회
+//    public ResponseEntity<List<ArticleResponse>> findAllArticles(){
+//        List<ArticleResponse> articles= blogService.findAll()
+//                .stream()
+//                .map(ArticleResponse::new)
+//                .toList();
+//        return ResponseEntity.ok()
+//                .body(articles);
+//    }
+//    @GetMapping("/api/articles/{id}")  //
+//    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id){ // @PathVariable 에너테이션은  URL에서 값을 가져오는 것.
+//        Article article = blogService.findById(id);
+//        return ResponseEntity.ok()
+//                .body(new ArticleResponse(article));
+//    }
     @DeleteMapping("/api/articles/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable long id){
         blogService.delete(id);

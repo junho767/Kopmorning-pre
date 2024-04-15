@@ -157,4 +157,25 @@ public class BlogViewController {
         }
         return "newArticle";
     }
+    @GetMapping("/story")
+    public String getStory(Model model){
+        List<StandingsResponse> standingsList = standingService.findAll().stream()
+                .map(StandingsResponse::new)
+                .toList();
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        model.addAttribute("standing",standingsList);
+        model.addAttribute("user",user);
+        return "story";
+    }
+
+    @GetMapping("/player")
+    public String getPlayer(Model model){
+        List<StandingsResponse> standingsList = standingService.findAll().stream()
+                .map(StandingsResponse::new)
+                .toList();
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        model.addAttribute("standing",standingsList);
+        model.addAttribute("user",user);
+        return "player";
+    }
 }

@@ -5,24 +5,19 @@ import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Player;
 import me.junholee.springbootdeveloper.domain.SessionUser;
 import me.junholee.springbootdeveloper.domain.Team;
-import me.junholee.springbootdeveloper.dto.PlayerResponse;
-import me.junholee.springbootdeveloper.dto.TeamResponse;
 import me.junholee.springbootdeveloper.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Comparator;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
 public class TeamViewController {
-    private final BlogService blogService;
     private final HttpSession httpSession;
-    private final StandingService standingService;
-    private final MatchService matchService;
-    private final UserService userService;
     private final TeamService teamService;
     private final PlayerService playerService;
 
@@ -30,10 +25,17 @@ public class TeamViewController {
     public String getTeam(@PathVariable long id, Model model) {
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
         List<Player> playerlist = playerService.findTeamPlayer(id);
+        List<Player> top_score = playerService.scoreSort(playerlist,5);
+        model.addAttribute("topScore",top_score);
+        System.out.println("득점:"+ top_score);
+//        List<Player> top_assist = playerService.assistSort(playerlist,5);
+//        model.addAttribute("topAssist",top_assist);
+//        List<Player> top_keyPasses = playerService.keyPassesSort(playerlist,5);
+//        model.addAttribute("topKeyPasses",top_keyPasses);
         Team team = teamService.findById(id);
+        model.addAttribute("player",playerlist);
         model.addAttribute("team",team);
         model.addAttribute("user",user);
-        model.addAttribute("player",playerlist);
         return "team";
     }
 }

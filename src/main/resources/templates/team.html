@@ -8,18 +8,42 @@
 
 <body>
 <div class="header">
-    <a href="#"><img class="pl-logo" src="/img/PL_LOGO.png"></a>
-    <a href="#"><img class="uel-logo" src="/img/UEL_LOGO.png"></a>
-    <a href="/main"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
-    <a href="#"><img class="facup-logo" src="/img/FACUP_LOGO.png"></a>
-    <a href="#"><img class="cflc-logo" src="/img/CFLC_LOGO.png"></a>
+    <a th:href="@{/main}"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
 </div>
+<div class="nav-container">
+    <ul class="nav-menu">
+        <li>
+            <a th:href="@{story}">TEAM</a>
+            <ul class="submenu">
+                <li><a href="#">역사 </a></li>
+                <li><a th:href="@{team/64}">선수 </a></li>
+                <li><a th:href="@{/schedule}">경기 일정 </a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:href="@{articles}">ARTICLE</a>
+            <ul class="submenu">
+                <li><a th:href="@{articles}">자유 게시판</a></li>
+                <li><a href="">이적 기사</a></li>
+                <li><a href="">팀 기사</a></li>
+                <li><a href="">경기 후 토크</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">LEAGUE</a>
+            <ul class="submenu">
+                <li><a href="">프리미어 리그</a></li>
+                <li><a href="">유로파 리그</a></li>
+                <li><a href="">FA 컵</a></li>
+                <li><a href="">EFL 컵</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">공지사항</a>
+            <ul class="submenu"></ul>
+        </li>
+    </ul>
 
-<div class="nav-menu">
-    <span><a href="/history">HISTORY</a></span>
-    <span><a href="/articles">ARTICLE</a></span>
-    <span><a href="test">PLAYER</a></span>
-    <span><a href="/schedule">SCHEDULE</a></span>
 </div>
 
 <div class="container">
@@ -28,30 +52,102 @@
 
     </div>
 
-
     <div class="section">
         <div class="container-team">
-            <div class="test-team">
+            <div class="team-info">
                 <img th:src="${team.team_crest}" alt="no">
-                <p class="fw" th:text="${team.team_name}"></p>
-                <p class="fw">영국</p>
+                <div class="team-text">
+                    <p class="fw mb2" th:text="${team.team_name}"></p>
+                    <p class="fw mt2">잉글랜드</p>
+                </div>
+                <div class="stat-box">
+                    <div class="top-score">
+                        <div class="stat-top">
+                            <p>득점</p>
+                        </div>
+                            <th:block th:each="topS :  ${topScore}">
+                                <ul>
+                                    <li class="w30 stat-bottom"><img class="stat-image" th:src="${topS.player_image}"> </li>
+                                    <li class="w180 stat-bottom"><p th:text="${topS.player_name}"></p></li>
+                                    <li class="w30 stat-bottom"><p th:text="${topS.player_goals}"></p></li>
+                                </ul>
+                            </th:block>
+                    </div>
+                    <div class="top-assist">
+                        <div class="stat-top">
+                            <p>도움</p>
+                        </div>
+<!--                        <th:block th:each="topA :  ${topAssist}">-->
+<!--                            <ul>-->
+<!--                                <li class="w30 stat-bottom"><img class="stat-image" th:src="${topA.player_image}"> </li>-->
+<!--                                <li class="w180 stat-bottom"><p th:text="${topA.player_name}"></p></li>-->
+<!--                                <li class="w30 stat-bottom"><p th:text="${topA.player_assists}"></p></li>-->
+<!--                            </ul>-->
+<!--                        </th:block>-->
+                    </div>
+                    <div class="top-key-passes">
+                        <div class="stat-top">
+                            <p>키패스</p>
+                        </div>
+<!--                        <th:block th:each="topK :  ${topKeyPasses}">-->
+<!--                            <ul>-->
+<!--                                <li class="w30 stat-bottom"><img class="stat-image" th:src="${topK.player_image}"> </li>-->
+<!--                                <li class="w180 stat-bottom"><p th:text="${topK.player_name}"></p></li>-->
+<!--                                <li class="w30 stat-bottom"><p th:text="${topK.player_key_passes}"></p></li>-->
+<!--                            </ul>-->
+<!--                        </th:block>-->
+                    </div>
+                </div>
             </div>
+
+
+
             <div class="player-list">
-                <div class="top">
+                <div class="top-nav">
                     <ul>
-                        <li class="top w100"><p>이름</p></li>
-                        <li class="top w600"><p>사진</p></li>
-                        <li class="top w100"></li>
-                        <li class="top w100"></li>
+                        <li class="top w85"><p>포지션</p></li>
+                        <li class="top w260"><p>선수</p></li>
+                        <li class="top w50"><p>등번호</p></li>
+                        <li class="top w40"><p>나이</p></li>
+                        <li class="top w40"><p>득점</p></li>
+                        <li class="top w40"><p>도움</p></li>
+                        <li class="top w45"><p>평점</p></li>
+                        <li class="top w45"><p>경기</p></li>
+                        <li class="top w70"><p>드리블 시도</p></li>
+                        <li class="top w70"><p>드리블 성공</p></li>
+                        <li class="top w85"><p>생년월일</p></li>
+                        <li class="top w50"><p>총 패스</p></li>
+                        <li class="top w50"><p>키 패스</p></li>
+                        <li class="top w85"><p>교체 시작</p></li>
+                        <li class="top w85"><p>태클 시도</p></li>
                     </ul>
                 </div>
                 <th:block th:each="player : ${player}">
                     <ui>
-                        <li class="top fw w200"><p th:text="${player.player_name}"></p></li>
-                        <div th:unless="${player_image == '0'}">
-                                <li class="top fw w600"><img th:src="${player.player_image}" onerror="this.src='/img/default.png'"></li>
-                        </div>
-                        <li class="top fw w100"></li>
+                        <li class="top w85"><p th:text="${player.player_type}"></p></li>
+                        <li>
+                            <div class="w260 player-info">
+                                <div class="top w190">
+                                    <p th:text="${player.player_name}"></p>
+                                </div>
+                                <div class="top w70">
+                                    <img th:src="${player.player_image}" onerror="this.src='/img/default.png'">
+                                </div>
+                            </div>
+                        </li>
+                        <li class="top w50"><p th:text="${player.player_number}"></p></li>
+                        <li class="top w40"><p th:text="${player.player_age}"></p></li>
+                        <li class="top w40"><p th:text="${player.player_goals}"></p></li>
+                        <li class="top w40"><p th:text="${player.player_assists}"></p></li>
+                        <li class="top w45"><p th:text="${player.player_rating}"></p></li>
+                        <li class="top w45"><p th:text="${player.player_match_played}"></p></li>
+                        <li class="top w70"><p th:text="${player.player_dribble_attempts}"></p></li>
+                        <li class="top w70"><p th:text="${player.player_dribble_succ}"></p></li>
+                        <li class="top w85"><p th:text="${player.player_birthdate}"></p> </li>
+                        <li class="top w50"><p th:text="${player.player_passes}"></p></li>
+                        <li class="top w50"><p th:text="${player.player_key_passes}"></p></li>
+                        <li class="top w85"><p th:text="${player.player_substitutes_on_bench}"></p></li>
+                        <li class="top w85"><p th:text="${player.player_tackles}"></p></li>
                     </ui>
                 </th:block>
             </div>
@@ -65,7 +161,8 @@
             <div class="container-userinfo">
                 <img th:src="@{${user.picture}}" alt="no">
                 <div class="mt2 mb2">
-                    <p th:text="${user.name + '님 어서오세요!'}"></p>
+                    <p th:if="${user.name == null}" th:text="|${user.nickname}님 어서오세요!|"></p>
+                    <p th:unless="${user.name == null}" th:text="|${user.name}님 어서오세요!|"></p>
                 </div>
                 <div class="mt2">
                     <button type="button" class="my-profile" onclick="location.href='/myprofil'">내 정보</button>

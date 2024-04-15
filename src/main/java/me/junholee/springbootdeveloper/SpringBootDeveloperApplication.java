@@ -24,10 +24,10 @@ public class SpringBootDeveloperApplication {
     // run() 메서드를 오버라이딩하여 원하는 초기화 로직을 작성
     public ApplicationRunner initializeData(StandingsRequest standingsRequest, TeamRequest teamRequest, MatchRequest matchRequest, PlayerRequest playerRequest) {
         return args -> {
-            playerRequest.Player_request();
             teamRequest.team_request();
             standingsRequest.addStandings();
             matchRequest.matchRequest();
+            playerRequest.Player_request();
         };
     }
 }

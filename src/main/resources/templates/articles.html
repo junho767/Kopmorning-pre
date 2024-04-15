@@ -8,20 +8,44 @@
 
 <body>
 <div class="header">
-    <a href="#"><img class="pl-logo" src="/img/PL_LOGO.png"></a>
-    <a href="#"><img class="uel-logo" src="/img/UEL_LOGO.png"></a>
     <a th:href="@{/main}"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
-    <a href="#"><img class="facup-logo" src="/img/FACUP_LOGO.png"></a>
-    <a href="#"><img class="cflc-logo" src="/img/CFLC_LOGO.png"></a>
 </div>
+<div class="nav-container">
+    <ul class="nav-menu">
+        <li>
+            <a th:href="@{/story}">TEAM</a>
+            <ul class="submenu">
+                <li><a href="#">역사 </a></li>
+                <li><a href="#">경력 </a></li>
+                <li><a href="#">선수 </a></li>
+                <li><a th:href="@{schedule}">경기 일정 </a></li>
+            </ul>
+        </li>
+        <li>
+            <a th:href="@{/articles}">ARTICLE</a>
+            <ul class="submenu">
+                <li><a th:href="@{articles}">자유 게시판</a></li>
+                <li><a href="">이적 기사</a></li>
+                <li><a href="">팀 기사</a></li>
+                <li><a href="">경기 후 토크</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">LEAGUE</a>
+            <ul class="submenu">
+                <li><a href="">프리미어 리그</a></li>
+                <li><a href="">유로파 리그</a></li>
+                <li><a href="">FA 컵</a></li>
+                <li><a href="">EFL 컵</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="">공지사항</a>
+            <ul class="submenu"></ul>
+        </li>
+    </ul>
 
-<div class="nav-menu">
-    <span><a th:href="@{/history}">HISTORY</a></span>
-    <span><a th:href="@{/articles}">ARTICLE</a></span>
-    <span><a href="/test">PLAYER</a></span>
-    <span><a th:href="@{/schedule}">SCHEDULE</a></span>
 </div>
-
 <div class="container">
     <div class="advertisement">
 
@@ -59,14 +83,14 @@
     <div class="aside">
         <div class="container-side">
             <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
-            <div class="userinfo">
-                <div class="logo2 mt2 mb2"></div>
+            <div class="container-userinfo">
+                <img th:src="@{${user.picture}}" alt="no">
                 <div class="mt2 mb2">
-                    <p th:text="${user.name + '님 어서오세요!'}"></p>
-                    <p> n년차 콥</p>
+                    <p th:if="${user.name == null}" th:text="|${user.nickname}님 어서오세요!|"></p>
+                    <p th:unless="${user.name == null}" th:text="|${user.name}님 어서오세요!|"></p>
                 </div>
                 <div class="mt2">
-                    <button type="button" class="my-profile" onclick="">내 정보</button>
+                    <button type="button" class="my-profile" onclick="location.href='/myprofil'">내 정보</button>
                     <button type="button" class="logout-btn" onclick="location.href='/logout'">로그아웃</button>
                 </div>
             </div>

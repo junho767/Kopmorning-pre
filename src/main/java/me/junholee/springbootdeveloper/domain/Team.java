@@ -34,6 +34,9 @@ public class Team {
     @Column(name = "venue")
     private String venue;
 
+    @Column(name = "coach")
+    private String coach;
+
     @Builder
     public Team(long id, String team_name, String team_tla, String team_shortName, String team_crest, String venue){
         this.id = id;
@@ -43,4 +46,8 @@ public class Team {
         this.team_crest = team_crest;
         this.venue = venue;
     }
+
+//    public void updateCoach(String coach){
+//        this.coach = coach;
+//    }
 }

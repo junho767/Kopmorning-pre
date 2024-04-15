@@ -25,14 +25,14 @@
                     </section>
 
                     <div class="mb-4">
-                        <input type="file" id="image" accept="image/gif, image/jpeg, image/png" multiple="multiple">
+                        <input type="file" id="image" accept="image/gif, image/jpeg, image/png" multiple="multiple/">
                     </div>
 
                     <button th:if="${article.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>
                     <button th:if="${article.id} == null" type="button" id="create-btn" class="btn btn-primary btn-sm">등록</button>
                 </article>
             </div>
-            <div class="commentBox">
+            <div class="comment-container">
 
             </div>
         </div>
