@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto;
+package me.junholee.springbootdeveloper.dto.Match;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

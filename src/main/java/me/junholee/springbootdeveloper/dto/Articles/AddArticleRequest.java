@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto;
+package me.junholee.springbootdeveloper.dto.Articles;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

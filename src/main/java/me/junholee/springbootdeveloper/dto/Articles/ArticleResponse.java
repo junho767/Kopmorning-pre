@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto;
+package me.junholee.springbootdeveloper.dto.Articles;
 
 import lombok.Getter;
 import me.junholee.springbootdeveloper.domain.Article;

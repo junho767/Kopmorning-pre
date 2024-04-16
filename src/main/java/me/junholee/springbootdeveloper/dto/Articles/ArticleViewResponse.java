@@ -1,9 +1,10 @@
-package me.junholee.springbootdeveloper.dto;
+package me.junholee.springbootdeveloper.dto.Articles;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.ArticleImage;
+import me.junholee.springbootdeveloper.dto.CommentList.CommentResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;

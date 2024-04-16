@@ -1,10 +1,10 @@
 package me.junholee.springbootdeveloper;
 
 import lombok.RequiredArgsConstructor;
-import me.junholee.springbootdeveloper.dto.StandingsRequest;
-import me.junholee.springbootdeveloper.dto.TeamRequest;
-import me.junholee.springbootdeveloper.dto.MatchRequest;
-import me.junholee.springbootdeveloper.dto.PlayerRequest;
+import me.junholee.springbootdeveloper.dto.Standing.StandingsRequest;
+import me.junholee.springbootdeveloper.dto.Team.TeamRequest;
+import me.junholee.springbootdeveloper.dto.Match.MatchRequest;
+import me.junholee.springbootdeveloper.dto.Player.PlayerRequest;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

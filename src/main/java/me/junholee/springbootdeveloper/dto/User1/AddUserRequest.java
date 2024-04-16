@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto;
+package me.junholee.springbootdeveloper.dto.User1;
 
 import lombok.Getter;
 import lombok.Setter;

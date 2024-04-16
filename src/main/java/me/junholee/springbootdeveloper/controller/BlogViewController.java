@@ -1,13 +1,14 @@
 package me.junholee.springbootdeveloper.controller;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.server.PathParam;
 import me.junholee.springbootdeveloper.domain.*;
-import me.junholee.springbootdeveloper.dto.*;
 
+import me.junholee.springbootdeveloper.dto.Articles.ArticleListViewResponse;
+import me.junholee.springbootdeveloper.dto.Articles.ArticleViewResponse;
+import me.junholee.springbootdeveloper.dto.CommentList.CommentResponse;
+import me.junholee.springbootdeveloper.dto.Match.MatchRespones;
+import me.junholee.springbootdeveloper.dto.Standing.StandingsResponse;
 import me.junholee.springbootdeveloper.service.*;
-import net.minidev.json.parser.ParseException;
-import org.springframework.boot.Banner;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

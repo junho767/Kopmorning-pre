@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto;
+package me.junholee.springbootdeveloper.dto.TokenDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

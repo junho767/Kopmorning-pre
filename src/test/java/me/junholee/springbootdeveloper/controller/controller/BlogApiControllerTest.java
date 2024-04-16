@@ -3,8 +3,8 @@ package me.junholee.springbootdeveloper.controller.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.AddArticleRequest;
-import me.junholee.springbootdeveloper.dto.UpdateArticleRequest;
+import me.junholee.springbootdeveloper.dto.Articles.AddArticleRequest;
+import me.junholee.springbootdeveloper.dto.Articles.UpdateArticleRequest;
 import me.junholee.springbootdeveloper.repository.BlogRepository;
 
 import me.junholee.springbootdeveloper.repository.UserRepository;

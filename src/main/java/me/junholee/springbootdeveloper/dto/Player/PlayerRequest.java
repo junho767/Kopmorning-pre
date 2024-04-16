@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto;
+package me.junholee.springbootdeveloper.dto.Player;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Player;

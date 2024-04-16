@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto;
+package me.junholee.springbootdeveloper.dto.Articles;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;

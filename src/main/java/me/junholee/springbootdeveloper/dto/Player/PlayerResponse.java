@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto;
+package me.junholee.springbootdeveloper.dto.Player;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

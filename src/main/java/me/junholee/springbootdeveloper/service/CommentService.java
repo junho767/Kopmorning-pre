@@ -5,13 +5,11 @@ import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.Comment;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.CommentRequest;
+import me.junholee.springbootdeveloper.dto.CommentList.CommentRequest;
 import me.junholee.springbootdeveloper.repository.BlogRepository;
 import me.junholee.springbootdeveloper.repository.CommentRepository;
 import me.junholee.springbootdeveloper.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service

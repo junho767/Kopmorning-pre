@@ -1,8 +1,8 @@
 package me.junholee.springbootdeveloper.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.junholee.springbootdeveloper.dto.CreateAccessTokenRequest;
-import me.junholee.springbootdeveloper.dto.CreateAccessTokenResponse;
+import me.junholee.springbootdeveloper.dto.TokenDTO.CreateAccessTokenRequest;
+import me.junholee.springbootdeveloper.dto.TokenDTO.CreateAccessTokenResponse;
 import me.junholee.springbootdeveloper.service.TokenService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

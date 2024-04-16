@@ -3,8 +3,8 @@ package me.junholee.springbootdeveloper.service;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.AddUserRequest;
-import me.junholee.springbootdeveloper.dto.UpdateUserRequest;
+import me.junholee.springbootdeveloper.dto.User1.AddUserRequest;
+import me.junholee.springbootdeveloper.dto.User1.UpdateUserRequest;
 import me.junholee.springbootdeveloper.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

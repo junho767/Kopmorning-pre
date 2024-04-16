@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.SessionUser;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.*;
+import me.junholee.springbootdeveloper.dto.Articles.AddArticleRequest;
+import me.junholee.springbootdeveloper.dto.Articles.UpdateArticleRequest;
+import me.junholee.springbootdeveloper.dto.User1.UpdateUserRequest;
 import me.junholee.springbootdeveloper.service.BlogService;
 import me.junholee.springbootdeveloper.service.UserDetailService;
 import me.junholee.springbootdeveloper.service.UserService;
@@ -14,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController

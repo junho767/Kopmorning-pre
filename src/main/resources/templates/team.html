@@ -13,20 +13,19 @@
 <div class="nav-container">
     <ul class="nav-menu">
         <li>
-            <a th:href="@{story}">TEAM</a>
+            <a th:href="@{/story}">TEAM</a>
             <ul class="submenu">
-                <li><a href="#">역사 </a></li>
-                <li><a th:href="@{team/64}">선수 </a></li>
-                <li><a th:href="@{/schedule}">경기 일정 </a></li>
+                <li><a href="#">경력</a></li>
+                <li><a th:href="@{/team/64}">선수</a></li>
+                <li><a th:href="@{/schedule}">경기 일정</a></li>
             </ul>
         </li>
         <li>
-            <a th:href="@{articles}">ARTICLE</a>
+            <a th:href="@{/articles}">ARTICLE</a>
             <ul class="submenu">
-                <li><a th:href="@{articles}">자유 게시판</a></li>
-                <li><a href="">이적 기사</a></li>
-                <li><a href="">팀 기사</a></li>
-                <li><a href="">경기 후 토크</a></li>
+                <li><a th:href="@{/articles}">자유 게시판</a></li>
+                <li><a href="">뉴스 게시판</a></li>
+                <li><a href="">타 팀 게시판</a></li>
             </ul>
         </li>
         <li>
