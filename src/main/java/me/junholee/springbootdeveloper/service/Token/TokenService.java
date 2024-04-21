@@ -1,8 +1,9 @@
-package me.junholee.springbootdeveloper.service;
+package me.junholee.springbootdeveloper.service.Token;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.config.jwt.TokenProvider;
 import me.junholee.springbootdeveloper.domain.User;
+import me.junholee.springbootdeveloper.service.Member.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;

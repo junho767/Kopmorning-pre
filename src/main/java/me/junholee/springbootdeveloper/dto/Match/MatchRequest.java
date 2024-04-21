@@ -3,9 +3,8 @@ package me.junholee.springbootdeveloper.dto.Match;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Match;
 import me.junholee.springbootdeveloper.domain.Team;
-import me.junholee.springbootdeveloper.repository.MatchRepository;
 import me.junholee.springbootdeveloper.repository.TeamRepository;
-import me.junholee.springbootdeveloper.service.MatchService;
+import me.junholee.springbootdeveloper.service.Football.MatchService;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
@@ -15,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;

@@ -7,13 +7,6 @@
 </head>
 
 <body>
-    <script>
-        date = new Date();
-        year = date.getFullYear();
-        month = date.getMonth() + 1;
-        day = date.getDate();
-        document.getElementById("current_date").innerHTML = month + "/" + day + "/" + year;
-    </script>
     <div class="header">
         <a th:href="@{/main}"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
     </div>
@@ -60,7 +53,16 @@
     <!--div를 양 옆으로 나누자 ex  이름   : ??
                                닉네임  : ??  -->
     <div class="test-userinfo">
-        <img th:src="@{${user.picture}}" alt="no">
+        <div th:unless="${user.picture.startsWith('https://')}">
+            <img class="w140 h140 radius-circle" th:src="@{'/image/'+ ${user.picture}}" alt="User Image">
+        </div>
+        <div  th:if="${user.picture.startsWith('https://')}">
+            <img class="w140 h140 radius-circle" th:src="${user.picture}">
+        </div>
+        <form th:action="@{/image/upload}" th:method="post" enctype="multipart/form-data" onsubmit="showImageConfirm()">
+            <input class="fw" id="profileImage" type="file" name="file" accept="image/*" required>
+            <button type="submit" id="image-modify">이미지 수정</button>
+        </form>
         <p th:text="|이름 : ${user.nickname}|"></p>
         <p th:text="|이메일 : ${user.email}"></p>
         <p th:text="|닉네임 : ${user.name}"></p>
@@ -72,16 +74,22 @@
             <input type="text" id="userReason" placeholder="좋아하는 이유를 입력하세요">
             <input type="number" id="year" placeholder="년도을 입력하세요">
             <input type="text" id="userNickname" placeholder="닉네임을 입력하세요">
-            <input type="file" id="image" accept="image/png, image/jpg">
+            <button type="button" id="modify-userInfo" class="btn btn-primary btn-sm">완료</button>
         </div>
         <button id="editButton" class="btn btn-primary btn-sm">수정하기</button>
-        <button type="button" id="modify-userInfo" class="btn btn-primary btn-sm">완료</button>
     </div>
+
+
     <div class="aside">
         <div class="container-side">
             <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
             <div class="container-userinfo">
-                <img th:src="@{${user.picture}}" alt="no">
+                <div th:unless="${user.picture.startsWith('https://')}">
+                    <img th:src="@{'/image/'+ ${user.picture}}" alt="User Image">
+                </div>
+                <div th:if="${user.picture.startsWith('https://')}">
+                    <img th:src="${user.picture}">
+                </div>
                 <div class="mt2 mb2">
                     <p th:if="${user.name == null}" th:text="|${user.nickname}님 어서오세요!|"></p>
                     <p th:unless="${user.name == null}" th:text="|${user.name}님 어서오세요!|"></p>
@@ -99,7 +107,9 @@
             document.getElementById("editForm").style.display = "block";
         });
     </script>
-<script src="/js/article.js"></script>
-<script src="/js/token.js"></script>
+    <script src="/js/article.js"></script>
+    <script src="/js/token.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="sweetalert2.all.min.js"></script>
 </body>
 </html>

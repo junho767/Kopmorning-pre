@@ -1,0 +1,31 @@
+version: "3"
+services:
+  # MariaDB 데이터베이스 서비스 설정
+  database:
+    container_name: database  # 컨테이너 이름 지정
+    image: mariadb  # 사용할 이미지
+    volumes:
+      - ~/docker/mariadb/etc/mysql/conf.d:/etc/mysql/conf.d:ro  # 설정 파일을 호스트와 공유
+      - ~/docker/mariadb/var/lib/mysql:/var/lib/mysql  # 데이터베이스 파일을 호스트와 공유
+      - ~/docker/mariadb/var/log/maria:/var/log/maria  # 로그 파일을 호스트와 공유
+    environment:
+      - MYSQL_DATABASE=blog  # 데이터베이스 이름 설정
+      - MYSQL_ROOT_PASSWORD=1234  # root 계정 비밀번호 설정
+      - MYSQL_ROOT_HOST=%  # 모든 호스트에서 root 계정 접속 허용
+      - TZ = Asia/Seoul
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']  # 데이터베이스 설정
+    ports:
+      - 3306:3306  # 호스트와 컨테이너 간의 포트 매핑
+
+  # Spring 애플리케이션 서비스 설정
+  application:
+    build: .  # 현재 디렉토리에서 Dockerfile을 사용하여 이미지 빌드
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/blog?useUnicode=true  # 데이터베이스 연결 정보 설정
+      SPRING_DATASOURCE_USERNAME: root  # 데이터베이스 사용자 이름 설정
+      SPRING_DATASOURCE_PASSWORD: 1234  # 데이터베이스 사용자 비밀번호 설정
+    ports:
+      - 443:8080  # 호스트와 컨테이너 간의 포트 매핑
+    depends_on:
+      - database  # 데이터베이스 서비스가 먼저 시작되어야 함
+

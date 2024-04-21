@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.service;
+package me.junholee.springbootdeveloper.service.Comment;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +10,8 @@ import me.junholee.springbootdeveloper.repository.BlogRepository;
 import me.junholee.springbootdeveloper.repository.CommentRepository;
 import me.junholee.springbootdeveloper.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -25,8 +27,6 @@ public class CommentService {
         request.setArticle(article);
         Comment comment = request.toEntity();
         commentRepository.save(comment);
-
         return request.getId();
     }
-
 }

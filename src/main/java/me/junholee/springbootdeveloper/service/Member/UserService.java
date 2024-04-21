@@ -1,5 +1,5 @@
 //회원가입 메서드
-package me.junholee.springbootdeveloper.service;
+package me.junholee.springbootdeveloper.service.Member;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.User;

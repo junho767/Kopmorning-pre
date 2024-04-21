@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
+import me.junholee.springbootdeveloper.domain.User;
 
 
 @NoArgsConstructor //해당 클래스에 파라미터가 없는 기본 생성자를 자동으로 생성합니다. 이 생성자는 클래스를 인스턴스화할 때 사용
@@ -15,14 +16,11 @@ public class AddArticleRequest {
     @JsonProperty("content")
     private String content;
 
-//    @JsonProperty("article-Image")
-//    private String articleImage;
-
-    public Article toEntity(String author) {
+    public Article toEntity(User user) {
         return Article.builder()
                 .title(title)
                 .content(content)
-                .author(author)
+                .user(user)
                 .build();
     }
 }

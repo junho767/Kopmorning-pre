@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.service;
+package me.junholee.springbootdeveloper.service.Football;
 
 import jakarta.transaction.Transactional;
 import me.junholee.springbootdeveloper.domain.Player;

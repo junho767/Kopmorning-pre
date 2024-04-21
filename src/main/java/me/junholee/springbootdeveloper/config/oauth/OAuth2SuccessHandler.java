@@ -6,7 +6,7 @@ import me.junholee.springbootdeveloper.config.jwt.TokenProvider;
 import me.junholee.springbootdeveloper.domain.RefreshToken;
 import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.repository.RefreshTokenRepository;
-import me.junholee.springbootdeveloper.service.UserService;
+import me.junholee.springbootdeveloper.service.Member.UserService;
 import me.junholee.springbootdeveloper.util.CookieUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -16,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.util.Enumeration;
 
 @RequiredArgsConstructor
 @Component

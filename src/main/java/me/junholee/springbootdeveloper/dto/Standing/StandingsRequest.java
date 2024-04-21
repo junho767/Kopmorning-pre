@@ -4,8 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Standings;
 import me.junholee.springbootdeveloper.domain.Team;
 import me.junholee.springbootdeveloper.repository.TeamRepository;
-import me.junholee.springbootdeveloper.service.StandingService;
-import me.junholee.springbootdeveloper.service.TeamService;
+import me.junholee.springbootdeveloper.service.Football.StandingService;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
@@ -14,8 +13,6 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 //주로 생성자를 자동으로 생성하는 데 사용됩니다.

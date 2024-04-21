@@ -6,7 +6,7 @@ import me.junholee.springbootdeveloper.config.oauth.OAuth2AuthorizationRequestBa
 import me.junholee.springbootdeveloper.config.oauth.OAuth2SuccessHandler;
 import me.junholee.springbootdeveloper.config.oauth.OAuth2UserCustomService;
 import me.junholee.springbootdeveloper.repository.RefreshTokenRepository;
-import me.junholee.springbootdeveloper.service.UserService;
+import me.junholee.springbootdeveloper.service.Member.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
 @RequiredArgsConstructor
 @Configuration

@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.service;
+package me.junholee.springbootdeveloper.service.Token;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.RefreshToken;

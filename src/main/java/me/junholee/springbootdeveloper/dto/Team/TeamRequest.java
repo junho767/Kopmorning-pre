@@ -2,7 +2,7 @@ package me.junholee.springbootdeveloper.dto.Team;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Team;
-import me.junholee.springbootdeveloper.service.TeamService;
+import me.junholee.springbootdeveloper.service.Football.TeamService;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;

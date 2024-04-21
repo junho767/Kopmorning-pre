@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 public class CommentRequest {
     private Long id;
     private String comment;
-    private String createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+    private LocalDateTime createdDate;
     private User user;
     private Article article;
 

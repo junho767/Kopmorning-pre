@@ -59,9 +59,10 @@
             <ul>
                 <li><span class="fl tc w70 title">글 번호</span></li>
                 <li><span class="fl tc w600 title">제목</span></li>
-                <li><span class="fl tc w170 title">글쓴이</span></li>
+                <li><span class="fl tc w150 title">글쓴이</span></li>
                 <li><span class="fl tc w170 title">날짜</span></li>
-                <li><span class="fl tc w70 title">추천 수</span></li>
+                <li><span class="fl tc w45 title">추천</span></li>
+                <li><span class="fl tc w45 title">조회</span></li>
             </ul>
         </div>
         <div class="articles-sub">
@@ -71,9 +72,13 @@
                     <li>
                         <a th:href="@{/articles/{id}(id=${item.id})}" class="fl tc w600 list" th:text="${item.title}"></a>
                     </li>
-                    <li><span th:text="${item.author}" class="fl tc w170 list"></span></li>
+                    <li>
+                        <span th:if="${item.user.name==null}" th:text="${item.user.nickname}" class="fl tc w150 list"></span>
+                        <span th:unless="${item.user.name==null}" th:text="${item.user.name}" class="fl tc w150 list"></span>
+                    </li>
                     <li><span th:text="${#temporals.format(item.createdAt, 'MM-dd HH:mm')}" class="fl tc w170 list"></span></li>
-                    <li><span class="fl tc w70 list"></span></li>
+                    <li><span class="fl tc w45 list" th:text="${item.likeCount}"></span></li>
+                    <li><span class="fl tc w45 list" th:text="${item.viewCount}"></span></li>
                 </th:block>
             </ul>
         </div>
@@ -82,7 +87,12 @@
         <div class="container-side">
             <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
             <div class="container-userinfo">
-                <img th:src="@{${user.picture}}" alt="no">
+                <div th:unless="${user.picture.startsWith('https://')}">
+                    <img th:src="@{'/image/'+ ${user.picture}}" alt="User Image">
+                </div>
+                <div th:if="${user.picture.startsWith('https://')}">
+                    <img th:src="${user.picture}">
+                </div>
                 <div class="mt2 mb2">
                     <p th:if="${user.name == null}" th:text="|${user.nickname}님 어서오세요!|"></p>
                     <p th:unless="${user.name == null}" th:text="|${user.name}님 어서오세요!|"></p>

@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.service;
+package me.junholee.springbootdeveloper.service.Football;
 
 import me.junholee.springbootdeveloper.domain.Team;
 import me.junholee.springbootdeveloper.repository.TeamRepository;

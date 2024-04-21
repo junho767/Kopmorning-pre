@@ -5,6 +5,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,7 +25,7 @@ public class Comment {
 
     @Column(name = "created_date")
     @CreatedDate
-    private String createdDate;
+    private LocalDateTime createdDate;
 
     @ManyToOne
     @JoinColumn(name = "article_id")

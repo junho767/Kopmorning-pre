@@ -3,7 +3,7 @@ package me.junholee.springbootdeveloper.controller;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.dto.TokenDTO.CreateAccessTokenRequest;
 import me.junholee.springbootdeveloper.dto.TokenDTO.CreateAccessTokenResponse;
-import me.junholee.springbootdeveloper.service.TokenService;
+import me.junholee.springbootdeveloper.service.Token.TokenService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

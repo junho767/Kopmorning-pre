@@ -11,8 +11,9 @@ public class CommentResponse {
     private Long id;
     private String nickname;
     private String comment;
-    private String createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+    private LocalDateTime createdDate;
     private Long articleId;
+    private String image;
 
     public CommentResponse(Comment comment){
         this.id = comment.getId();
@@ -20,5 +21,6 @@ public class CommentResponse {
         this.comment = comment.getComment();
         this.articleId = comment.getArticle().getId();
         this.createdDate = comment.getCreatedDate();
+        this.image = comment.getUser().getPicture();
     }
 }

@@ -96,7 +96,7 @@ body {
     margin:0;
     padding:0;
 }
-
+.radius-circle{ border-radius: 50%; }
 .fw{color: white;}
 .mb1{ margin-bottom : 0.5rem; }
 .mb2{ margin-bottom : 1rem; }
@@ -105,6 +105,7 @@ body {
 .mt2{ margin-top : 1rem; }
 .pb6p{ padding-bottom: 6px;}
 .w30 { width:30px; }
+.w35 { width:35px; }
 .w40 { width:40px; }
 .w45 { width:45px; }
 .w50 { width:50px; }
@@ -113,12 +114,15 @@ body {
 .w600 { width:600px; }
 .w120 { width:120px; }
 .w140 { width:140px; }
+.w150 { width:150px; }
 .w170 { width:170px; }
 .w180 { width:180px; }
 .w190 { width:190px; }
 .w100 { width:100px; }
 .w200 { width:200px; }
 .w260 { width:260px; }
+.w500 { width:500px; }
+.h140 { height:140px; }
 .fl {float:left; }
 .fr {float:right; }
 .tc {text-align:center; }
@@ -184,9 +188,14 @@ a{
 .container{
     display: flex;
     width:100%;
-    height:100vh;
+    height:80vh;
     justify-content: space-between;
     margin-top:30px;
+}
+.bottom{
+    width:100%;
+    height:200px;
+    border:1px solid red;
 }
 .advertisement{
     width:300px;
@@ -222,6 +231,7 @@ a{
    line-height: 40px;
    background: #ffffff;
    font-weight: bold;
+   font-size:15px;
    color: #000000;
 }
 .list {
@@ -230,6 +240,7 @@ a{
    background: #ffffff;
    color: #000000;
    border-bottom: 0.5px solid #000000;
+   font-size:12px;
 }
 
 .aside{
@@ -329,8 +340,19 @@ a{
     width: 130 px;
     height: 250 px;
 }
-.comment-box{
-    width: 90%;
+.comment-container{
+    width: 830px;
+    height: 500px;
+    border:1px solid red;
+}
+.comment-layout{
+    line-height:50px;
+    height:50px;
+}
+.comment-layout > img {
+    width:45px;
+    height:45px;
+    border-radius:50%;
 }
 .schedule-box{
     border: 1px solid #b33333;

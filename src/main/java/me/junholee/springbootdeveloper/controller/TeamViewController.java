@@ -5,13 +5,13 @@ import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Player;
 import me.junholee.springbootdeveloper.domain.SessionUser;
 import me.junholee.springbootdeveloper.domain.Team;
-import me.junholee.springbootdeveloper.service.*;
+import me.junholee.springbootdeveloper.service.Football.PlayerService;
+import me.junholee.springbootdeveloper.service.Football.TeamService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Comparator;
 import java.util.List;
 
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.service;
+package me.junholee.springbootdeveloper.service.Blog;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
@@ -6,6 +6,7 @@ import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.Articles.AddArticleRequest;
 import me.junholee.springbootdeveloper.dto.Articles.UpdateArticleRequest;
 import me.junholee.springbootdeveloper.repository.BlogRepository;
+import me.junholee.springbootdeveloper.service.Member.UserDetailService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +22,8 @@ public class BlogService {
     private final UserDetailService userDetailService;
 
 
-    public Article save(AddArticleRequest request, String userName) {
-        return blogRepository.save(request.toEntity(userName));
+    public Article save(AddArticleRequest request, User user) {
+        return blogRepository.save(request.toEntity(user));
     }
 
     public List<Article> findAll() {
@@ -37,7 +38,7 @@ public class BlogService {
     public void updateView(long id){
         Optional<Article> article = this.blogRepository.findById(id);
         Article article1 = article.get();
-        article1.setView(article1.getView()+1);
+        article1.setViewCount(article1.getViewCount()+1);
         this.blogRepository.save(article1);
     }
     public void delete(long id) {
@@ -63,7 +64,7 @@ public class BlogService {
     private void authorizeArticleAuthor(Article article) {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userDetailService.loadUserByUsername(userName);
-        if (!article.getAuthor().equals(user.getNickname())) {
+        if (!article.getUser().getEmail().equals(user.getEmail())) {
             throw new IllegalArgumentException("not authorized");
         }
     }

@@ -1,7 +1,7 @@
 //package me.junholee.springbootdeveloper.config;
 //
 //import lombok.RequiredArgsConstructor;
-//import me.junholee.springbootdeveloper.service.UserDetailService;
+//import me.junholee.springbootdeveloper.service.UserS.UserDetailService;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
 //import org.springframework.security.authentication.AuthenticationManager;

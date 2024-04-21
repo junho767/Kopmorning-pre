@@ -52,8 +52,7 @@ public class User implements UserDetails {
         this.picture = picture;
     }
 
-    public User update(String nickname, String picture) {
-        this.nickname = nickname;
+    public User update(String picture) {
         this.picture = picture;
         return this;
     }
@@ -64,9 +63,6 @@ public class User implements UserDetails {
         this.year = year;
         return this;
     }
-
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { //- 사용자 권한 리스트 반환
         return List.of(new SimpleGrantedAuthority("user"));

@@ -55,19 +55,19 @@
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
-          <database-version value="11.3" />
+          <database-version value="5.5" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
           <url-type value="DATABASE" />
-          <host value="15.164.225.151" />
-          <port value="3306" />
+          <host value="localhost" />
+          <port value="3307" />
           <database value="blog" />
           <tns-folder value="" />
           <tns-profile value="" />
           <type value="USER_PASSWORD" />
           <user value="root" />
-          <deprecated-pwd value="MTIzNA==" />
+          <deprecated-pwd value="MDkxMw==" />
         </database>
         <properties>
           <auto-commit value="false" />

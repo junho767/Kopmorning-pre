@@ -8,7 +8,10 @@ import me.junholee.springbootdeveloper.dto.Articles.ArticleViewResponse;
 import me.junholee.springbootdeveloper.dto.CommentList.CommentResponse;
 import me.junholee.springbootdeveloper.dto.Match.MatchRespones;
 import me.junholee.springbootdeveloper.dto.Standing.StandingsResponse;
-import me.junholee.springbootdeveloper.service.*;
+import me.junholee.springbootdeveloper.service.Blog.BlogService;
+import me.junholee.springbootdeveloper.service.Football.MatchService;
+import me.junholee.springbootdeveloper.service.Football.StandingService;
+import me.junholee.springbootdeveloper.service.Member.UserService;
 import org.springframework.ui.Model;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -135,7 +138,6 @@ public class BlogViewController {
         User user = userService.findByEmail(Session_user.getEmail());
 
         List<CommentResponse> commentList = dto.getComment();
-
         if(commentList!=null && !commentList.isEmpty()){
             model.addAttribute("comment",commentList);
         }

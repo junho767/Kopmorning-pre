@@ -190,7 +190,7 @@ class BlogApiControllerTest {
     private Article createDefaultArticle() {
         return blogRepository.save(Article.builder()
                 .title("title")
-                .author(user.getUsername())
+                .user(user)
                 .content("content")
                 .build());
     }

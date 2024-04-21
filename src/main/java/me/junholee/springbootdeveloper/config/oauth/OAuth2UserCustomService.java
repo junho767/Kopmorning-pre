@@ -50,7 +50,6 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
     // ❷ 유저가 있으면 업데이트, 없으면 유저 생성
     private User saveOrUpdate(OAuthAttributes attributes) {
         User user = userRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(),attributes.getPicture()))
                 .orElse(attributes.toEntity());
 
         return userRepository.save(user);

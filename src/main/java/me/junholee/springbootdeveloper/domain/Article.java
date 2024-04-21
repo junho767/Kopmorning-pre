@@ -26,11 +26,15 @@ public class Article {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "author", nullable = false)
-    private String author;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(columnDefinition = "integer default 0")
-    private int view;
+    @Column(columnDefinition = "integer default 0",nullable = false)
+    private int viewCount;
+
+    @Column(columnDefinition = "integer default 0",nullable = false)
+    private int likeCount;
 
     @CreatedDate
     @Column(name = "created_at")
@@ -47,13 +51,13 @@ public class Article {
     @OrderBy("id asc")
     private List<Comment> comment;
 
-    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @OrderBy("id asc")
-    private List<ArticleImage> articleImage;
+//    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+//    @OrderBy("id asc")
+//    private List<ArticleImage> articleImage;
 
     @Builder
-    public Article(String author, String title, String content) {
-        this.author = author;
+    public Article(User user, String title, String content) {
+        this.user = user;
         this.title = title;
         this.content = content;
     }
