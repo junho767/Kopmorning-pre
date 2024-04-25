@@ -75,9 +75,9 @@
                     <p>댓글 목록</p>
                     <div>
                         <ul th:each="comment, commentIndex : ${comment}">
-                            <input type="hidden" th:id="'comment-id-' + ${commentIndex}" th:value="${comment.id}">
+                            <input type="hidden" id="comment-id" th:value="${comment.id}">
                             <li class="w50 comment-layout" th:unless="${comment.user.picture.startsWith('https://')}">
-                                <img th:src="@{'/image/'+ ${comment.user.picture}}">
+                                <img th:src="@{'/profileImage/'+ ${user.picture}}">
                             </li>
                             <li class="w50 comment-layout" th:if="${comment.user.picture.startsWith('https://')}">
                                 <img th:src="${comment.user.picture}">
@@ -86,15 +86,15 @@
                             <li th:unless="${user.name == null}" th:text="${comment.user.name}" class="w70 tc comment-layout"></li>
                             <li class="w100 comment-layout"><span th:text="${#temporals.format(comment.createdDate,'HH : mm')}"></span></li>
                             <li class="w600 comment-layout">
-                                <span id="comment-content" th:text="${comment.comment}"></span>
-                                <input type="text" id="comment-input" style="display: none;">
+                                <span class="comment-content" th:text="${comment.comment}"></span>
+                                <input type="text" class="comment-input" style="display: none;">
                             </li>
 
-                            <button type="button" id="delete-comment"><img class="delete-img" src="/img/delete.png"> 삭제 </button>
-                            <button type="button" id="modify-comment"><img class="modify-img" src="/img/pencil.png"> 수정 </button>
+                            <button type="button" class="delete-comment-btn"><img src="/img/delete.png"> 삭제 </button>
+                            <button type="button" class="modify-comment-btn"><img src="/img/pencil.png"> 수정 </button>
 
-                            <button type="button" id="save-comment" style="display: none;"><img class="modify-img" src="/img/green-check.png">완료 </button>
-                            <button type="button" id="cancel-comment" style="display: none;"><img class="modify-img" src="/img/red-x.png">취소 </button>
+                            <button type="button" style="display: none;" class="save-comment-btn"><img class="modify-img" src="/img/green-check.png"> 완료 </button>
+                            <button type="button" style="display: none;" class="cancel-comment-btn"><img class="modify-img" src="/img/red-x.png"> 취소 </button>
                         </ul>
                     </div>
                 </div>

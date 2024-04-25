@@ -32,6 +32,7 @@ public class CommentService {
     public void delete(long id){
         commentRepository.deleteById(id);
     }
+
     @Transactional
     public Comment CommentUpdate(long id,String content){
         Comment comment = commentRepository.findById(id)

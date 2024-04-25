@@ -348,7 +348,19 @@ a{
     height:45px;
     border-radius:50%;
 }
-.modify-img{
+.delete-comment-btn img{
+    width:10px;
+    height:10px;
+}
+.modify-comment-btn img{
+    width:10px;
+    height:10px;
+}
+.save-comment-btn img{
+    width:10px;
+    height:10px;
+}
+.cancel-comment-btn img{
     width:10px;
     height:10px;
 }

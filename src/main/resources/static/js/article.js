@@ -50,12 +50,12 @@ if (writeComment) {
        httpRequest('POST', `/api/articles/${id}/comment` , body, success, fail);
     });
 }
+
 //댓글 삭제
-const DeleteComment = document.getElementById('delete-comment');
-if(DeleteComment) {
-    DeleteComment.addEventListener('click', event => {
-        let id = document.getElementById('comment-id').value;
-        let body = JSON.stringify({id: id});
+const deleteCommentButtons = document.querySelectorAll('.delete-comment-btn');
+deleteCommentButtons.forEach(function(deleteCommentButton) {
+    deleteCommentButton.addEventListener('click', function() {
+        let id = this.parentElement.querySelector('.comment-id').value;
         swal.fire({
             title: "삭제하시겠습니까?",
             icon: "question",
@@ -64,71 +64,123 @@ if(DeleteComment) {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes"
         }).then((result) => {
-            if(result.isConfirmed){
-                httpRequest('DELETE', `/api/comment/${id}`,body,success,fail);
+            if (result.isConfirmed) {
+                const body = JSON.stringify({ id: id });
+                httpRequest('DELETE', `/api/comment/${id}`, body, success, fail);
             }
-        })
-       function success() {
+        });
+
+        function success() {
             location.reload();
         }
+
         function fail() {
             alert('ERROR');
             location.reload();
         }
     });
-}
-//댓글 수정
-const ModifyComment = document.getElementById('modify-comment');
-const deleteComment = document.getElementById('delete-comment');
-const saveComment = document.getElementById('save-comment');
-const commentContent = document.getElementById('comment-content');
-const commentInput = document.getElementById('comment-input');
-const cancelComment = document.getElementById('cancel-comment');
+});
 
+//댓글 수정 [수정본]
+document.addEventListener('DOMContentLoaded', function() {
+    // 수정 버튼
+    document.querySelectorAll('.modify-comment-btn').forEach(function(ModifyComment) {
+        ModifyComment.addEventListener('click', function() {
+            const deleteComment = this.parentElement.querySelector('.delete-comment-btn');
+            const saveComment = this.parentElement.querySelector('.save-comment-btn');
+            const cancelComment = this.parentElement.querySelector('.cancel-comment-btn');
+            const commentContent = this.parentElement.querySelector('.comment-content');
+            const commentInput = this.parentElement.querySelector('.comment-input');
+            // 삭제 버튼과 수정 버튼 숨기기
+            deleteComment.style.display = 'none';
+            ModifyComment.style.display = 'none';
+            saveComment.style.display = 'inline-block';
+            cancelComment.style.display = 'inline-block';
 
-if(ModifyComment) {
-    ModifyComment.addEventListener('click', event => {
-
-        deleteComment.style.display = 'none';
-        ModifyComment.style.display = 'none';
-        saveComment.style.display = 'inline-block';
-        cancelComment.style.display = 'inline-block';
-
-        commentInput.value = commentContent.textContent;
-        commentContent.style.display = 'none';
-        commentInput.style.display = 'inline-block';
-        commentInput.style.border = '1px solid #ccc';
-        commentInput.style.borderRadius = '20px';
-        commentInput.style.padding = '5px';
-        commentInput.style.width = '500px';
-
-    });
-}
-if(saveComment){
-    saveComment.addEventListener('click', event => {
-        let Modifications = document.getElementById('comment-input').value;
-        let id = document.getElementById('comment-id').value;
-        body = JSON.stringify({
-            comment : Modifications,
-            id : id
+            commentInput.value = commentContent.textContent;
+            commentContent.style.display = 'none';
+            commentInput.style.display = 'inline-block';
+            commentInput.style.border = '1px solid #ccc';
+            commentInput.style.borderRadius = '20px';
+            commentInput.style.padding = '5px';
+            commentInput.style.width = '500px';
         });
-        function success(){
-            swal.fire({
-                title: "성공!",
-                icon: "success",
-                showCancelButton: false,
-                showConfirmButton: false
-            });
-            setTimeout(() => {
-                location.reload();
-            }, 1000);
-        }
-        function fail(){
-            alert("Error");
-        }
-        httpRequest('PUT',`/api/comment/${id}`,body, success, fail);
     });
-}
+    // 완료 버튼
+    document.querySelectorAll('.save-comment-btn').forEach(function(saveComment) {
+        saveComment.addEventListener('click', function() {
+            let id = this.parentElement.querySelector('input[type="hidden"]').value;
+            let Modifications = this.parentElement.querySelector('.comment-input').value;
+            body = JSON.stringify({
+               comment : Modifications,
+               id : id
+            });
+            function success(){
+                swal.fire({
+                    title: "성공!",
+                    icon: "success",
+                    showCancelButton: false,
+                    showConfirmButton: false
+                });
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            }
+            function fail(){
+                alert("ERROR");
+                location.reload();
+            }
+            httpRequest('PUT',`/api/comment/${id}`, body , success , fail);
+        });
+    });
+    //취소 버튼
+    document.querySelectorAll('.cancel-comment-btn').forEach(function(cancelComment) {
+            cancelComment.addEventListener('click', function() {
+            // 수정, 삭제 버튼 표시
+            const modifyComment= this.parentElement.querySelector('.modify-comment-btn');
+            const deleteComment = this.parentElement.querySelector('.delete-comment-btn');
+            modifyComment.style.display = 'inline-block';
+            deleteComment.style.display = 'inline-block';
+            // 완료 버튼 숨김
+            const saveComment = this.parentElement.querySelector('.save-comment-btn');
+            saveComment.style.display = 'none';
+            cancelComment.style.display= 'none';
+            // 입력 필드의 내용 원래대로 되돌리기
+            const commentContent = this.parentElement.querySelector('.comment-content');
+            const commentInput = this.parentElement.querySelector('.comment-input');
+            commentContent.style.display = 'inline-block';
+            commentInput.style.display = 'none';
+        });
+    });
+    //삭제 버튼
+    document.querySelectorAll('.delete-comment-btn').forEach(function(deleteComment) {
+        deleteComment.addEventListener('click', function() {
+            let id = this.parentElement.querySelector('input[type="hidden"]').value;
+            swal.fire({
+                title: "삭제하시겠습니까?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#6495ed",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const body = JSON.stringify({ id: id });
+                    httpRequest('DELETE', `/api/comment/${id}`, body, success, fail);
+                }
+            });
+
+            function success() {
+                location.reload();
+            }
+
+            function fail() {
+                alert('ERROR');
+                location.reload();
+            }
+        });
+    });
+});
 
 // 수정 기능
 const modifyButton = document.getElementById('modify-btn');

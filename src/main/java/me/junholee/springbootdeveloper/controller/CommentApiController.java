@@ -26,6 +26,7 @@ public class CommentApiController {
     }
     @PutMapping("/comment/{id}")
     public ResponseEntity<Comment> CommentUpdate(@RequestBody CommentResponse commentResponse){
+        System.out.println(commentResponse.getComment()+commentResponse.getId());
         Comment comment = commentService.CommentUpdate(commentResponse.getId(),commentResponse.getComment());
         return ResponseEntity.ok().body(comment);
     }
