@@ -3,7 +3,7 @@ package me.junholee.springbootdeveloper.dto.Articles;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
-//import me.junholee.springbootdeveloper.domain.ArticleImage;
+import me.junholee.springbootdeveloper.domain.ArticleImage;
 import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.CommentList.CommentResponse;
 
@@ -34,6 +34,6 @@ public class ArticleViewResponse {
         this.comment = article.getComment().stream().map(CommentResponse::new).collect(Collectors.toList());
         this.likeCount = article.getLikeCount();
         this.viewCount = article.getViewCount();
-//        this.imageUrl = article.getArticleImage().stream().map(ArticleImage::getUrl).collect(Collectors.toList());
+        this.imageUrl = article.getArticleImage().stream().map(ArticleImage::getUrl).collect(Collectors.toList());
     }
 }

@@ -13,12 +13,12 @@ spring:
     suffix: .html   # 파일 확장자
     cache: false
   datasource:
-    url: jdbc:mariadb://3.39.233.26:3306/blog
-    username: root
-    password: 1234
-#    url: jdbc:mariadb://localhost:3307/blog
+#    url: jdbc:mariadb://3.39.233.26:3306/blog
 #    username: root
-#    password: 0913
+#    password: 1234
+    url: jdbc:mariadb://localhost:3307/blog
+    username: root
+    password: 0913
     driver-class-name: org.mariadb.jdbc.Driver
   servlet:
     multipart:
@@ -32,7 +32,7 @@ spring:
           google:
             client-id: 380797568197-aqhmu0dohaetnlk359gu756tlf9c0ooq.apps.googleusercontent.com
             client-secret: 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
-            redirect-uri: https://kopmorning.com/login/oauth2/code/google
+#            redirect-uri: https://kopmorning.com/login/oauth2/code/google
             scope:
               - email
               - profile
@@ -42,5 +42,7 @@ jwt:
 
 
 file:
-#  ImagePath: C:/Users/wnsgh/img/
-  ImagePath: /img/
+  ProfileImagePath: C:/Users/wnsgh/img/profile/
+  ArticleImagePath: C:/Users/wnsgh/img/article/
+#  ProfileImagePath: /img/profile/
+#  ArticleImagePath: /img/Article/

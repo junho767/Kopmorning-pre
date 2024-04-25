@@ -50,7 +50,85 @@ if (writeComment) {
        httpRequest('POST', `/api/articles/${id}/comment` , body, success, fail);
     });
 }
+//댓글 삭제
+const DeleteComment = document.getElementById('delete-comment');
+if(DeleteComment) {
+    DeleteComment.addEventListener('click', event => {
+        let id = document.getElementById('comment-id').value;
+        let body = JSON.stringify({id: id});
+        swal.fire({
+            title: "삭제하시겠습니까?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#6495ed",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then((result) => {
+            if(result.isConfirmed){
+                httpRequest('DELETE', `/api/comment/${id}`,body,success,fail);
+            }
+        })
+       function success() {
+            location.reload();
+        }
+        function fail() {
+            alert('ERROR');
+            location.reload();
+        }
+    });
+}
+//댓글 수정
+const ModifyComment = document.getElementById('modify-comment');
+const deleteComment = document.getElementById('delete-comment');
+const saveComment = document.getElementById('save-comment');
+const commentContent = document.getElementById('comment-content');
+const commentInput = document.getElementById('comment-input');
+const cancelComment = document.getElementById('cancel-comment');
 
+
+if(ModifyComment) {
+    ModifyComment.addEventListener('click', event => {
+
+        deleteComment.style.display = 'none';
+        ModifyComment.style.display = 'none';
+        saveComment.style.display = 'inline-block';
+        cancelComment.style.display = 'inline-block';
+
+        commentInput.value = commentContent.textContent;
+        commentContent.style.display = 'none';
+        commentInput.style.display = 'inline-block';
+        commentInput.style.border = '1px solid #ccc';
+        commentInput.style.borderRadius = '20px';
+        commentInput.style.padding = '5px';
+        commentInput.style.width = '500px';
+
+    });
+}
+if(saveComment){
+    saveComment.addEventListener('click', event => {
+        let Modifications = document.getElementById('comment-input').value;
+        let id = document.getElementById('comment-id').value;
+        body = JSON.stringify({
+            comment : Modifications,
+            id : id
+        });
+        function success(){
+            swal.fire({
+                title: "성공!",
+                icon: "success",
+                showCancelButton: false,
+                showConfirmButton: false
+            });
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+        function fail(){
+            alert("Error");
+        }
+        httpRequest('PUT',`/api/comment/${id}`,body, success, fail);
+    });
+}
 
 // 수정 기능
 const modifyButton = document.getElementById('modify-btn');
@@ -77,10 +155,10 @@ if (modifyButton) {
                     icon: "success",
                     showConfirmButton:false
                 });
+                setTimeout(() => {
+                    httpRequest('PUT',`/api/articles/${id}`, body, success, fail);
+                }, 1000);
            }
-           setTimeout(() => {
-                httpRequest('PUT',`/api/articles/${id}`, body, success, fail);
-           }, 1000);
         });
         function success() {
             location.replace(`/articles/${id}`);
@@ -136,28 +214,7 @@ if (UserModifyButton) {
         checkInputs(nickname,reason,year);
     });
 }
-// 이미지를 미리보기로 표시하는 함수
-function showImageConfirm() {
-    // 파일 입력 요소에서 이미지 파일을 가져옴
-    var fileInput = document.getElementById('profileImage');
-    var file = fileInput.files[0];
 
-    // FileReader 객체를 사용하여 이미지 파일을 읽음
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        // 읽은 이미지를 Swal 알림 창에 표시
-        Swal.fire({
-            title: "이미지 미리보기",
-            imageUrl: e.target.result, // 읽은 이미지 파일의 경로
-            imageAlt: "Uploaded image"
-        });
-    }
-    // 이미지 파일을 읽음
-    reader.readAsDataURL(file);
-
-    // 폼 제출을 방지하고, 이미지 미리보기만 실행되도록 함
-    return false;
-}
 // 좋아요 기능
 const likeUpButton = document.getElementById('LikeUp-btn');
 if (likeUpButton) {

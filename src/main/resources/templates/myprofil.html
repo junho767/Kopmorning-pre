@@ -54,12 +54,12 @@
                                닉네임  : ??  -->
     <div class="test-userinfo">
         <div th:unless="${user.picture.startsWith('https://')}">
-            <img class="w140 h140 radius-circle" th:src="@{'/image/'+ ${user.picture}}" alt="User Image">
+            <img class="w140 h140 radius-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
         </div>
         <div  th:if="${user.picture.startsWith('https://')}">
             <img class="w140 h140 radius-circle" th:src="${user.picture}">
         </div>
-        <form th:action="@{/image/upload}" th:method="post" enctype="multipart/form-data" onsubmit="showImageConfirm()">
+        <form th:action="@{/image/upload}" th:method="post" enctype="multipart/form-data">
             <input class="fw" id="profileImage" type="file" name="file" accept="image/*" required>
             <button type="submit" id="image-modify">이미지 수정</button>
         </form>
@@ -72,7 +72,7 @@
         <p class="fw" th:unless="${user.year == null}" th:text="|콥 : ${user.year}|"></p>
         <div id="editForm" style="display: none;">
             <input type="text" id="userReason" placeholder="좋아하는 이유를 입력하세요">
-            <input type="number" id="year" placeholder="년도을 입력하세요">
+            <input type="number" id="year" min="2000" max="2024" placeholder="년도을 고르세요">
             <input type="text" id="userNickname" placeholder="닉네임을 입력하세요">
             <button type="button" id="modify-userInfo" class="btn btn-primary btn-sm">완료</button>
         </div>
@@ -85,10 +85,10 @@
             <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
             <div class="container-userinfo">
                 <div th:unless="${user.picture.startsWith('https://')}">
-                    <img th:src="@{'/image/'+ ${user.picture}}" alt="User Image">
+                    <img class="w140 h140 radius-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
                 </div>
-                <div th:if="${user.picture.startsWith('https://')}">
-                    <img th:src="${user.picture}">
+                <div  th:if="${user.picture.startsWith('https://')}">
+                    <img class="w140 h140 radius-circle" th:src="${user.picture}">
                 </div>
                 <div class="mt2 mb2">
                     <p th:if="${user.name == null}" th:text="|${user.nickname}님 어서오세요!|"></p>

@@ -73,18 +73,28 @@
                     <input type="text" id="comment" placeholder="댓글 작성..">
                     <button type="button" id="writeComment">댓글 달기</button>
                     <p>댓글 목록</p>
-                    <div class="">
-                        <ul th:each="comment : ${comment}">
+                    <div>
+                        <ul th:each="comment, commentIndex : ${comment}">
+                            <input type="hidden" th:id="'comment-id-' + ${commentIndex}" th:value="${comment.id}">
                             <li class="w50 comment-layout" th:unless="${comment.user.picture.startsWith('https://')}">
-                                <img th:src="@{'/image/'+ ${comment.user.picture}}" alt="User Image">
+                                <img th:src="@{'/image/'+ ${comment.user.picture}}">
                             </li>
                             <li class="w50 comment-layout" th:if="${comment.user.picture.startsWith('https://')}">
                                 <img th:src="${comment.user.picture}">
                             </li>
-                            <li class="w70 tc comment-layout"><span class="fw" th:if="${user.name == null}" th:text="${comment.user.nickname}"></span></li>
-                            <li class="w70 tc comment-layout"><span class="fw" th:unless="${user.name == null}" th:text="${comment.user.name}"></span></li>
-                            <li class="w600 comment-layout"><span class="fw" th:text="${comment.comment}"></span></li>
-                            <li class="w100 comment-layout"><span class="fw" th:text="${#temporals.format(comment.createdDate,'HH : mm')}"></span></li>
+                            <li th:if="${user.name == null}" th:text="${comment.user.nickname}" class="w70 tc comment-layout"></li>
+                            <li th:unless="${user.name == null}" th:text="${comment.user.name}" class="w70 tc comment-layout"></li>
+                            <li class="w100 comment-layout"><span th:text="${#temporals.format(comment.createdDate,'HH : mm')}"></span></li>
+                            <li class="w600 comment-layout">
+                                <span id="comment-content" th:text="${comment.comment}"></span>
+                                <input type="text" id="comment-input" style="display: none;">
+                            </li>
+
+                            <button type="button" id="delete-comment"><img class="delete-img" src="/img/delete.png"> 삭제 </button>
+                            <button type="button" id="modify-comment"><img class="modify-img" src="/img/pencil.png"> 수정 </button>
+
+                            <button type="button" id="save-comment" style="display: none;"><img class="modify-img" src="/img/green-check.png">완료 </button>
+                            <button type="button" id="cancel-comment" style="display: none;"><img class="modify-img" src="/img/red-x.png">취소 </button>
                         </ul>
                     </div>
                 </div>
@@ -97,10 +107,10 @@
             <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
             <div class="container-userinfo">
                 <div th:unless="${user.picture.startsWith('https://')}">
-                    <img th:src="@{'/image/'+ ${user.picture}}" alt="User Image">
+                    <img class="w140 h140 radius-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
                 </div>
-                <div th:if="${user.picture.startsWith('https://')}">
-                    <img th:src="${user.picture}">
+                <div  th:if="${user.picture.startsWith('https://')}">
+                    <img class="w140 h140 radius-circle" th:src="${user.picture}">
                 </div>
                 <div class="mt2 mb2">
                     <p th:if="${user.name == null}" th:text="|${user.nickname}님 어서오세요!|"></p>

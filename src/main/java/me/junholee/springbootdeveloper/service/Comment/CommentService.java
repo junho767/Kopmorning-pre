@@ -29,4 +29,14 @@ public class CommentService {
         commentRepository.save(comment);
         return request.getId();
     }
+    public void delete(long id){
+        commentRepository.deleteById(id);
+    }
+    @Transactional
+    public Comment CommentUpdate(long id,String content){
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+        comment.CommentUpdate(content);
+        return comment;
+    }
 }

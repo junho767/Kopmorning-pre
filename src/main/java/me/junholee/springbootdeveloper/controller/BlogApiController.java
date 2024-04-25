@@ -8,6 +8,7 @@ import me.junholee.springbootdeveloper.domain.SessionUser;
 import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.Articles.AddArticleRequest;
 import me.junholee.springbootdeveloper.dto.Articles.UpdateArticleRequest;
+import me.junholee.springbootdeveloper.dto.ImageDTO.ArticleImageUploadDTO;
 import me.junholee.springbootdeveloper.dto.User1.UpdateUserRequest;
 import me.junholee.springbootdeveloper.service.Blog.BlogService;
 import me.junholee.springbootdeveloper.service.Blog.ImageService;
@@ -32,10 +33,11 @@ public class BlogApiController {
     private final HttpSession httpSession;
     // "/api/articles" 경로로 POST 요청이 들어왔을 때 실행되는 메서드입니다. 여기서 주요한 기능은 새로운 글을 추가하고 그 결과를 응답하는 것입니다.
     @PostMapping("/api/articles") // 글 생성
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request
+                                            , @ModelAttribute ArticleImageUploadDTO imageUploadDTO) {
         SessionUser sessionUser = (SessionUser) httpSession.getAttribute("user");
         User user = userService.findByEmail(sessionUser.getEmail());
-        Article savedArticle = blogService.save(request, user);
+        Article savedArticle = blogService.save(request,imageUploadDTO, user);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedArticle);

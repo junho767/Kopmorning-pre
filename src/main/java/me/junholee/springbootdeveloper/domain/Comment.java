@@ -34,4 +34,8 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public void CommentUpdate(String comment){
+        this.comment = comment;
+    }
 }

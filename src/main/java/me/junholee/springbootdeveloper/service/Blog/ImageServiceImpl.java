@@ -27,7 +27,7 @@ public class ImageServiceImpl implements ImageService{
     private final ImageRepository imageRepository;
     private final UserRepository userRepository;
 
-    @Value("${file.ImagePath}")
+    @Value("${file.ProfileImagePath}")
     private String uploadFolder;
 
     @Override

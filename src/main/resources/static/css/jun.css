@@ -80,7 +80,6 @@
     text-align: center;
     align-items: center;
     justify-content: space-evenly;
-    background-color: #3b3b3b;
 }
 .liv-logo{
     width:120px;
@@ -90,14 +89,12 @@ body {
     margin: 0; /* body의 기본 margin 제거 */
     padding: 0; /* body의 기본 padding 제거 */
     min-height: 100vh; /* 화면 전체 높이를 100vh로 설정 */
-    background-color: #333333;
 }
 *{
     margin:0;
     padding:0;
 }
 .radius-circle{ border-radius: 50%; }
-.fw{color: white;}
 .mb1{ margin-bottom : 0.5rem; }
 .mb2{ margin-bottom : 1rem; }
 .mb67{ margin-bottom : 67px; }
@@ -110,6 +107,7 @@ body {
 .w45 { width:45px; }
 .w50 { width:50px; }
 .w70 { width:70px; }
+.w80 { width:80px; }
 .w85 { width:85px; }
 .w600 { width:600px; }
 .w120 { width:120px; }
@@ -151,11 +149,9 @@ a{
     float:left;
     text-align: center;
     line-height:30px;
-
 }
 .nav-menu a{
     font-family: 'WarhavenB';
-    color: #fff;
     font-size:14px;
 }
 .nav-menu > li > a:hover{
@@ -296,7 +292,6 @@ a{
     height:40px;
     line-height:40px;
     border-bottom: 1px solid #B22222;
-    color: white;
 }
 .standings > img{
     margin-left: 5px;
@@ -343,7 +338,6 @@ a{
 .comment-container{
     width: 830px;
     height: 500px;
-    border:1px solid red;
 }
 .comment-layout{
     line-height:50px;
@@ -353,6 +347,14 @@ a{
     width:45px;
     height:45px;
     border-radius:50%;
+}
+.modify-img{
+    width:10px;
+    height:10px;
+}
+.delete-img{
+    width:10px;
+    height:10px;
 }
 .schedule-box{
     border: 1px solid #b33333;
@@ -396,7 +398,6 @@ a{
 }
 .score-container > p{
     font-size: 20px;
-    color: white;
 }
 .score{
     border-radius: 10px;
@@ -408,7 +409,6 @@ a{
 }
 .score > p{
     font-size: 25px;
-    color: white;
 }
 
 .liv-won{
@@ -450,9 +450,6 @@ a{
     width:500px;
     height:500px;
     border: 1px solid red;
-}
-.test-userinfo > p{
-    color: white;
 }
 .reason-box{
     width: 300px;
@@ -501,7 +498,6 @@ a{
     margin-bottom:1px;
 }
 .stat-bottom > p {
-    color:white;
     font-size:13px;
 }
 .stat-bottom > img{
@@ -518,7 +514,6 @@ a{
     font-size:15px;
     margin-top:3px;
     margin-left:2px;
-    color:white;
     text-align:left;
     height:30px;
 }
@@ -548,14 +543,12 @@ a{
     height: 75px;
     text-size: 13px;
     line-height:75px;
-    color: white;
     text-align:center;
 }
 .top{
     height: 75px;
     text-size: 13px;
     line-height:75px;
-    color: white;
     text-align:center;
 }
 .top > img{

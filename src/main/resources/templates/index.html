@@ -1,27 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>로그인</title>
+	<title>콥모닝</title>
 
-    <link rel="stylesheet" href="/css/login.css">
-    <script src="/js/background.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body id="exampleElement" class="background-image-bg">
-<div class="container bg-dark">
-        <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
-        <div class="mt1 mb1 text-center">
-            <h1 class="font-white">LOGIN</h1>
-            <label class="font-white">------------------------</label>
-            <div class="mt2">
-                <label class="font-white text-center">구글로 로그인 하기</label>
-            </div>
+<body>
+	<img class="wave" src="">
+	<div class="container">
+		<div class="img">
+			<img src="">
+		</div>
+		<div class="login-content">
+			<form>
+				<h2 class="title mb5">Kop morning!</h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Username</h5>
+           		   		<input type="text" class="input">
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i">
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Password</h5>
+           		    	<input type="password" class="input">
+            	   </div>
+            	</div>
+            	<a href="#">Forgot Password?</a>
+            	<input type="submit" class="btn" value="Login">
+				<div class="fw mt">
+					---------------OR---------------
+				</div>
+				<div class="oauth-sign-in">
+					<a href="/oauth2/authorization/google">
+						<img class="google_logo" src="/img/google_sign_in.png">
+					</a>
+				</div>
+            </form>
         </div>
-        <div class="mt2 text-center">
-            <a href="/oauth2/authorization/google">
-                <img src="/img/google.png">
-            </a>
-        </div>
-</div>
+    </div>
+    <script src="/js/login.js"></script>
 </body>
 </html>

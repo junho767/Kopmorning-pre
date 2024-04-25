@@ -25,7 +25,7 @@
                     </section>
 
                     <div class="mb-4">
-                        <input type="file" id="image" accept="image/gif, image/jpeg, image/png" multiple="multiple/">
+                        <input type="file" name="image" accept="image/*" multiple="multiple/">
                     </div>
 
                     <button th:if="${article.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>

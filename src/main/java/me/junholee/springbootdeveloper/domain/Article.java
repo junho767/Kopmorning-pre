@@ -51,9 +51,9 @@ public class Article {
     @OrderBy("id asc")
     private List<Comment> comment;
 
-//    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-//    @OrderBy("id asc")
-//    private List<ArticleImage> articleImage;
+    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("id asc")
+    private List<ArticleImage> articleImage;
 
     @Builder
     public Article(User user, String title, String content) {
