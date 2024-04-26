@@ -54,7 +54,7 @@
                                닉네임  : ??  -->
     <div class="test-userinfo">
         <div th:unless="${user.picture.startsWith('https://')}">
-            <img class="w140 h140 radius-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+            <img class="w140 h140" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
         </div>
         <div  th:if="${user.picture.startsWith('https://')}">
             <img class="w140 h140 radius-circle" th:src="${user.picture}">
@@ -74,7 +74,7 @@
             <input type="text" id="userReason" placeholder="좋아하는 이유를 입력하세요">
             <input type="number" id="year" min="2000" max="2024" placeholder="년도을 고르세요">
             <input type="text" id="userNickname" placeholder="닉네임을 입력하세요">
-            <button type="button" id="modify-userInfo" class="btn btn-primary btn-sm">완료</button>
+            <button type="button" id="modify-userInfo" class="btn btn-primary btn-sm"><img src="/img/green-check.png"/>완료</button>
         </div>
         <button id="editButton" class="btn btn-primary btn-sm">수정하기</button>
     </div>

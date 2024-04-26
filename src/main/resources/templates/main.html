@@ -2,74 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>블로그 글 목록</title>
-    <link rel="stylesheet" href="/css/jun.css"> <!-- ref=" stylesheet"은 외부 리소스 가져오는 것-->
+    <title>콥모닝</title>
+    <link rel="stylesheet" href="/css/jun.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- ref=" stylesheet"은 외부 리소스 가져오는 것-->
 </head>
 
 <body>
-<div class="header">
-    <a th:href="@{/main}"><img class="liv-logo" src="/img/LIVLOGO.png"></a>
-</div>
-<div class="nav-container">
-    <ul class="nav-menu">
-        <li>
-            <a th:href="@{/story}">TEAM</a>
-            <ul class="submenu">
-                <li><a href="#">경력</a></li>
-                <li><a th:href="@{/team/64}">선수</a></li>
-                <li><a th:href="@{/schedule}">경기 일정</a></li>
-            </ul>
-        </li>
-        <li>
-            <a th:href="@{/articles}">ARTICLE</a>
-            <ul class="submenu">
-                <li><a th:href="@{/articles}">자유 게시판</a></li>
-                <li><a href="">뉴스 게시판</a></li>
-                <li><a href="">타 팀 게시판</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="">LEAGUE</a>
-            <ul class="submenu">
-                <li><a href="">프리미어 리그</a></li>
-                <li><a href="">유로파 리그</a></li>
-                <li><a href="">FA 컵</a></li>
-                <li><a href="">EFL 컵</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="">공지사항</a>
-            <ul class="submenu"></ul>
-        </li>
-    </ul>
+<header class="header">
+        <div class="logo">
+            <a th:href="@{/}"><img src="/img/livlogo.png"></a>
+            <h2><br>kop<br>morning!</h2>
+        </div>
+        <ul class="nav-menu">
+            <li>
+                <a th:href="@{/story}">TEAM</a>
+                <ul class="submenu">
+                    <li><a href="#">경력</a></li>
+                    <li><a th:href="@{/team/64}">선수</a></li>
+                    <li><a th:href="@{/schedule}">경기 일정</a></li>
+                </ul>
+            </li>
+            <li>
+                <a th:href="@{/articles}">ARTICLE</a>
+                <ul class="submenu">
+                    <li><a th:href="@{/articles}">자유 게시판</a></li>
+                    <li><a href="">뉴스 게시판</a></li>
+                    <li><a href="">타 팀 게시판</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="">LEAGUE</a>
+                <ul class="submenu">
+                    <li><a href="">프리미어 리그</a></li>
+                    <li><a href="">유로파 리그</a></li>
+                    <li><a href="">FA 컵</a></li>
+                    <li><a href="">EFL 컵</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="">공지사항</a>
+                <ul class="submenu"></ul>
+            </li>
+        </ul>
+</header>
 
-</div>
 <div class="container">
 
     <div class="advertisement">
-        <div class="container-standings">
-            <ul>
-                <li class="standings w30 mt2">순위</li>
-                <li class="standings w100 mt2">클럽</li>
-                <li class="standings w30 mt2">경기</li>
-                <li class="standings w30 mt2">승</li>
-                <li class="standings w30 mt2">무</li>
-                <li class="standings w30 mt2">득실</li>
-                <li class="standings w30 mt2">승점</li>
-            </ul>
-            <th:block th:each="team : ${standing}">
-                <ul>
-                    <li class="standings w30 mt1"><span th:text="${team.position}"></span> </li>
-                    <li class="standings w30 mt1"><img th:src="@{${team.team.team_crest}}" alt="no"/></li>
-                    <li class="standings w70 mt1"><span th:text="${team.team.team_tla}"></span></li>
-                    <li class="standings w30 mt1"><span th:text="${team.played_games}"></span></li>
-                    <li class="standings w30 mt1"><span th:text="${team.won}"></span></li>
-                    <li class="standings w30 mt1"><span th:text="${team.draw}"></span></li>
-                    <li class="standings w30 mt1"><span th:text="${team.goal_difference}"></span></li>
-                    <li class="standings w30 mt1"><span th:text="${team.points}"> </span></li>
-                </ul>
-            </th:block>
-        </div>
+
     </div>
 
     <div class="section">
@@ -101,7 +84,32 @@
 <div class="bottom">
 
 </div>
+<script>
+    window.onload = function() {
+    var token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰 읽어오기
+    var isLoggedIn = false;
+    alter(token);
+    // 토큰이 존재하고 유효한지 여부를 검사하는 API 요청 등을 수행할 수 있습니다.
+    // 이 부분은 서버와의 통신이 필요하므로 실제 환경에 따라 구현 방법이 달라질 수 있습니다.
+
+    // 여기에서는 단순히 토큰이 존재하고 비어있지 않은 경우를 로그인된 상태로 처리합니다.
+    if (token && token !== "") {
+        isLoggedIn = true;
+    }
+
+    if (isLoggedIn) {
+        // 로그인된 상태일 때
+        document.querySelector('.login-content').style.display = 'none';
+        document.querySelector('.container-side').style.display = 'block';
+    } else {
+        // 로그인되지 않은 상태일 때
+        document.querySelector('.login-content').style.display = 'block';
+        document.querySelector('.container-side').style.display = 'none';
+    }
+};
+</script>
 <script src="/js/article.js"></script>
 <script src="/js/token.js"></script>
+<script src="/js/login.js"></script>
 </body>
 </html>
