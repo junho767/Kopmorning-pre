@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="">
 <head>
     <meta charset="UTF-8">
     <title>블로그 글</title>
@@ -13,23 +13,21 @@
     <div class="container mt-5">
         <div class="low">
             <div class="col-lg-8">
-                <article>
-                    <input type="hidden" id="article-id" th:value="${article.id}">
-
-                    <header class="mb-4">
-                        <input type="text" class="form-control" placeholder="제목" id="title" th:value="${article.title}">
-                    </header>
-
-                    <section class="mb-5">
-                        <textarea class="form-control h-25" rows="10" placeholder="내용" id="content" th:text="${article.content}"></textarea>
-                    </section>
-
-                    <div class="mb-4">
-                        <input type="file" name="image" accept="image/*" multiple="multiple/">
-                    </div>
-
-                    <button th:if="${article.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>
-                    <button th:if="${article.id} == null" type="button" id="create-btn" class="btn btn-primary btn-sm">등록</button>
+                <article layout:fragment="content">
+                    <form th:method="post" th:action="@{/api/articles}" enctype="multipart/form-data">
+                        <input type="hidden" id="article-id" th:value="${article.id}">
+                        <header class="mb-4">
+                            <input type="text" class="form-control" placeholder="제목" name="title" th:value="${article.title}">
+                        </header>
+                        <section class="mb-5">
+                            <textarea class="form-control h-25" rows="10" placeholder="내용" name="content" th:text="${article.content}"></textarea>
+                        </section>
+                        <div class="mb-4">
+                            <input type="file" name="files" class="form-control" id="files" multiple/>
+                        </div>
+                        <button th:if="${article.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>
+                        <button th:if="${article.id} == null" type="submit" class="btn btn-primary btn-sm">등록</button>
+                    </form>
                 </article>
             </div>
             <div class="comment-container">

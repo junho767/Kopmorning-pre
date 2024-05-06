@@ -30,10 +30,10 @@ public class Article {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(columnDefinition = "integer default 0",nullable = false)
+    @Column(columnDefinition = "integer default 0", nullable = false)
     private int viewCount;
 
-    @Column(columnDefinition = "integer default 0",nullable = false)
+    @Column(columnDefinition = "integer default 0", nullable = false)
     private int likeCount;
 
     @CreatedDate

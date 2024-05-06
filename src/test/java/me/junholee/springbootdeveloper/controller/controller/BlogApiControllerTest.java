@@ -64,17 +64,17 @@ class BlogApiControllerTest {
     }
 
 
-    @BeforeEach
-    void setSecurityContext() {
-        userRepository.deleteAll();
-        user = userRepository.save(User.builder()
-                .email("user@gmail.com")
-                .password("test")
-                .build());
-
-        SecurityContext context = SecurityContextHolder.getContext();
-        context.setAuthentication(new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities()));
-    }
+//    @BeforeEach
+//    void setSecurityContext() {
+//        userRepository.deleteAll();
+//        user = userRepository.save(User.builder()
+//                .email("user@gmail.com")
+//                .password("test")
+//                .build());
+//
+//        SecurityContext context = SecurityContextHolder.getContext();
+//        context.setAuthentication(new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities()));
+//    }
 
 
     @DisplayName("addArticle: 아티클 추가에 성공한다.")

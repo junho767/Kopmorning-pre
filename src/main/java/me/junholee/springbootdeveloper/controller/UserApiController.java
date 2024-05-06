@@ -1,29 +1,55 @@
-//package me.junholee.springbootdeveloper.controller;
-//
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import lombok.RequiredArgsConstructor;
-//import me.junholee.springbootdeveloper.dto.User1.AddUserRequest;
-//import me.junholee.springbootdeveloper.service.UserS.UserService;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PostMapping;
-//
-//@RequiredArgsConstructor
-//@Controller
-//public class UserApiController {
-//
-//    private final UserService userService;
-//    @PostMapping("/user")
-//    public String signup(AddUserRequest request){
-//        userService.save(request); //회원가입 메서드 호출
-//        return "redirect:/login"; // 회원 가입이 완료된 이후에 로그인 페이지로 이동
-//    }
-//    @GetMapping("/logout")
-//    public String logout(HttpServletRequest request, HttpServletResponse response) {
-//        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-//        return "redirect:/login";
-//    }
-//}
+package me.junholee.springbootdeveloper.controller;
+
+import me.junholee.springbootdeveloper.config.oauth.PrincipalDetails;
+import me.junholee.springbootdeveloper.domain.Role;
+import me.junholee.springbootdeveloper.domain.User;
+import me.junholee.springbootdeveloper.dto.User1.UpdateUserRequest;
+import me.junholee.springbootdeveloper.repository.UserRepository;
+import me.junholee.springbootdeveloper.service.Member.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@Controller
+public class UserApiController {
+    @Autowired private UserRepository userRepository;
+    @Autowired private UserService userService;
+    @Autowired private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @GetMapping("/loginForm")
+    public String loginForm(){
+        return "login";
+    }
+
+    @GetMapping("/joinForm")
+    public String joinForm(){
+        return "join";
+    }
+
+    @PostMapping("/join")
+    public String join(@ModelAttribute User user){
+        user.setRole(Role.ROLE_USER);
+        user.setPicture("default_userImage.png");
+        String encodePwd = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(encodePwd);
+
+        userRepository.save(user);  //반드시 패스워드 암호화해야함
+        return "redirect:/loginForm";
+    }
+    @PostMapping("/api/myProFil")
+    public ResponseEntity<User> updateUser(@RequestBody UpdateUserRequest request, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        User user = principalDetails.getUser();
+        String email = user.getEmail();
+        User updateUser = userService.UpdateUser(email, request);
+
+        return ResponseEntity.ok()
+                .body(updateUser);
+    }
+}

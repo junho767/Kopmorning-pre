@@ -18,7 +18,7 @@ public class Image {
     @Column(nullable = false)
     private String url;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "User_ID")
     private User user;
 

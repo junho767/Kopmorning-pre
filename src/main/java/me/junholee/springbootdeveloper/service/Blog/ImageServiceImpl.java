@@ -34,7 +34,6 @@ public class ImageServiceImpl implements ImageService{
     public void upload(ImageUploadDTO imageUploadDTO, String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("이메일이 존재하지 않습니다."));
         MultipartFile file = imageUploadDTO.getFile();
-
         UUID uuid = UUID.randomUUID();
         String imageFileName = uuid + "_" + file.getOriginalFilename();
 
@@ -47,6 +46,8 @@ public class ImageServiceImpl implements ImageService{
             if (image != null) {
                 // 이미지가 이미 존재하면 url 업데이트
                 image.updateUrl(imageFileName);
+                user.update(image.getUrl());
+                userRepository.save(user);
             } else {
                 // 이미지가 없으면 객체 생성 후 저장
                 image = Image.builder()
@@ -55,8 +56,7 @@ public class ImageServiceImpl implements ImageService{
                         .build();
             }
             imageRepository.save(image);
-            user.update(image.getUrl());
-            userRepository.save(user);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

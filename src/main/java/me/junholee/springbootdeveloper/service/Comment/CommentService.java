@@ -2,6 +2,7 @@ package me.junholee.springbootdeveloper.service.Comment;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import me.junholee.springbootdeveloper.config.oauth.PrincipalDetailsService;
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.Comment;
 import me.junholee.springbootdeveloper.domain.User;
@@ -9,6 +10,7 @@ import me.junholee.springbootdeveloper.dto.CommentList.CommentRequest;
 import me.junholee.springbootdeveloper.repository.BlogRepository;
 import me.junholee.springbootdeveloper.repository.CommentRepository;
 import me.junholee.springbootdeveloper.repository.UserRepository;
+import me.junholee.springbootdeveloper.service.Member.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,10 +20,10 @@ import java.util.Optional;
 public class CommentService {
     private final CommentRepository commentRepository;
     private final BlogRepository blogRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
     @Transactional
-    public Long commentSave(String email, Long id, CommentRequest request){
-        User user = userRepository.findByEmail(email).orElse(null);
+    public Long commentSave(String username, Long id, CommentRequest request){
+        User user = userService.findByUserName(username);
         Article article = blogRepository.findById(id).orElse(null);
         request.setUser(user);
         request.setArticle(article);

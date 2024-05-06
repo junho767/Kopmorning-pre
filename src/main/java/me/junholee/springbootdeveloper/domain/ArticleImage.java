@@ -15,7 +15,7 @@ public class ArticleImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column(name = "url")
     private String url;
 
     @ManyToOne

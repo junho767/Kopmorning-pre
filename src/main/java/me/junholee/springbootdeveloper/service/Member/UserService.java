@@ -3,10 +3,8 @@ package me.junholee.springbootdeveloper.service.Member;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.User1.AddUserRequest;
 import me.junholee.springbootdeveloper.dto.User1.UpdateUserRequest;
 import me.junholee.springbootdeveloper.repository.UserRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +14,14 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public Long save(AddUserRequest dto) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-        return userRepository.save(User.builder()
-                .email(dto.getEmail())
-                .password(encoder.encode(dto.getPassword()))
-                .build()).getId();
-    }
+//    public Long save(AddUserRequest dto) {
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//
+//        return userRepository.save(User.builder()
+//                .email(dto.getEmail())
+//                .password(encoder.encode(dto.getPassword()))
+//                .build()).getId();
+//    }
 
     public User findById(Long userId) {
         return userRepository.findById(userId)
@@ -33,6 +31,9 @@ public class UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    }
+    public User findByUserName(String username){
+        return userRepository.findByUsername(username);
     }
     @Transactional
     //트랜잭션을 관리하기 위해 사용됩니다.

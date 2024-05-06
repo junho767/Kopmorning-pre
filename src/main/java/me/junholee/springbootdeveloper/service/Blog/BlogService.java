@@ -2,27 +2,29 @@ package me.junholee.springbootdeveloper.service.Blog;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
+import me.junholee.springbootdeveloper.domain.ArticleImage;
 import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.Articles.AddArticleRequest;
 import me.junholee.springbootdeveloper.dto.Articles.UpdateArticleRequest;
 import me.junholee.springbootdeveloper.dto.ImageDTO.ArticleImageUploadDTO;
 import me.junholee.springbootdeveloper.repository.ArticleImageRepository;
 import me.junholee.springbootdeveloper.repository.BlogRepository;
-import me.junholee.springbootdeveloper.service.Member.UserDetailService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
 public class BlogService {
 
     private final BlogRepository blogRepository;
-    private final UserDetailService userDetailService;
     private final ArticleImageRepository articleImageRepository;
 
     @Value("${file.ArticleImagePath}")
@@ -37,24 +39,23 @@ public class BlogService {
 
         blogRepository.save(result);
 
-//        if(imageUploadDTO.getFiles() != null && !imageUploadDTO.getFiles().isEmpty()){
-//            System.out.println("왔냐?");
-//            for(MultipartFile file : imageUploadDTO.getFiles()) {
-//                UUID uuid = UUID.randomUUID();
-//                String article_image_name = uuid + "_" + file.getOriginalFilename();
-//                File destinationFile = new File(uploadFolder + article_image_name);
-//                try {
-//                    file.transferTo(destinationFile);
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                ArticleImage image = ArticleImage.builder()
-//                        .url(article_image_name)
-//                        .article(result)
-//                        .build();
-//                articleImageRepository.save(image);
-//            }
-//        }
+        if(imageUploadDTO.getFiles() != null && !imageUploadDTO.getFiles().isEmpty()){
+            for(MultipartFile file : imageUploadDTO.getFiles()) {
+                UUID uuid = UUID.randomUUID();
+                String article_image_name = uuid + "_" + file.getOriginalFilename();
+                File destinationFile = new File(uploadFolder + article_image_name);
+                try {
+                    file.transferTo(destinationFile);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                ArticleImage image = ArticleImage.builder()
+                        .url(article_image_name)
+                        .article(result)
+                        .build();
+                articleImageRepository.save(image);
+            }
+        }
         return result;
     }
 
@@ -73,30 +74,25 @@ public class BlogService {
         article1.setViewCount(article1.getViewCount()+1);
         this.blogRepository.save(article1);
     }
-    public void delete(long id) {
+    public void delete(long id,String username) {
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
-
-        authorizeArticleAuthor(article);
+        authorizeArticleAuthor(article,username);
         blogRepository.delete(article);
     }
 
     @Transactional
-    public Article update(long id, UpdateArticleRequest request) {
+    public Article update(long id, UpdateArticleRequest request,String userName) {
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
-
-        authorizeArticleAuthor(article);
+        authorizeArticleAuthor(article,userName);
         article.update(request.getTitle(), request.getContent());
-
         return article;
     }
 
     // 게시글을 작성한 유저인지 확인
-    private void authorizeArticleAuthor(Article article) {
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userDetailService.loadUserByUsername(userName);
-        if (!article.getUser().getEmail().equals(user.getEmail())) {
+    private void authorizeArticleAuthor(Article article,String userName) {
+        if (!article.getUser().getUsername().equals(userName)) {
             throw new IllegalArgumentException("not authorized");
         }
     }
