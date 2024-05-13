@@ -15,9 +15,10 @@ import me.junholee.springbootdeveloper.domain.User;
 public class AddArticleRequest {
     private String title;
     private String content;
-
-    public AddArticleRequest(String title, String content){
+    private String articleType;
+    public AddArticleRequest(String title, String content, String articleType){
         this.title = title;
         this.content = content;
+        this.articleType = articleType;
     }
 }

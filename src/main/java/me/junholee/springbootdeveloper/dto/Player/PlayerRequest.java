@@ -38,14 +38,11 @@ public class PlayerRequest {
         for(int i=0 ; i<20 ; i++){
             Team team;
             JSONObject jsonObject = (JSONObject) jsonArray.get(i);
-            JSONArray jsonCoaches = (JSONArray) jsonObject.get("coaches");
-            JSONObject jsonCoache = (JSONObject) jsonCoaches.get(0);
 
             JSONObject jsonVenue = (JSONObject) jsonObject.get("venue");
             JSONArray jsonPlayers = (JSONArray) jsonObject.get("players");
 
             String team_name = (String) jsonObject.get("team_name");
-            String coach_name = (String) jsonCoache.get("coach_name");
             String venue_name = (String) jsonVenue.get("venue_name");
 
             if(team_name.equals("Luton Town")){
@@ -55,8 +52,6 @@ public class PlayerRequest {
             } else{
                 team = teamService.findByVenue_teamId(venue_name);
             }
-            System.out.println("시발"+team);
-            team.setCoach(coach_name);
             // 선수 정보 저장 하는 반복문
             for(int j=0;j<jsonPlayers.size();j++){
 

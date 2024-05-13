@@ -17,6 +17,7 @@ public class CommentResponse {
     private Long articleId;
     private User user;
     private String image;
+    private int likesCount;
 
     public CommentResponse(Comment comment){
         this.id = comment.getId();
@@ -26,5 +27,6 @@ public class CommentResponse {
         this.createdDate = comment.getCreatedDate();
         this.user = comment.getUser();
         this.image = comment.getUser().getPicture();
+        this.likesCount = comment.getLikeCount();
     }
 }

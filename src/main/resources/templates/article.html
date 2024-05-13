@@ -3,154 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <title>블로그 글</title>
-    <link rel="stylesheet" href="/css/jun.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 <header>
     <div class="logo">
-        <a th:href="@{/}"><img src="/img/livlogo.png"></a>
-        <h2><br>kop<br>morning!</h2>
+        <a th:href="@{/}"><img src="/img/LIV_Logo.png"></a>
+        <p>KOP<br>MORNING!</p>
     </div>
-    <nav>
-        <ul>
-            <li>
-                <a th:href="@{/story}">TEAM</a>
-                <ul class="submenu">
-                    <li><a href="#">경력</a></li>
-                    <li><a th:href="@{/team/64}">선수</a></li>
-                    <li><a th:href="@{/schedule}">경기 일정</a></li>
-                </ul>
-            </li>
-            <li>
-                <a th:href="@{/articles}">ARTICLE</a>
-                <ul class="submenu">
-                    <li><a th:href="@{/articles}">자유 게시판</a></li>
-                    <li><a href="">뉴스 게시판</a></li>
-                    <li><a href="">타 팀 게시판</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="">LEAGUE</a>
-                <ul class="submenu">
-                    <li><a href="">프리미어 리그</a></li>
-                    <li><a href="">유로파 리그</a></li>
-                    <li><a href="">FA 컵</a></li>
-                    <li><a href="">EFL 컵</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="">공지사항</a>
-                <ul class="submenu"></ul>
-            </li>
-        </ul>
+    <nav class="ml2">
+        <a th:href="@{/}">HOME</a>
+        <a th:href="@{/story}">TEAM</a>
+        <a th:href="@{/articles}">ARTICLE</a>
+        <a href="">LEAGUE</a>
+        <a th:href="@{/notice}">NOTICE</a>
     </nav>
+    <div class="login">
+        <div sec:authorize="isAnonymous()">
+            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
+            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
+        </div>
+        <div class="user-info" sec:authorize="isAuthenticated()">
+            <div th:unless="${user.picture.startsWith('https://')}">
+                <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+            </div>
+            <div th:if="${user.picture.startsWith('https://')}">
+                <img class="mt10 w60 h60 border-circle" th:src="${user.picture}">
+            </div>
+            <div>
+                <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
+                <div class="ml2">
+                    <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
+                    <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
-<div class="container">
-
-    <div class="advertisement">
-
-    </div>
-
-    <div class="section">
-        <div class="col-lg-8">
-            <button type="button" id="modify-btn" th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${article.id})}'|"
-                    class="btn btn-primary btn-sm">수정</button>
-            <button type="button" id="delete-btn" class="btn btn-secondary btn-sm">삭제</button>
-            <button class="btn btn-primary btn-sm" type="button" id="LikeUp-btn">좋아요</button>
-            <article>
-                <input type="hidden" id="article-id" th:value="${article.id}">
-                <div class="mb2">
-                    <p class="f30 mb1" th:text="${article.title}"></p>
-                    <p th:text="|좋아요 수 : ${article.likeCount}|"></p>
-                    <p th:text="|조회한 수 : ${article.viewCount}|"></p>
-                    <div class="mb2" th:if="${article.user.nickname == null}" th:text="|Posted on ${#temporals.format(article.createdAt, 'MM-dd HH:mm')} By ${article.user.username}|"></div>
-                    <div class="mb2" th:unless="${article.user.nickname == null}" th:text="|Posted on ${#temporals.format(article.createdAt, 'MM-dd HH:mm')} By ${article.user.nickname}|"></div>
+<section>
+    <article>
+        <input type="hidden" id="article-id" th:value="${article.id}">
+        <div class="titleContainer">
+            <div class="top">
+                <span th:text="${article.title}"></span>
+                <p th:text="|Posted on ${#temporals.format(article.createdAt, 'YY년 MM월 dd일 HH:mm')}|"></p>
+            </div>
+            <div class="author">
+                <div>
+                    <p class="font-black font-size20">작성자 :</p>
+                    <img class="ml0 w60 h60 border-circle"
+                         th:src="${article.user.picture.startsWith('https://') ? article.user.picture : '/profileImage/' + article.user.picture}"
+                         alt="User Image">
+                    <a class="ml0 font-black font-size20" href="#" th:text="${article.user.nickname != null ? article.user.nickname : article.user.username}"></a>
                 </div>
-                <section class="mb67">
-                    <p class="f15" th:text="${article.content}"></p>
-                </section>
-                <articleImage th:if="${article_image != null}" th:each="article_image : ${article_image}">
-                    <img th:src="@{'/articleImage/'+${article_image}}" alt="게시물 이미지">
-                </articleImage>
-                <div th:if="${article_image == null}">
-                    <p> 이미지는 없음 </p>
+                <p th:text="${article.articleType}"></p>
+                <table>
+                    <tr>
+                        <th><button type="button" id="LikeUp-btn" class="button font-black font-size16">추천</button></th>
+                        <th>방문</th>
+                        <th><button type="button" class="button font-black font-size16"
+                                    th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${article.id})}'|">수정</button></th>
+                    </tr>
+                    <tr>
+                        <th th:text="${article.likeCount}"></th>
+                        <th th:text="${article.viewCount}"></th>
+                        <th><button type="button" id="delete-btn" class="button font-black font-size16">삭제</button></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="contentContainer">
+            <pre th:text="${article.content}"></pre>
+        </div>
+        <div class="articleImageContainer" th:if="${article_image != null}" th:each="article_image : ${article_image}">
+            <img th:src="@{'/articleImage/'+${article_image}}" alt="게시물 이미지" class="article-image clickable">
+        </div>
+
+        <div class="commentContainer">
+            <div class="comment-top">
+                <p>댓글<span class="ml1 w100" th:text="|(${comment.size()})|">(0)</span></p>
+                <div class="dpFlex alignCenter">
+                    <textarea style="width:90%;" id="comment" placeholder="댓글 작성.."></textarea>
+                    <button type="button" class="button font-black" id="writeComment">댓글 달기</button>
                 </div>
-                <div class="comment-container">
-                    <input type="text" id="comment" placeholder="댓글 작성..">
-                    <button type="button" id="writeComment">댓글 달기</button>
-                    <p>댓글 목록</p>
-                    <div>
-                        <ul th:each="comment, commentIndex : ${comment}">
-                            <input type="hidden" id="comment-id" th:value="${comment.id}">
-                            <li class="w50 comment-layout" th:unless="${comment.user.picture.startsWith('https://')}">
-                                <img th:src="@{'/profileImage/'+ ${comment.user.picture}}">
-                            </li>
-                            <li class="w50 comment-layout" th:if="${comment.user.picture.startsWith('https://')}">
-                                <img th:src="${comment.user.picture}">
-                            </li>
-                            <li th:if="${comment.user.nickname == null}" th:text="${comment.user.username}" class="w70 tc comment-layout"></li>
-                            <li th:unless="${comment.user.nickname == null}" th:text="${comment.user.nickname}" class="w70 tc comment-layout"></li>
-                            <li class="w100 comment-layout"><span th:text="${#temporals.format(comment.createdDate,'HH : mm')}"></span></li>
-                            <li class="w600 comment-layout">
-                                <span class="comment-content" th:text="${comment.comment}"></span>
-                                <input type="text" class="comment-input" style="display: none;">
-                            </li>
-
-                            <button type="button" class="delete-comment-btn"><img src="/img/delete.png"> 삭제 </button>
-                            <button type="button" class="modify-comment-btn"><img src="/img/pencil.png"> 수정 </button>
-
-                            <button type="button" style="display: none;" class="save-comment-btn"><img class="modify-img" src="/img/green-check.png"> 완료 </button>
-                            <button type="button" style="display: none;" class="cancel-comment-btn"><img class="modify-img" src="/img/red-x.png"> 취소 </button>
-                        </ul>
+            </div>
+            <div class="ml0 comment-list" th:each="comment, commentIndex : ${comment}">
+                <input type="hidden" id="comment-id" th:value="${comment.id}">
+                <div class="mt10 dpFlex jsSB">
+                    <div class="dpFlex alignCenter">
+                        <img class="w30 h30 boarder-circle" th:src="${comment.user.picture.startsWith('https://') ? comment.user.picture : '/profileImage/' + comment.user.picture}">
+                        <p class="w70 ml0" th:text="${comment.user.nickname == null} ? ${comment.user.username} : ${comment.user.nickname}"></p>
+                        <button type="button" class="button Like-comment-btn"><img class="w15 h15" src="/img/green-check.png"></button>
+                        <p th:text="| 좋아요 (${comment.likesCount})|"></p>
+                        <button type="button" class="button delete-comment-btn"><img class="w15 h15" src="/img/delete.png"></button>
+                        <button type="button" class="button modify-comment-btn"><img class="w15 h15" src="/img/pencil.png"></button>
+                        <button type="button" style="display: none;" class="button save-comment-btn"><img class="w15 h15" src="/img/green-check.png"></button>
+                        <button type="button" style="display: none;" class="button cancel-comment-btn"><img class="w15 h15" src="/img/red-x.png"></button>
                     </div>
+                    <span class="w100" th:text="${#temporals.format(comment.createdDate,'HH : mm')}"></span>
                 </div>
-            </article>
-        </div>
-    </div>
-
-    <div class="aside">
-        <div class="container-side">
-            <div class="buttons" sec:authorize="isAnonymous()">
-                <button class="btn-hover color-11" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
-                <button class="btn-hover color-11" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
-                <p style="color:white;">-------------OR-------------</p>
-                <div class="oauth-signIn">
-                    <a href="/oauth2/authorization/google">
-                        <img class="google_logo" src="/img/google_sign_in.png">
-                    </a>
-                </div>
-            </div>
-            <div sec:authorize="isAuthenticated()" class="container-userinfo">
-                <div th:unless="${user.picture.startsWith('https://')}">
-                    <img class="w140 h140 radius-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
-                </div>
-                <div  th:if="${user.picture.startsWith('https://')}">
-                    <img class="w140 h140 radius-circle" th:src="${user.picture}">
-                </div>
-                <div class="mt2 mb2">
-                    <p th:if="${user.nickname == null}" th:text="|${user.username}님 어서오세요!|"></p>
-                    <p th:unless="${user.nickname == null}" th:text="|${user.nickname}님 어서오세요!|"></p>
-                </div>
-                <div class="mt2">
-                    <button type="button" class="my-profile" onclick="location.href='/myprofil'">내 정보</button>
-                    <button type="button" class="logout-btn" onclick="location.href='/logout'">로그아웃</button>
+                <div class="comment-layout">
+                    <pre class="comment-content" th:text="${comment.comment}"></pre>
+                    <textarea class="comment-input" style="display: none;"></textarea>
                 </div>
             </div>
         </div>
+    </article>
+</section>
+<div class="modal-background" id="image-modal">
+    <div class="modal-content">
+        <button class="close-modal">&times; Close</button>
+        <img src="" alt="Full Size Image" id="modal-image">
     </div>
-</div>
-<div class="bottom">
-
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-    $("nav > ul > li").mouseenter(function(){
-      $(this).children(".submenu").stop().slideDown(400);
-    });
-    $("nav > ul > li").mouseleave(function(){
-      $(this).children(".submenu").stop().slideUp(100);
-    });
-</script>
 <script src="/js/article.js"></script>
 <script src="/js/comment.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

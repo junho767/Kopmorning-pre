@@ -7,10 +7,7 @@ import me.junholee.springbootdeveloper.service.Like.LikeService;
 import me.junholee.springbootdeveloper.service.Member.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -23,8 +20,15 @@ public class LikeAPIController {
     @PostMapping("/up/{id}")
     public ResponseEntity addLike(@PathVariable long id, Principal principal){
         User user = userService.findByUserName(principal.getName());
-        likeService.addLike(user,id);
+        likeService.articleLike(user,id);
 
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+    @PostMapping("/up/comment/{id}")
+    public ResponseEntity commentLike(@PathVariable long id, Principal principal){
+
+        User user = userService.findByUserName(principal.getName());
+        likeService.commentLike(user,id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

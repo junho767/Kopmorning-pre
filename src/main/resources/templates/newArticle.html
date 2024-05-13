@@ -1,42 +1,81 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>블로그 글</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <div class="p-5 mb-5 text-center</> bg-light">
-        <h1 style="color:#FF0000" class="mb-3">LIVERPOOL BOLG</h1>
-        <h4 style="color:#000000" class="mb-3">WELCOME TO KOPS BOLG!</h4>
+<header>
+    <div class="logo">
+        <a th:href="@{/}"><img src="/img/LIV_Logo.png"></a>
+        <p>KOP<br>MORNING!</p>
     </div>
-    <div class="container mt-5">
-        <div class="low">
-            <div class="col-lg-8">
-                <article layout:fragment="content">
-                    <form th:method="post" th:action="@{/api/articles}" enctype="multipart/form-data">
-                        <input type="hidden" id="article-id" th:value="${article.id}">
-                        <header class="mb-4">
-                            <input type="text" class="form-control" placeholder="제목" name="title" th:value="${article.title}">
-                        </header>
-                        <section class="mb-5">
-                            <textarea class="form-control h-25" rows="10" placeholder="내용" name="content" th:text="${article.content}"></textarea>
-                        </section>
-                        <div class="mb-4">
-                            <input type="file" name="files" class="form-control" id="files" multiple/>
-                        </div>
-                        <button th:if="${article.id} != null" type="button" id="modify-btn" class="btn btn-primary btn-sm">수정</button>
-                        <button th:if="${article.id} == null" type="submit" class="btn btn-primary btn-sm">등록</button>
-                    </form>
-                </article>
+    <nav class="ml2">
+        <a th:href="@{/}">HOME</a>
+        <a th:href="@{/team}">TEAM</a>
+        <a th:href="@{/articles}">ARTICLE</a>
+        <a href="">LEAGUE</a>
+        <a th:href="@{/notice}">NOTICE</a>
+    </nav>
+    <div class="login">
+        <div sec:authorize="isAnonymous()">
+            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
+            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
+        </div>
+        <div class="user-info" sec:authorize="isAuthenticated()">
+            <div th:unless="${user.picture.startsWith('https://')}">
+                <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
             </div>
-            <div class="comment-container">
-
+            <div th:if="${user.picture.startsWith('https://')}">
+                <img class="mt10 w60 h60 border-circle" th:src="${user.picture}">
+            </div>
+            <div class="dpFlex alignCenter column">
+                <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
+                <div class="ml2">
+                    <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
+                    <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+                </div>
             </div>
         </div>
     </div>
-    <script src="/js/article.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script src="sweetalert2.all.min.js"></script>
+</header>
+<section>
+    <div class="article-Form">
+        <form id="articleForm" method="post" th:action="@{/api/articles}" enctype="multipart/form-data">
+            <input type="hidden" id="article-id" th:value="${article.id}">
+            <input type="hidden" name="redirectPath" id="redirectPath">
+            <div th:if="${article.id} == null">
+                <label class="font-white" for="articleSelect"> 카테고리 </label>
+                <select name="articleSelect" id="articleSelect">
+                    <option value="" disabled selected>선택하기</option>
+                    <option value="자유 게시판">자유 게시판</option>
+                    <option value="News">뉴스 게시판</option>
+                    <option value="liverpool">리버풀 게시판</option>
+                </select>
+            </div>
+            <div th:if="${article.id} != null">
+                <p th:text="${article.articleType}" class="font-white"></p>
+            </div>
+            <input type="text" class="titleInput" placeholder="제목" id="title" name="title" th:value="${article.title}" maxlength="25">
+            <textarea rows="10" class="contentInput" placeholder="내용" id="content" name="content" th:text="${article.content}"></textarea>
+            <input type="file" name="files" class="form-control" id="files" multiple/>
+            <button th:if="${article.id} != null" type="button" id="modify-btn" class="button font-black">수정</button>
+            <button th:if="${article.id} == null" type="submit" class="button font-black">등록</button>
+        </form>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if(sessionStorage.getItem('previousPage') != null){
+            var previousPage = sessionStorage.getItem('previousPage');
+            document.getElementById('redirectPath').value = previousPage;
+            sessionStorage.removeItem('previousPage');  // 사용 후 세션 스토리지에서 제거
+       }
+    });
+</script>
+<script src="/js/article.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="sweetalert2.all.min.js"></script>
 </body>
 </html>

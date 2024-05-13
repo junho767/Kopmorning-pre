@@ -3,6 +3,7 @@ package me.junholee.springbootdeveloper.dto.Team;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.junholee.springbootdeveloper.domain.Coach;
 import me.junholee.springbootdeveloper.domain.Team;
 
 @NoArgsConstructor
@@ -14,6 +15,7 @@ public class TeamResponse {
     private String teamShortName;
     private String teamCrest;
     private String venue;
+    private Coach coach;
 
     public TeamResponse(Team team) {
         this.id = team.getId();
@@ -22,5 +24,6 @@ public class TeamResponse {
         this.teamShortName = team.getTeam_shortName();
         this.teamCrest = team.getTeam_crest();
         this.venue = team.getVenue();
+        this.coach = team.getCoach();
     }
 }

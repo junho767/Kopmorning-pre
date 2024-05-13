@@ -23,7 +23,8 @@ public class Article {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "content", nullable = false)
+    @Lob
+    @Column(columnDefinition = "LONGTEXT", name = "content", nullable = false)
     private String content;
 
     @ManyToOne
@@ -55,11 +56,15 @@ public class Article {
     @OrderBy("id asc")
     private List<ArticleImage> articleImage;
 
+    @Column(name = "articleType",nullable = false)
+    private String articleType;
+
     @Builder
-    public Article(User user, String title, String content) {
+    public Article(User user, String title, String content,String articleType) {
         this.user = user;
         this.title = title;
         this.content = content;
+        this.articleType = articleType;
     }
 
     public void update(String title, String content) {

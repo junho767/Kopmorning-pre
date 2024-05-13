@@ -2,125 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>블로그 글 목록</title>
-    <link rel="stylesheet" href="/css/jun.css"> <!-- ref=" stylesheet"은 외부 리소스 가져오는 것-->
+    <title>TEAM</title>
+    <link rel="stylesheet" href="/css/main.css"> <!-- ref=" stylesheet"은 외부 리소스 가져오는 것-->
 </head>
 
 <body>
 <header>
     <div class="logo">
-        <a th:href="@{/}"><img src="/img/livlogo.png"></a>
-        <h2><br>kop<br>morning!</h2>
+        <a th:href="@{/}"><img src="/img/LIV_Logo.png"></a>
+        <p>KOP<br>MORNING!</p>
     </div>
-    <nav>
-        <ul>
-            <li>
-                <a th:href="@{/story}">TEAM</a>
-                <ul class="submenu">
-                    <li><a href="#">경력</a></li>
-                    <li><a th:href="@{/team/64}">선수</a></li>
-                    <li><a th:href="@{/schedule}">경기 일정</a></li>
-                </ul>
-            </li>
-            <li>
-                <a th:href="@{/articles}">ARTICLE</a>
-                <ul class="submenu">
-                    <li><a th:href="@{/articles}">자유 게시판</a></li>
-                    <li><a href="">뉴스 게시판</a></li>
-                    <li><a href="">타 팀 게시판</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="">LEAGUE</a>
-                <ul class="submenu">
-                    <li><a href="">프리미어 리그</a></li>
-                    <li><a href="">유로파 리그</a></li>
-                    <li><a href="">FA 컵</a></li>
-                    <li><a href="">EFL 컵</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="">공지사항</a>
-                <ul class="submenu"></ul>
-            </li>
-        </ul>
+    <nav class="ml2">
+        <a th:href="@{/story}">TEAM</a>
+        <a th:href="@{/articles}">ARTICLE</a>
+        <a href="">LEAGUE</a>
+        <a th:href="@{/notice}">NOTICE</a>
     </nav>
+    <div class="login">
+        <div sec:authorize="isAnonymous()">
+            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
+            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
+        </div>
+        <div class="user-info" sec:authorize="isAuthenticated()">
+            <div th:unless="${user.picture.startsWith('https://')}">
+                <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+            </div>
+            <div th:if="${user.picture.startsWith('https://')}">
+                <img class="mt10 w60 h60 border-circle" th:src="${user.picture}">
+            </div>
+            <div>
+                <p class="ml1" th:text="|${user.nickname}님 어서오세요!|"></p>
+                <div class="ml2">
+                    <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
+                    <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
-<div class="container">
-
-    <div class="advertisement">
-        <div class="container-standings">
-            <ul>
-                <li class="standings w30 mt2">순위</li>
-                <li class="standings w100 mt2">클럽</li>
-                <li class="standings w30 mt2">경기</li>
-                <li class="standings w30 mt2">승</li>
-                <li class="standings w30 mt2">무</li>
-                <li class="standings w30 mt2">득실</li>
-                <li class="standings w30 mt2">승점</li>
-            </ul>
-            <th:block th:each="team : ${standing}">
-                <ul>
-                    <li class="standings w30 mt1"><span th:text="${team.position}"></span> </li>
-                    <li class="standings w30 mt1"><img th:src="@{${team.team.team_crest}}" alt="no"/></li>
-                    <li class="standings w70 mt1"><span th:text="${team.team.team_tla}"></span></li>
-                    <li class="standings w30 mt1"><span th:text="${team.played_games}"></span></li>
-                    <li class="standings w30 mt1"><span th:text="${team.won}"></span></li>
-                    <li class="standings w30 mt1"><span th:text="${team.draw}"></span></li>
-                    <li class="standings w30 mt1"><span th:text="${team.goal_difference}"></span></li>
-                    <li class="standings w30 mt1"><span th:text="${team.points}"> </span></li>
-                </ul>
-            </th:block>
-        </div>
-    </div>
-
-    <div class="section">
-
-    </div>
-
-    <div class="aside">
-        <div class="container-side">
-            <div class="buttons" sec:authorize="isAnonymous()">
-                <button class="btn-hover color-11" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
-                <button class="btn-hover color-11" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
-            </div>
-            <p style="color:white;">-------------OR-------------</p>
-            <div class="oauth-signIn">
-                <a href="/oauth2/authorization/google">
-                    <img class="google_logo" src="/img/google_sign_in.png">
-                </a>
-            </div>
-            <div sec:authorize="isAuthenticated()" class="container-userinfo">
-                <div th:unless="${user.picture.startsWith('https://')}">
-                    <img class="w140 h140 radius-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
-                </div>
-                <div  th:if="${user.picture.startsWith('https://')}">
-                    <img class="w140 h140 radius-circle" th:src="${user.picture}">
-                </div>
-                <div class="mt2 mb2">
-                    <p th:if="${user.nickname == null}" th:text="|${user.username}님 어서오세요!|"></p>
-                    <p th:unless="${user.nickname == null}" th:text="|${user.nickname}님 어서오세요!|"></p>
-                </div>
-                <div class="mt2">
-                    <button type="button" class="my-profile" onclick="location.href='/myprofil'">내 정보</button>
-                    <button type="button" class="logout-btn" onclick="location.href='/logout'">로그아웃</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="bottom">
+<div>
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-    $("nav > ul > li").mouseenter(function(){
-      $(this).children(".submenu").stop().slideDown(400);
-    });
-    $("nav > ul > li").mouseleave(function(){
-      $(this).children(".submenu").stop().slideUp(100);
-    });
-</script>
 <script src="/js/article.js"></script>
 <script src="/js/token.js"></script>
 </body>

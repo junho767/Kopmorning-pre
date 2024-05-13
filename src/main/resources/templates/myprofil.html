@@ -2,134 +2,90 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>블로그 글 목록</title>
-    <link rel="stylesheet" href="/css/jun.css"> <!-- ref=" stylesheet"은 외부 리소스 가져오는 것-->
+    <title>내 정보</title>
+    <!--    <link rel="stylesheet" href="/css/jun.css"> &lt;!&ndash; ref=" stylesheet"은 외부 리소스 가져오는 것&ndash;&gt;button-->
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 
 <body>
 <header>
     <div class="logo">
-        <a th:href="@{/}"><img src="/img/livlogo.png"></a>
-        <h2><br>kop<br>morning!</h2>
+        <a th:href="@{/}"><img src="/img/LIV_Logo.png"></a>
+        <p>KOP<br>MORNING!</p>
     </div>
-    <nav>
-        <ul>
-            <li>
-                <a th:href="@{/story}">TEAM</a>
-                <ul class="submenu">
-                    <li><a href="#">경력</a></li>
-                    <li><a th:href="@{/team/64}">선수</a></li>
-                    <li><a th:href="@{/schedule}">경기 일정</a></li>
-                </ul>
-            </li>
-            <li>
-                <a th:href="@{/articles}">ARTICLE</a>
-                <ul class="submenu">
-                    <li><a th:href="@{/articles}">자유 게시판</a></li>
-                    <li><a href="">뉴스 게시판</a></li>
-                    <li><a href="">타 팀 게시판</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="">LEAGUE</a>
-                <ul class="submenu">
-                    <li><a href="">프리미어 리그</a></li>
-                    <li><a href="">유로파 리그</a></li>
-                    <li><a href="">FA 컵</a></li>
-                    <li><a href="">EFL 컵</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="">공지사항</a>
-                <ul class="submenu"></ul>
-            </li>
-        </ul>
+    <nav class="ml2">
+        <a th:href="@{/}">HOME</a>
+        <a th:href="@{/story}">TEAM</a>
+        <a th:href="@{/articles}">ARTICLE</a>
+        <a href="">LEAGUE</a>
+        <a th:href="@{/notice}">NOTICE</a>
     </nav>
+    <div class="login">
+        <div sec:authorize="isAnonymous()">
+            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
+            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
+        </div>
+        <div class="user-info" sec:authorize="isAuthenticated()">
+            <div th:unless="${user.picture.startsWith('https://')}">
+                <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+            </div>
+            <div th:if="${user.picture.startsWith('https://')}">
+                <img class="mt10 w60 h60 border-circle" th:src="${user.picture}">
+            </div>
+            <div>
+                <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
+                <div class="ml2">
+                    <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
+                    <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
-<div class="container">
-    <div class="advertisement">
-
+<div class="profile-container">
+    <h2 class="fw left">내 정보</h2>
+    <div th:unless="${user.picture.startsWith('https://')}">
+        <img class="w140 h140 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
     </div>
-
-
-    <!--div를 양 옆으로 나누자 ex  이름   : ??
-                               닉네임  : ??  -->
-    <div class="test-userinfo">
-        <div th:unless="${user.picture.startsWith('https://')}">
-            <img class="w140 h140" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
-        </div>
-        <div  th:if="${user.picture.startsWith('https://')}">
-            <img class="w140 h140 radius-circle" th:src="${user.picture}">
-        </div>
-        <form th:action="@{/image/upload}" th:method="post" enctype="multipart/form-data">
-            <input class="fw" id="profileImage" type="file" name="file" accept="image/*" required>
-            <button type="submit" id="image-modify">이미지 수정</button>
-        </form>
-        <p th:text="|이름 : ${user.username}|"></p>
-        <p th:text="|이메일 : ${user.email}"></p>
-        <p th:text="|닉네임 : ${user.nickname}"></p>
-        <p class="fw" th:if="${user.reason == null}">좋아하는 이유 : [미입력]</p>
-        <p class="fw" th:if="${user.year == null}">콥 : 0년차</p>
-        <p class="fw" th:unless="${user.reason == null}" th:text="|좋아하는 이유 : ${user.reason}"></p>
-        <p class="fw" th:unless="${user.year == null}" th:text="|콥 : ${user.year}|"></p>
-        <div id="editForm" style="display: none;">
-            <input type="text" id="userReason" placeholder="좋아하는 이유를 입력하세요">
-            <input type="number" id="year" min="2000" max="2024" placeholder="년도을 고르세요">
-            <input type="text" id="userNickname" placeholder="닉네임을 입력하세요">
-            <button type="button" id="modify-userInfo" class="btn btn-primary btn-sm"><img src="/img/green-check.png"/>완료</button>
-        </div>
-        <button id="editButton" class="btn btn-primary btn-sm">수정하기</button>
+    <div  th:if="${user.picture.startsWith('https://')}">
+        <img class="w140 h140 border-circle" th:src="${user.picture}">
     </div>
-
-
-    <div class="aside">
-        <div class="container-side">
-            <div class="buttons" sec:authorize="isAnonymous()">
-                <button class="btn-hover color-11" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
-                <button class="btn-hover color-11" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
-                <p style="color:white;">-------------OR-------------</p>
-                <div class="oauth-signIn">
-                    <a href="/oauth2/authorization/google">
-                        <img class="google_logo" src="/img/google_sign_in.png">
-                    </a>
-                </div>
-            </div>
-            <div sec:authorize="isAuthenticated()" class="container-userinfo">
-                <div th:unless="${user.picture.startsWith('https://')}">
-                    <img class="w140 h140 radius-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
-                </div>
-                <div  th:if="${user.picture.startsWith('https://')}">
-                    <img class="w140 h140 radius-circle" th:src="${user.picture}">
-                </div>
-                <div class="mt2 mb2">
-                    <p th:if="${user.nickname == null}" th:text="|${user.username}님 어서오세요!|"></p>
-                    <p th:unless="${user.nickname == null}" th:text="|${user.nickname}님 어서오세요!|"></p>
-                </div>
-                <div class="mt2">
-                    <button type="button" class="my-profile" onclick="location.href='/myprofil'">내 정보</button>
-                    <button type="button" class="logout-btn" onclick="location.href='/logout'">로그아웃</button>
-                </div>
+    <form th:action="@{/image/upload}" th:method="post" enctype="multipart/form-data">
+        <input class="fw" id="profileImage" type="file" name="file" accept="image/*" required>
+        <button class="button" type="submit" id="image-modify">이미지 수정</button>
+    </form>
+    <div class="profile">
+        <div class="left">
+            <p>아이디</p>
+            <p>이메일</p>
+            <p class="pd5">닉네임</p>
+            <p class="pd5">년도는</p>
+            <p class="pd5">이유는</p>
+            <button type="button" class="button modify-btn">수정하기</button>
+        </div>
+        <div class="right">
+            <p th:text="${user.username}"></p>
+            <p th:text="${user.email}"></p>
+            <p class="pd5" id="nickname" th:text="${user.nickname}"></p>
+            <input id="inputNickname" type="text" style="display:none;" placeholder="닉네임 입력...">
+            <p class="pd5" id="year" th:text="${user.year == null ? '[미입력]' : user.year}"></p>
+            <input id="inputYear" type="number" style="display:none;" placeholder="년도 입력...">
+            <p class="pd5" id="reason" th:text="${user.reason == null ? '[미입력]' : user.reason}"></p>
+            <input id="inputReason" type="text" style="display:none;" placeholder="이유 입력...">
+            <div class="btn">
+                <button style="display:none;" type="button" id="completeBtn" class="button"><img class="w15 h15" src="/img/green-check.png"/>완료</button>
+                <button style="display:none;" type="button" id="cancelBtn" class="button ml0"><img class="w15 h15" src="/img/red-x.png"/>취소</button>
             </div>
         </div>
     </div>
 </div>
-<div class="bottom">
 
-</div>
+<footer>
+
+</footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-    $("nav > ul > li").mouseenter(function(){
-      $(this).children(".submenu").stop().slideDown(400);
-    });
-    $("nav > ul > li").mouseleave(function(){
-      $(this).children(".submenu").stop().slideUp(100);
-    });
-	document.getElementById("editButton").addEventListener("click", function() {
-            document.getElementById("editForm").style.display = "block";
-        });
-</script>
 <script src="/js/article.js"></script>
-<script src="/js/token.js"></script>
+<script src="/js/profile.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="sweetalert2.all.min.js"></script>
 </body>

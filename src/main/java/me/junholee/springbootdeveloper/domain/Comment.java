@@ -35,6 +35,9 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int likeCount;
+
     public void CommentUpdate(String comment){
         this.comment = comment;
     }

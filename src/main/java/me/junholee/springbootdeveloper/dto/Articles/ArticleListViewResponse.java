@@ -1,5 +1,6 @@
 package me.junholee.springbootdeveloper.dto.Articles;
 
+import lombok.Builder;
 import lombok.Getter;
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.User;
@@ -15,6 +16,8 @@ public class ArticleListViewResponse {
     private LocalDateTime createdAt;
     private int likeCount;
     private int viewCount;
+    private String articleType;
+
     public ArticleListViewResponse(Article article){
         this.id=article.getId();
         this.title=article.getTitle();
@@ -23,5 +26,6 @@ public class ArticleListViewResponse {
         this.createdAt=article.getCreatedAt();
         this.likeCount = article.getLikeCount();
         this.viewCount = article.getViewCount();
+        this.articleType = article.getArticleType();
     }
 }

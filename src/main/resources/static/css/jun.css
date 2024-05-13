@@ -1,62 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Abril+Fatface|Open+Sans:400,700&display=swap");
-.custom-btn {
-  width: 130px;
-  height: 40px;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px 25px;
-  font-family: 'Lato', sans-serif;
-  font-weight: 500;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-   7px 7px 20px 0px rgba(0,0,0,.1),
-   4px 4px 5px 0px rgba(0,0,0,.1);
-  outline: none;
-}
-.btn-5 {
-  width: 100px;
-  height: 40px;
-  line-height: 42px;
-  padding: 0;
-  border: none;
-  background: rgb(255,27,0);
-  background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
-}
-.btn-5:hover {
-  color: #f0094a;
-  background: transparent;
-   box-shadow:none;
-}
-.btn-5:before,
-.btn-5:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: #f0094a;
-  box-shadow:
-   -1px -1px 5px 0px #fff,
-   7px 7px 20px 0px #0003,
-   4px 4px 5px 0px #0002;
-  transition:400ms ease all;
-}
-.btn-5:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-}
-.btn-5:hover:before,
-.btn-5:hover:after{
-  width:100%;
-  transition:800ms ease all;
-}
+
 
 @font-face {
     font-family: 'WarhavenB';
@@ -76,12 +19,14 @@
     font-weight: normal;
     font-style: normal;
 }
+.fw {color : white; }
 .radius-circle{ border-radius: 50%; }
 .mb1{ margin-bottom : 0.5rem; }
 .mb2{ margin-bottom : 1rem; }
 .mb67{ margin-bottom : 67px; }
 .mt1{ margin-top : 0.5rem; }
 .mt2{ margin-top : 1rem; }
+.ml1{ margin-left : 0.5rem; }
 .pb6p{ padding-bottom: 6px;}
 .w30 { width:30px; }
 .w35 { width:35px; }
@@ -123,98 +68,12 @@ body {
     margin:0;
     padding:0;
 }
-header{
-    position:sticky;
-    background-color:#B22222;
-    margin: 0 auto;
-    width: 100%;
-    height: 100px;
-    top:0;
-    justify-content:center;
-}
-.logo {
-    display:flex;
-    position: absolute;
-    left: 25%; /* nav의 왼쪽으로부터 10px 떨어진 위치에 로고 배치 */
-    top: 50%; /* header의 세로 중앙에 위치하도록 조정 */
-    transform: translateY(-50%); /* 수직 가운데 정렬 */
-}
-.logo > a > img{
-    width:75px;
-    height:auto;
-}
-.logo > h2{
-    margin-left: 5px;
-	color: white;
-    padding-bottom: 10px;
-    text-transform: uppercase;
-    font-size: 1.6em;
-    font-family: "Abril Fatface", cursive;
-}
-nav {
-    width: 600px;
-    position: absolute;
-    top: 50%; /* header의 세로 중앙에 위치하도록 조정 */
-    left: 50%; /* header의 가로 중앙에 위치하도록 조정 */
-    transform: translate(-50%, -50%); /* 중앙 정렬 */
-}
-nav > ul {
-    overflow: hidden;
-}
-nav > ul > li {
-    float: left;
-    width: 25%;
-    text-align: center;
-}
-nav > ul > li > a {
-    display: inline-block;
-    font-size: 1.2rem;
-    padding: 12px 0px;
-    width: 100%;
-    color: white;
-    font-weight: bold;
-}
-nav > ul > li:hover > a {
-    color: #FF6347;
-    transition-duration: 0.3s;
-}
-.nav-menu > li:hover .submenu {
-  height: 130px;
-  transition-duration: 1s;
-}
-.submenu {
-    display: none;
-    position: absolute;
-    z-index: 99;
-    text-align: center;
-    background: #DCDCDC;
-    border-radius:10px;
- }
-.submenu > li > a {
-    display: inline-block;
-    padding: 14px 0px;
-    color: black;
-    width: 150px ;
-    font-size: 15px;
-}
-.submenu > li > a:hover {
-    color:#FF6347;
-    border-radius:10px;
-}
-
 .container{
+    margin-top: 1rem;
     display: flex;
     width:100%;
-    height:100vh;
+    height:1500px;
     justify-content: space-between;
-}
-.bottom{
-    width:100%;
-    height:150px;
-    bottom:0;
-    left:0;
-    background-color:black;
-    clear: both;
 }
 .advertisement{
     width:20%;
@@ -390,10 +249,11 @@ nav > ul > li:hover > a {
     width:10px;
     height:10px;
 }
+
 .schedule-box{
-    border: 1px solid #b33333;
+    background-color:#333333;
     width: 780px;
-    height: 100vh;
+    height: 1000px;
     align-items: center;
     flex-direction: center;
 }
@@ -401,6 +261,10 @@ nav > ul > li:hover > a {
 .schedule-box > img{
     width:30px;
     height: 30px;
+}
+.test1{
+    background: green;
+    height
 }
 .matchInfo{
     border:1px solid #634893;

@@ -84,7 +84,8 @@ class BlogApiControllerTest {
         final String url = "/api/articles";
         final String title = "title";
         final String content = "content";
-        final AddArticleRequest userRequest = new AddArticleRequest(title, content);
+        final String articleType = "articleType";
+        final AddArticleRequest userRequest = new AddArticleRequest(title, content, articleType);
 
         final String requestBody = objectMapper.writeValueAsString(userRequest);
 

@@ -1,4 +1,7 @@
 spring:
+  youtube:
+    api:
+      key: AIzaSyDbt082R5PXmJDD1bmKpObR7l21DKj0TWo
   jpa:
     show-sql: true
     generate-ddl: true

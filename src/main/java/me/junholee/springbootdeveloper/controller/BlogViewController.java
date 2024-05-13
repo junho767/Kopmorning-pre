@@ -1,9 +1,10 @@
 package me.junholee.springbootdeveloper.controller;
 
-import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.config.oauth.PrincipalDetails;
-import me.junholee.springbootdeveloper.domain.*;
-
+import me.junholee.springbootdeveloper.domain.Article;
+import me.junholee.springbootdeveloper.domain.Match;
+import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleListViewResponse;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleViewResponse;
 import me.junholee.springbootdeveloper.dto.CommentList.CommentResponse;
@@ -13,44 +14,139 @@ import me.junholee.springbootdeveloper.service.Blog.BlogService;
 import me.junholee.springbootdeveloper.service.Football.MatchService;
 import me.junholee.springbootdeveloper.service.Football.StandingService;
 import me.junholee.springbootdeveloper.service.Member.UserService;
-import org.springframework.security.core.Authentication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.ui.Model;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 
 @RequiredArgsConstructor
 @Controller
 public class BlogViewController {
     private final BlogService blogService;
-    private final HttpSession httpSession;
     private final StandingService standingService;
     private final MatchService matchService;
     private final UserService userService;
     @GetMapping("/articles")
-    public String getArticles(Model model,@AuthenticationPrincipal PrincipalDetails principalDetails){
+    public String getArticles(@PageableDefault(page = 1)Pageable pageable,
+                              String keyword,
+                              Model model,
+                              String articleType,
+                              @AuthenticationPrincipal PrincipalDetails principalDetails){
+        Page<ArticleListViewResponse> articlePages;
+        if(keyword == null){
+            articlePages = blogService.paging(pageable);
+        }
+        else {
+            articlePages = blogService.searchByKeyword(keyword,pageable);
+        }
+        int blockLimit = 5;
+        int startPage = (((int) Math.ceil(((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = Math.min((startPage + blockLimit - 1), articlePages.getTotalPages());
+        model.addAttribute("category", articleType);
+        model.addAttribute("articlePages", articlePages);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        if(principalDetails != null) {
+            User user= userService.findByEmail(principalDetails.getUser().getEmail());
+            model.addAttribute("user", user);
+        }
+        return "articles";
+    }
+    @GetMapping("/articles/free")
+    public String getFreeArticles(@PageableDefault(page = 1)Pageable pageable,
+                                  String keyword,
+                                  Model model,
+                                  @AuthenticationPrincipal PrincipalDetails principalDetails){
+        String articleType = "자유 게시판";
+        Page<ArticleListViewResponse> articlePages;
+        if(keyword == null){
+            articlePages = blogService.findByArticleType(articleType,pageable);
+        }
+        else {
+            articlePages = blogService.findByArticleType(articleType,pageable);
+        }
+        int blockLimit = 5;
+
+        int startPage = (((int) Math.ceil(((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = Math.min((startPage + blockLimit - 1), articlePages.getTotalPages());
+        model.addAttribute("category", articleType);
+        model.addAttribute("articlePages", articlePages);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         if(principalDetails != null) {
             User user= userService.findByEmail(principalDetails.getUser().getEmail());
             model.addAttribute("user", user);
         }
-
-        List<ArticleListViewResponse> articles = blogService.findAll().stream()
-                .map(ArticleListViewResponse::new)
-                .toList();
-        model.addAttribute("articles", articles); // 블로그 글 리스트에 저장
-        return "articles";
+        return "free-articles";
     }
+    @GetMapping("/articles/news")
+    public String getNewArticles(@PageableDefault(page = 1)Pageable pageable,
+                                  String keyword,
+                                  Model model,
+                                  @AuthenticationPrincipal PrincipalDetails principalDetails){
+        String articleType = "News";
+        Page<ArticleListViewResponse> articlePages;
+        if(keyword == null){
+            articlePages = blogService.findByArticleType(articleType,pageable);
+        }
+        else {
+            articlePages = blogService.findByArticleType(articleType,pageable);
+        }
+        int blockLimit = 5;
 
+        int startPage = (((int) Math.ceil(((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = Math.min((startPage + blockLimit - 1), articlePages.getTotalPages());
+        model.addAttribute("category", articleType);
+        model.addAttribute("articlePages", articlePages);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        if(principalDetails != null) {
+            User user= userService.findByEmail(principalDetails.getUser().getEmail());
+            model.addAttribute("user", user);
+        }
+        return "news-articles";
+    }
+    @GetMapping("/articles/liverpool")
+    public String getLiverpoolArticles(@PageableDefault(page = 1)Pageable pageable,
+                                  String keyword,
+                                  Model model,
+                                  @AuthenticationPrincipal PrincipalDetails principalDetails){
+        String articleType = "liverpool";
+        Page<ArticleListViewResponse> articlePages;
+        if(keyword == null){
+            articlePages = blogService.findByArticleType(articleType,pageable);
+        }
+        else {
+            articlePages = blogService.findByArticleType(articleType,pageable);
+        }
+        int blockLimit = 5;
+
+        int startPage = (((int) Math.ceil(((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1;
+        int endPage = Math.min((startPage + blockLimit - 1), articlePages.getTotalPages());
+        model.addAttribute("category", articleType);
+        model.addAttribute("articlePages", articlePages);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        if(principalDetails != null) {
+            User user= userService.findByEmail(principalDetails.getUser().getEmail());
+            model.addAttribute("user", user);
+        }
+        return "liverpool-articles";
+    }
     @GetMapping("/history")
     public String getHistory(Model model,@AuthenticationPrincipal PrincipalDetails principalDetails){
 
@@ -62,7 +158,7 @@ public class BlogViewController {
         return "teamhistory";
     }
     @GetMapping("/")
-    public String getMain(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public String getMain(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
         if(principalDetails != null) {
             User user= userService.findByEmail(principalDetails.getUser().getEmail());
@@ -114,6 +210,11 @@ public class BlogViewController {
 
         return "match";
     }
+    @GetMapping("/notice")
+    public String getNotice(Model model){
+        return "notice";
+    }
+
     @GetMapping("/myprofil")
     public String getMyProFil(Model model,@AuthenticationPrincipal PrincipalDetails principalDetails){
 
@@ -140,15 +241,16 @@ public class BlogViewController {
         if(articleImages != null && !articleImages.isEmpty()){
             model.addAttribute("article_image",articleImages);
         }
-
         if(principalDetails != null) {
             User user= userService.findByEmail(principalDetails.getUser().getEmail());
             model.addAttribute("user", user);
         }
 
         List<CommentResponse> commentList = dto.getComment();
-        if(commentList!=null && !commentList.isEmpty()){
-            model.addAttribute("comment",commentList);
+        if (commentList != null && !commentList.isEmpty()) {
+            model.addAttribute("comment", commentList);
+        } else {
+            model.addAttribute("comment", Collections.emptyList()); // 빈 리스트를 추가
         }
 
         blogService.updateView(id);
@@ -158,7 +260,13 @@ public class BlogViewController {
     }
 
     @GetMapping("/new-article")
-    public String newArticle(@RequestParam(required = false) Long id,Model model){ // id 키를 가진 쿼리 파라미터의 값을 id 변수에 매핑.
+    public String newArticle(@RequestParam(required = false) Long id,
+                             Model model,
+                             @AuthenticationPrincipal PrincipalDetails principalDetails){ // id 키를 가진 쿼리 파라미터의 값을 id 변수에 매핑.
+        if(principalDetails != null) {
+            User user= userService.findByEmail(principalDetails.getUser().getEmail());
+            model.addAttribute("user", user);
+        }
         if(id==null){ // id 가 없으면 생성
             model.addAttribute("article", new ArticleViewResponse());
         }
@@ -170,24 +278,17 @@ public class BlogViewController {
     }
     @GetMapping("/story")
     public String getStory(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        List<StandingsResponse> standingsList = standingService.findAll().stream()
-                .map(StandingsResponse::new)
-                .toList();
+
         if(principalDetails != null) {
             User user= userService.findByEmail(principalDetails.getUser().getEmail());
             model.addAttribute("user", user);
         }
-        model.addAttribute("standing",standingsList);
+
         return "story";
     }
 
     @GetMapping("/player")
     public String getPlayer(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
-
-        List<StandingsResponse> standingsList = standingService.findAll().stream()
-                .map(StandingsResponse::new)
-                .toList();
-        model.addAttribute("standing",standingsList);
 
         if(principalDetails != null) {
             User user= userService.findByEmail(principalDetails.getUser().getEmail());

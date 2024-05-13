@@ -34,20 +34,18 @@ public class Team {
     @Column(name = "venue")
     private String venue;
 
-    @Column(name = "coach")
-    private String coach;
+    @OneToOne
+    @JoinColumn(name = "coach_id")
+    private Coach coach;
 
     @Builder
-    public Team(long id, String team_name, String team_tla, String team_shortName, String team_crest, String venue){
+    public Team(long id, String team_name, String team_tla, String team_shortName, String team_crest, String venue, Coach coach){
         this.id = id;
         this.team_name = team_name;
         this.team_tla = team_tla;
         this.team_shortName = team_shortName;
         this.team_crest = team_crest;
         this.venue = venue;
+        this.coach = coach;
     }
-
-//    public void updateCoach(String coach){
-//        this.coach = coach;
-//    }
 }

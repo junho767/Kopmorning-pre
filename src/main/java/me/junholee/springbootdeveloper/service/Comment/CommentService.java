@@ -2,18 +2,14 @@ package me.junholee.springbootdeveloper.service.Comment;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import me.junholee.springbootdeveloper.config.oauth.PrincipalDetailsService;
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.Comment;
 import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.CommentList.CommentRequest;
 import me.junholee.springbootdeveloper.repository.BlogRepository;
 import me.junholee.springbootdeveloper.repository.CommentRepository;
-import me.junholee.springbootdeveloper.repository.UserRepository;
 import me.junholee.springbootdeveloper.service.Member.UserService;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -34,6 +30,8 @@ public class CommentService {
     public void delete(long id){
         commentRepository.deleteById(id);
     }
+
+    public Comment findById(long id) { return commentRepository.findById(id).orElse(null); }
 
     @Transactional
     public Comment CommentUpdate(long id,String content){

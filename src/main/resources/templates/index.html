@@ -2,109 +2,64 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
     <title>콥모닝</title>
-    <link rel="stylesheet" href="/css/jun.css">
-    <link rel="stylesheet" href="/css/slide.css">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- ref=" stylesheet"은 외부 리소스 가져오는 것-->
 </head>
-
 <body>
-<header>
-    <div class="logo">
-        <a th:href="@{/}"><img src="/img/livlogo.png"></a>
-        <h2><br>kop<br>morning!</h2>
-    </div>
-    <nav>
-        <ul>
-            <li>
+<div class="wrap">
+    <div class="container">
+        <header>
+            <div class="logo">
+                <a th:href="@{/}"><img src="/img/LIV_Logo.png"></a>
+                <p>KOP<br>MORNING!</p>
+            </div>
+            <nav class="ml2">
+                <a th:href="@{/}">HOME</a>
                 <a th:href="@{/story}">TEAM</a>
-                <ul class="submenu">
-                    <li><a href="#">경력</a></li>
-                    <li><a th:href="@{/team/64}">선수</a></li>
-                    <li><a th:href="@{/schedule}">경기 일정</a></li>
-                </ul>
-            </li>
-            <li>
                 <a th:href="@{/articles}">ARTICLE</a>
-                <ul class="submenu">
-                    <li><a th:href="@{/articles}">자유 게시판</a></li>
-                    <li><a href="">뉴스 게시판</a></li>
-                    <li><a href="">타 팀 게시판</a></li>
-                </ul>
-            </li>
-            <li>
                 <a href="">LEAGUE</a>
-                <ul class="submenu">
-                    <li><a href="">프리미어 리그</a></li>
-                    <li><a href="">유로파 리그</a></li>
-                    <li><a href="">FA 컵</a></li>
-                    <li><a href="">EFL 컵</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="">공지사항</a>
-                <ul class="submenu"></ul>
-            </li>
-        </ul>
-    </nav>
-</header>
-<div class="container">
-    <div class="advertisement">
-
-    </div>
-
-    <div class="section">
-
-    </div>
-
-    <div class="aside">
-        <div class="container-side">
-            <div class="buttons" sec:authorize="isAnonymous()">
-                <button class="btn-hover color-11" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
-                <button class="btn-hover color-11" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
-                <p class="mb2" style="color:white;">-------------OR-------------</p>
-                <div class="mt2 oauth-signIn">
-                    <a href="/oauth2/authorization/google">
-                        <img class="google_logo" src="/img/google_sign_in.png">
-                    </a>
+                <a th:href="@{/notice}">NOTICE</a>
+            </nav>
+            <div class="login">
+                <div sec:authorize="isAnonymous()">
+                    <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
+                    <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
+                </div>
+                <div class="user-info" sec:authorize="isAuthenticated()">
+                    <div th:unless="${user.picture.startsWith('https://')}">
+                        <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+                    </div>
+                    <div th:if="${user.picture.startsWith('https://')}">
+                        <img class="mt10 w60 h60 border-circle" th:src="${user.picture}">
+                    </div>
+                    <div class="dpFlex alignCenter column">
+                        <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
+                        <div class="ml2">
+                            <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
+                            <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div sec:authorize="isAuthenticated()" class="container-userinfo">
-                <div th:unless="${user.picture.startsWith('https://')}">
-                    <img class="w140 h140 radius-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
-                </div>
-                <div  th:if="${user.picture.startsWith('https://')}">
-                    <img class="w140 h140 radius-circle" th:src="${user.picture}">
-                </div>
-                <div class="mt2 mb2">
-                    <p th:if="${user.nickname == null}" th:text="|${user.username}님 어서오세요!|"></p>
-                    <p th:unless="${user.nickname == null}" th:text="|${user.nickname}님 어서오세요!|"></p>
-                </div>
-                <div class="mt2">
-                    <button type="button" class="my-profile" onclick="location.href='/myprofil'">내 정보</button>
-                    <button type="button" class="logout-btn" onclick="location.href='/logout'">로그아웃</button>
-                </div>
-            </div>
+        </header>
+
+        <div class="slider">
+            <div class="slides" id="slide1" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),url('/img/salah_wallpaper.jpg');"></div>
+            <div class="slides" id="slide2" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),url('/img/fc24_wallpaper.jpeg');"></div>
+            <div class="slides" id="slide3" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),url('/img/gerrard.jpg');"></div>
         </div>
     </div>
-    <div class="bottom">
+    <div class="container">
+        <div>
 
+        </div>
+        <footer>
+
+        </footer>
     </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-    $("nav > ul > li").mouseenter(function(){
-      $(this).children(".submenu").stop().slideDown(400);
-    });
-    $("nav > ul > li").mouseleave(function(){
-      $(this).children(".submenu").stop().slideUp(100);
-    });
-</script>
-<script src="/ks/slide.js"></script>
-<script src="/js/article.js"></script>
-<script src="/js/token.js"></script>
+<script type="text/javascript" src="/js/slide.js"></script>
 </body>
 </html>

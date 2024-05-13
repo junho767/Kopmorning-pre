@@ -1,7 +1,9 @@
 package me.junholee.springbootdeveloper.dto.Team;
 
 import lombok.RequiredArgsConstructor;
+import me.junholee.springbootdeveloper.domain.Coach;
 import me.junholee.springbootdeveloper.domain.Team;
+import me.junholee.springbootdeveloper.service.CoachService;
 import me.junholee.springbootdeveloper.service.Football.TeamService;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
@@ -19,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 //Spring 프레임워크에서 컴포넌트 스캔을 통해 해당 클래스를 스프링 애플리케이션 컨텍스트에 빈으로 등록하는 데 사용
 public class TeamRequest {
     private final TeamService teamService;
+    private final CoachService coachService;
     public void team_request() throws ParseException {
         RestTemplate restTemplate = new RestTemplate();
         RequestEntity<Void> req = RequestEntity
@@ -34,6 +37,18 @@ public class TeamRequest {
         for(int i=0; i< teams.size() ; i++){
 
             JSONObject jsonTeam = (JSONObject) teams.get(i);
+            JSONObject jsonCoach = (JSONObject) jsonTeam.get("coach");
+            int id = (int) jsonCoach.get("id");
+            Coach coach = Coach.builder()
+                    .id((long) id)
+                    .name((String) jsonCoach.get("name"))
+                    .Last_name((String) jsonCoach.get("lastName"))
+                    .nationality((String) jsonCoach.get("nationality"))
+                    .dateOfBirth((String) jsonCoach.get("dateOfBirth"))
+                    .build();
+
+            coachService.CoachSave(coach);
+
             String team_name = (String) jsonTeam.get("name");
             int team_id = (int) jsonTeam.get("id");
             String team_tla = (String) jsonTeam.get("tla");
@@ -48,6 +63,7 @@ public class TeamRequest {
                     .team_name(team_name)
                     .team_tla(team_tla)
                     .venue(team_venue)
+                    .coach(coach)
                     .build();
 
             teamService.saveTeams(team);

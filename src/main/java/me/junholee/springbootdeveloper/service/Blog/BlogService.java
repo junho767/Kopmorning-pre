@@ -5,11 +5,16 @@ import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.ArticleImage;
 import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.Articles.AddArticleRequest;
+import me.junholee.springbootdeveloper.dto.Articles.ArticleListViewResponse;
 import me.junholee.springbootdeveloper.dto.Articles.UpdateArticleRequest;
 import me.junholee.springbootdeveloper.dto.ImageDTO.ArticleImageUploadDTO;
 import me.junholee.springbootdeveloper.repository.ArticleImageRepository;
 import me.junholee.springbootdeveloper.repository.BlogRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,29 +39,58 @@ public class BlogService {
         Article result = Article.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
+                .articleType(request.getArticleType())
                 .user(user)
                 .build();
 
         blogRepository.save(result);
 
-        if(imageUploadDTO.getFiles() != null && !imageUploadDTO.getFiles().isEmpty()){
-            for(MultipartFile file : imageUploadDTO.getFiles()) {
-                UUID uuid = UUID.randomUUID();
-                String article_image_name = uuid + "_" + file.getOriginalFilename();
-                File destinationFile = new File(uploadFolder + article_image_name);
-                try {
-                    file.transferTo(destinationFile);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                ArticleImage image = ArticleImage.builder()
-                        .url(article_image_name)
-                        .article(result)
-                        .build();
-                articleImageRepository.save(image);
+        for(MultipartFile file : imageUploadDTO.getFiles()) {
+            if(file.isEmpty()){
+                break;
             }
+            UUID uuid = UUID.randomUUID();
+            String article_image_name = uuid + "_" + file.getOriginalFilename();
+            File destinationFile = new File(uploadFolder + article_image_name);
+            try {
+                file.transferTo(destinationFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            ArticleImage image = ArticleImage.builder()
+                    .url(article_image_name)
+                    .article(result)
+                    .build();
+            articleImageRepository.save(image);
         }
         return result;
+    }
+    public Page<ArticleListViewResponse> paging(Pageable pageable){
+        int page = pageable.getPageNumber() -1;
+        int pageSize = 10;
+        Page<Article> articlePages = blogRepository.findAll(PageRequest.of(page,pageSize, Sort.by(Sort.Direction.DESC,"id")));
+        return articlePages.map(ArticleListViewResponse::new);
+    }
+
+    @Transactional
+    public Page<ArticleListViewResponse> searchByKeyword(String keyword,Pageable pageable){
+        int page = pageable.getPageNumber() -1;
+        int pageSize = 10;
+        Page<Article> searchPages = blogRepository.findByTitleContaining(
+                keyword,
+                PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, "id"))
+        );
+        return searchPages.map(ArticleListViewResponse::new);
+    }
+
+    public Page<ArticleListViewResponse> findByArticleType(String articleType,Pageable pageable){
+        int page = pageable.getPageNumber() -1;
+        int pageSize = 10;
+        Page<Article> articles_type = blogRepository.findByArticleType(
+                articleType,
+                PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, "id"))
+        );
+        return articles_type.map(ArticleListViewResponse::new);
     }
 
     public List<Article> findAll() {

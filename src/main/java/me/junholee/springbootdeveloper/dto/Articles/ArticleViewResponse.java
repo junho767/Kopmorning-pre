@@ -24,6 +24,7 @@ public class ArticleViewResponse {
     private List<String> imageUrl;
     private int likeCount;
     private int viewCount;
+    private String articleType;
 
     public ArticleViewResponse(Article article) {
         this.id = article.getId();
@@ -35,5 +36,6 @@ public class ArticleViewResponse {
         this.likeCount = article.getLikeCount();
         this.viewCount = article.getViewCount();
         this.imageUrl = article.getArticleImage().stream().map(ArticleImage::getUrl).collect(Collectors.toList());
+        this.articleType = article.getArticleType();
     }
 }
