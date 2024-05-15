@@ -17,7 +17,7 @@
         <a th:href="@{/}">HOME</a>
         <a th:href="@{/story}">TEAM</a>
         <a th:href="@{/articles}">ARTICLE</a>
-        <a href="">LEAGUE</a>
+        <a th:href="@{/league}">LEAGUE</a>
         <a th:href="@{/notice}">NOTICE</a>
     </nav>
     <div class="login">
@@ -32,7 +32,7 @@
             <div th:if="${user.picture.startsWith('https://')}">
                 <img class="mt10 w60 h60 border-circle" th:src="${user.picture}">
             </div>
-            <div>
+            <div class="alignCenter column">
                 <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
                 <div class="ml2">
                     <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>

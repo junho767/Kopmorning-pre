@@ -15,7 +15,7 @@
         <a th:href="@{/}">HOME</a>
         <a th:href="@{/story}">TEAM</a>
         <a th:href="@{/articles}">ARTICLE</a>
-        <a href="">LEAGUE</a>
+        <a th:href="@{/league}">LEAGUE</a>
         <a th:href="@{/notice}">NOTICE</a>
     </nav>
     <div class="login">
@@ -30,7 +30,7 @@
             <div th:if="${user.picture.startsWith('https://')}">
                 <img class="mt10 w60 h60 border-circle" th:src="${user.picture}">
             </div>
-            <div>
+            <div class="alignCenter column">
                 <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
                 <div class="ml2">
                     <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
@@ -82,7 +82,7 @@
         <div class="commentContainer">
             <div class="comment-top">
                 <p>댓글<span class="ml1 w100" th:text="|(${comment.size()})|">(0)</span></p>
-                <div class="dpFlex alignCenter">
+                <div class="dpFlex">
                     <textarea style="width:90%;" id="comment" placeholder="댓글 작성.."></textarea>
                     <button type="button" class="button font-black" id="writeComment">댓글 달기</button>
                 </div>
@@ -90,7 +90,7 @@
             <div class="ml0 comment-list" th:each="comment, commentIndex : ${comment}">
                 <input type="hidden" id="comment-id" th:value="${comment.id}">
                 <div class="mt10 dpFlex jsSB">
-                    <div class="dpFlex alignCenter">
+                    <div class="dpFlex">
                         <img class="w30 h30 boarder-circle" th:src="${comment.user.picture.startsWith('https://') ? comment.user.picture : '/profileImage/' + comment.user.picture}">
                         <p class="w70 ml0" th:text="${comment.user.nickname == null} ? ${comment.user.username} : ${comment.user.nickname}"></p>
                         <button type="button" class="button Like-comment-btn"><img class="w15 h15" src="/img/green-check.png"></button>

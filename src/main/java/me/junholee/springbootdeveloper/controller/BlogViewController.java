@@ -9,7 +9,7 @@ import me.junholee.springbootdeveloper.dto.Articles.ArticleListViewResponse;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleViewResponse;
 import me.junholee.springbootdeveloper.dto.CommentList.CommentResponse;
 import me.junholee.springbootdeveloper.dto.Match.MatchRespones;
-import me.junholee.springbootdeveloper.dto.Standing.StandingsResponse;
+import me.junholee.springbootdeveloper.dto.Standing.StandingsResponseDTO;
 import me.junholee.springbootdeveloper.service.Blog.BlogService;
 import me.junholee.springbootdeveloper.service.Football.MatchService;
 import me.junholee.springbootdeveloper.service.Football.StandingService;
@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
@@ -168,27 +166,6 @@ public class BlogViewController {
         return "index";
     }
 
-    @GetMapping("/schedule")
-    public String getSchedule(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
-
-      List<MatchRespones> matchList = matchService.findAll().stream()
-              .map(MatchRespones::new)
-              .toList();
-
-      List<StandingsResponse> standingsList = standingService.findAll().stream()
-              .map(StandingsResponse::new)
-              .toList();
-
-        if(principalDetails != null) {
-            User user= userService.findByEmail(principalDetails.getUser().getEmail());
-            model.addAttribute("user", user);
-        }
-
-      model.addAttribute("matchList", matchList);
-      model.addAttribute("standing",standingsList);
-      return "schedule";
-    }
-
     @GetMapping("/match/{id}")
     public String getMatch(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
@@ -200,8 +177,8 @@ public class BlogViewController {
             model.addAttribute("user", user);
         }
 
-        List<StandingsResponse> standingsList = standingService.findAll().stream()
-                .map(StandingsResponse::new)
+        List<StandingsResponseDTO> standingsList = standingService.findAll().stream()
+                .map(StandingsResponseDTO::new)
                 .toList();
 
 

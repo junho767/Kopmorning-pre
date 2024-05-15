@@ -47,6 +47,7 @@ public class StandingsRequest {
             int playedGames = (int) jsonStanding.get("playedGames");
             int won = (int) jsonStanding.get("won");
             int draw = (int) jsonStanding.get("draw");
+            int lost = (int) jsonStanding.get("lost");
             int goalDifference = (int) jsonStanding.get("goalDifference");
             int goalAgainst = (int) jsonStanding.get("goalsAgainst");
             int goalsFor = (int) jsonStanding.get("goalsFor");
@@ -56,6 +57,7 @@ public class StandingsRequest {
             Standings standings = Standings.builder()
                     .position(position)
                     .playedGames(playedGames)
+                    .lost(lost)
                     .form(form)
                     .team(team)
                     .goalsFor(goalsFor)

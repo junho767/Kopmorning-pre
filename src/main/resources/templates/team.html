@@ -16,7 +16,7 @@
         <a th:href="@{/}">HOME</a>
         <a th:href="@{/story}">TEAM</a>
         <a th:href="@{/articles}">ARTICLE</a>
-        <a href="">LEAGUE</a>
+        <a th:href="@{/league}">LEAGUE</a>
         <a th:href="@{/notice}">NOTICE</a>
     </nav>
     <div class="login">
@@ -29,7 +29,7 @@
                 <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
             </div>
             <div th:if="${user.picture.startsWith('https://')}">
-                <img class="mt10 w60 h60 border-circle" th:src="${user.picture}">
+                <img class="mt10 w60 h60 border-circle" th:src="${user.picture}" onerror="this.url='/img/default-img.png';">
             </div>
             <div>
                 <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
@@ -41,7 +41,25 @@
         </div>
     </div>
 </header>
+<section>
+    <div class="info-table">
+        <div class="top">
+            <div class="dpFlex">
+                <img th:src="${team.crest}">
+                <p class="alignCenter" th:text="${team.name}"></p>
+            </div>
+            <div class="alignCenter fontWhite font-size30">
+                <p th:text="|감독 ${team.coach_name} 국적 ${team.nationality}"></p>
+                <p th:text="|${team.venue}|"></p>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="">
 
+            </div>
+        </div>
+    </div>
+</section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/article.js"></script>
 <script src="/js/token.js"></script>

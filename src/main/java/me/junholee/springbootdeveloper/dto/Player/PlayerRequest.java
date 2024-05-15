@@ -3,6 +3,7 @@ package me.junholee.springbootdeveloper.dto.Player;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Player;
 import me.junholee.springbootdeveloper.domain.Team;
+import me.junholee.springbootdeveloper.repository.TeamRepository;
 import me.junholee.springbootdeveloper.service.Football.PlayerService;
 import me.junholee.springbootdeveloper.service.Football.TeamService;
 import net.minidev.json.JSONArray;
@@ -22,7 +23,7 @@ import java.net.URISyntaxException;
 // 이 애노테이션을 사용하면 클래스의 필드를 기반으로한 생성자를 자동으로 생성해 줍니다.
 @Component
 public class PlayerRequest {
-    private final TeamService teamService;
+    private final TeamRepository teamRepository;
     private final PlayerService playerService;
     public void Player_request() throws ParseException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
@@ -46,11 +47,11 @@ public class PlayerRequest {
             String venue_name = (String) jsonVenue.get("venue_name");
 
             if(team_name.equals("Luton Town")){
-                team = teamService.findById(389);
+                team = teamRepository.findById((long)389).orElse(null);
             } else if (team_name.equals("Brentford")) {
-                team = teamService.findById(402);
+                team = teamRepository.findById((long)402).orElse(null);
             } else{
-                team = teamService.findByVenue_teamId(venue_name);
+                team = teamRepository.findByVenue(venue_name);
             }
             // 선수 정보 저장 하는 반복문
             for(int j=0;j<jsonPlayers.size();j++){

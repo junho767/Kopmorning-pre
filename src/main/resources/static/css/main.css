@@ -98,15 +98,34 @@ body {
 .dpFlex { display:flex; }
 .jsSB { justify-content: space-between; }
 .column { flex-direction: column; }
-.alignCenter{align-items:center;}
+.alignCenter{
+    display:flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin: auto; /* 중앙에 배치 */
+}
+.justifyCenter{justify-content:center;}
 .font-black{ color:black !important; }
-.font-white{ color:white !important;}
+.fontWhite{ color:white !important;}
 .font-size12{ font-size:12px; }
+.font-size14{ font-size:14px; }
 .font-size16{ font-size:16px !important; }
 .font-size20{ font-size:20px !important; }
+.font-size30{ font-size:30px !important; }
 .pd5{ padding:5px; }
+.pd8{ padding:8px; }
 .fw { color:white; }
+.w1p{ width:1%; }
+.w9p{ width:9%; }
+.w10p { width:10%; }
+.w20p { width:20%; }
+.w50p { width:50%; }
+.w60p { width:60%; }
+.w70p { width:70%; }
+.w10 { width:10px !important;}
 .w15 { width:15px; }
+.w20 { width:20px !important;}
 .w30 { width:30px; }
 .w35 { width:35px; }
 .w40 { width:40px; }
@@ -132,11 +151,16 @@ body {
 .w550 { width:550px; }
 .w600 { width:600px; }
 .w1000 { width:1000px; }
+.w100p { width:100%; }
+.h50p { height: 50%; }
+.h10 { height:10px !important; }
+.h20 { height:20px !important;}
 .h15 { height:15px; }
+.h20 { height:20px; }
 .h30 { height:30px; }
 .h60 { height:60px; }
 .h140 { height:140px; }
-
+.mb0{ margin-bottom:0.5rem; }
 .mr1{ margin-right:1rem; }
 .ml0 { margin-left:0.5rem; }
 .ml1 { margin-left:1rem; }
@@ -435,7 +459,7 @@ section{
     position:absolute;
     width: 100%;
     height: 1300px;
-    top: 11%;
+    top: 12%;
 }
 article{
     width: 1200px;
@@ -634,4 +658,155 @@ input[type="file"] {
 input[type="file"]:hover {
     background-color: #666; /* 호버 시 배경색 변경 */
 }
+.info-table{
+    width: 80%;
+    max-height: 1000px;
+    margin:auto;
+    background: rgba(26, 26, 26, 1.0);
+    border-radius: 20px;
+}
+.info-table > .top{
+    margin: 20px;
+    padding-left: 50px;
+    width:100%;
+    height: 20%;
+    border-bottom: 1px solid black;
+    display:flex;
+    align-items:center;
+}
+.info-table > .top img{
+    width: 130px;
+    height: auto;
+}
+.info-table > .top p{
+    color: white;
+    font-size: 30px;
+}
+.info-table > .bottom {
+    width:100%;
+    height:700px;
+    display:flex;
+}
+.standing-box{
+    margin:10px;
+    width: 50%;
+    font-size: 20px;
+}
+.standing-box div{
+    text-align:center;
+    color:white;
+    font-size:16px;
+}
+.standings{
+    max-height:600px;
+    overflow-y:auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+.standings-list{
+    transition: background 0.5s ease-in-out;
+    align-items:center;
+    display:flex;
+    text-align:center;
+    font-size:16px;
+    color: white;
+    height: 50px;
+}
+.standings-list p{
+    margin:5px;
+}
+.standings-list a{
+    color: white;
+}
+.standings-list img{
+    width : 30px;
+    height : 30px;
+}
+.standings-list:hover{
+    background: rgba(46, 46, 46, 1.0); /* 기존 색보다 밝은 색으로 변경 */
+    border-radius:10px;
+}
+.top-position{
+    background-color:#adff2f;
+    border-radius: 30%;
+    height: 40px;
+}
+.middle-position{
+    background-color:#ff8c00;
+    border-radius: 30%;
+    height: 40px;
+}
+.bottom-position{
+    background-color:red;
+    border-radius: 30%;
+    height: 40px;
+}
+
+.league-position span::before {
+    content: ""; /* 가상 요소의 내용은 비어 있음 */
+    display: inline-block; /* 네모 박스를 인라인 블록으로 표시 */
+    width: 10px; /* 네모 박스의 너비 */
+    height: 10px; /* 네모 박스의 높이 */
+    background-color: #555; /* 네모 박스의 배경 색 */
+    margin-right: 8px; /* 텍스트와 네모 박스 사이의 마진 */
+    margin-left: 10px;
+}
+
+/* 예시: 챔피언스 리그, 유로파 리그, 강등권에 따른 색상 변경 */
+.league-position span:nth-child(1)::before { background-color: #adff2f; } /* 챔피언스 리그 - 파란색 */
+.league-position span:nth-child(2)::before { background-color: #ff8c00; } /* 유로파 리그 - 녹색 */
+.league-position span:nth-child(3)::before { background-color: red; } /* 강등권 - 빨간색 */
+
+.stat-box{
+    width:50%;
+    height:95%;
+    margin: 8px;
+}
+.rank-box{
+    width:48%;
+    margin-right:10px;
+    padding:10px;
+    background-color: #1a1a2e;
+    border-radius:20px;
+}
+.top-score{
+    display:flex;
+    align-items:center;
+    width:100%;
+    height:19%;
+}
+.top-score img,
+.top-assist img,
+.top-keyPass img,
+.top-rating img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.top-assist{
+    display:flex;
+    align-items:center;
+    width:100%;
+    height:19%;
+}
+.top-keyPass{
+    display:flex;
+    align-items:center;
+    width:100%;
+    height:19%;
+}
+.top-rating{
+    display:flex;
+    align-items:center;
+    width:100%;
+    height:19%;
+}
+.bg-circle-red{
+    background-color: red; /* 원하는 배경색으로 변경 */
+    border-radius: 50%; /* 동그랗게 만들기 */
+    width: 40px; /* 원하는 너비 */
+    height: 40px; /* 원하는 높이 */
+}
+
+
 

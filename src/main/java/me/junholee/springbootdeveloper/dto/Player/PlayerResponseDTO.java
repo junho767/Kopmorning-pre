@@ -7,7 +7,7 @@ import me.junholee.springbootdeveloper.domain.Team;
 
 @NoArgsConstructor
 @Getter
-public class PlayerResponse {
+public class PlayerResponseDTO {
     private Team team; // 해당 플레이어 팀 정보
     private String image; // 플레이어 사진
     private String name; // 플레이어 이름
@@ -27,7 +27,7 @@ public class PlayerResponse {
     private int tackles; // 태클 시도 횟수
     private int age; // 나이
 
-    public PlayerResponse(Player player){
+    public PlayerResponseDTO(Player player){
         this.team = player.getTeam();
         this.image = player.getPlayer_image();
         this.name = player.getPlayer_name();

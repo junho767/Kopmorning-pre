@@ -1,6 +1,7 @@
 package me.junholee.springbootdeveloper.repository;
 
 import me.junholee.springbootdeveloper.domain.Player;
+import me.junholee.springbootdeveloper.dto.Player.PlayerResponseDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

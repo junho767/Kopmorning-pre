@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>블로그 글 목록</title>
+    <link rel="stylesheet" href="/css/main.css"> <!-- ref=" stylesheet"은 외부 리소스 가져오는 것-->
+</head>
+
+<body>
+<header>
+    <div class="logo">
+        <a th:href="@{/}"><img src="/img/LIV_Logo.png"></a>
+        <p>KOP<br>MORNING!</p>
+    </div>
+    <nav class="ml2">
+        <a th:href="@{/}">HOME</a>
+        <a th:href="@{/story}">TEAM</a>
+        <a th:href="@{/articles}">ARTICLE</a>
+        <a th:href="@{/league}">LEAGUE</a>
+        <a th:href="@{/notice}">NOTICE</a>
+    </nav>
+    <div class="login">
+        <div sec:authorize="isAnonymous()">
+            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
+            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
+        </div>
+        <div class="user-info" sec:authorize="isAuthenticated()">
+            <div th:unless="${user.picture.startsWith('https://')}">
+                <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+            </div>
+            <div th:if="${user.picture.startsWith('https://')}">
+                <img class="mt10 w60 h60 border-circle" th:src="${user.picture}">
+            </div>
+            <div class="alignCenter column">
+                <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
+                <div class="ml2">
+                    <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
+                    <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="info-table">
+        <div class="top">
+            <div>
+                <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/dark/47.png">
+                <p>Premier League</p>
+            </div>
+            <div class="alignCenter fontWhite font-size30">
+                PL 2023-24 Season
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="standing-box">
+                <div class="dpFlex mb0">
+                    <p class="w10p">순위</p>
+                    <p class="w20p">클럽</p>
+                    <p class="w10p">경기</p>
+                    <p class="w10p">승</p>
+                    <p class="w10p">무</p>
+                    <p class="w10p">패</p>
+                    <p class="w10p">+/-</p>
+                    <p class="w10p">=</p>
+                    <p class="w10p">승점</p>
+                </div>
+                <div class="standings">
+                    <div class="standings-list" th:each="team : ${standing}">
+                        <input type="hidden" id="team-id" th:value="${team.id}">
+                        <p th:class="${team.position < 5} ?
+                        'w1p top-position' :
+                        (${team.position == 5 || team.position == 6} ?
+                        'w1p middle-position' :
+                        (${team.position > 17} ? 'w1p bottom-position' :
+                        'w1p'))" >
+                        </p>
+                        <p class="w9p" th:text="${team.position}"></p>
+                        <a th:href="@{/team/id(id=${team.id})}" class="dpFlex justifyCenter w20p">
+                            <img th:src="@{${team.team.team_crest}}" alt="no"/>
+                            <p th:text="${team.team.team_tla}"></p>
+                        </a>
+                        </p>
+                        <p class="w10p" th:text="${team.played_games}"></p>
+                        <p class="w10p" th:text="${team.won}"></p>
+                        <p class="w10p" th:text="${team.draw}"></p>
+                        <p class="w10p" th:text="${team.lost}"></p>
+                        <p class="w10p" th:text="|${team.goals_for}-${team.goals_against}"></p>
+                        <p class="w10p" th:text="${team.goal_difference}"></p>
+                        <p class="w10p" th:text="${team.points}"></p>
+                    </div>
+                </div>
+                <div class="dpFlex justifyCenter alignCenter league-position">
+                    <span>챔피언스 리그</span>
+                    <span>유로파 리그</span>
+                    <span>강등권</span>
+                </div>
+            </div>
+            <div class="stat-box">
+                <div class="mb0 dpFlex h50p">
+                    <div class="rank-box">
+                        <p class="textCenter fontWhite">Top Score</p>
+                        <div class="top-score" th:each="topScore, index : ${topScore}">
+                            <img class="w20p" th:src="${topScore.image}" onerror="this.src='/img/default-img.png';">
+                            <div class="ml0 w60p fontWhite font-size14">
+                                <p th:text="${topScore.name}"></p>
+                                <img class="w20 h20" th:src="${topScore.team_crest}"><span th:text="${topScore.team_tla}"></span>
+                            </div>
+                            <p th:classappend="${index.index == 0} ? 'bg-circle-red' : ''"
+                               class="w20p fontWhite alignCenter"
+                               th:text="${topScore.score}">
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="rank-box">
+                        <p class="textCenter fontWhite">Top Assist</p>
+                        <div class="top-assist" th:each="topAssist, index : ${topAssist}">
+                            <img class="w20p" th:src="${topAssist.image}" onerror="this.src='/img/default-img.png';">
+
+                            <div class="ml0 w60p fontWhite font-size14">
+                                <p th:text="${topAssist.name}"></p>
+                                <img class="w20 h20" th:src="${topAssist.team_crest}"><span th:text="${topAssist.team_tla}"></span>
+                            </div>
+                            <p th:classappend="${index.index == 0} ? 'bg-circle-red' : ''"
+                               class="w20p fontWhite alignCenter"
+                               th:text="${topAssist.assist}">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dpFlex h50p">
+                    <div class="rank-box">
+                        <p class="textCenter fontWhite">Top KeyPass</p>
+                        <div class="top-keyPass" th:each="topKeyPass, index : ${topKeyPass}">
+                            <img class="w20p" th:src="${topKeyPass.image}" onerror="this.src='/img/default-img.png';">
+                            <div class="ml0 w60p fontWhite font-size14">
+                                <p th:text="${topKeyPass.name}"></p>
+                                <img class="w20 h20" th:src="${topKeyPass.team_crest}"><span th:text="${topKeyPass.team_tla}"></span>
+                            </div>
+                            <p th:classappend="${index.index == 0} ? 'bg-circle-red' : ''"
+                               class="w20p fontWhite alignCenter"
+                               th:text="${topKeyPass.key_pass}">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="rank-box">
+                        <p class="textCenter fontWhite">Top Rating</p>
+                        <div class="top-rating" th:each="topRating, index : ${topRating}">
+                            <img class="w20p" th:src="${topRating.image}" onerror="this.src='/img/default-img.png';">
+                            <div class="ml0 w60p fontWhite font-size14">
+                                <p th:text="${topRating.name}"></p>
+                                <img class="w20 h20" th:src="${topRating.team_crest}"><span th:text="${topRating.team_tla}"></span>
+                            </div>
+                            <p th:classappend="${index.index == 0} ? 'bg-circle-red' : ''"
+                               class="w20p fontWhite alignCenter"
+                               th:text="${topRating.rating}">
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/article.js"></script>
+<script src="/js/token.js"></script>
+</body>
+</html>

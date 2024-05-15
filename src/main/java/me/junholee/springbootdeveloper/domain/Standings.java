@@ -48,8 +48,9 @@ public class Standings {
     private Team team;
 
     @Builder
-    public Standings(Team team, int position ,int playedGames, int won, int draw, int goalDifference,int goalsAgainst,int goalsFor, int points, String form){
+    public Standings(Team team, int position ,int playedGames, int won, int draw, int goalDifference,int goalsAgainst,int goalsFor, int points, String form, int lost){
         this.position = position;
+        this.lost = lost;
         this.team = team;
         this.playedGames = playedGames;
         this.won = won;
