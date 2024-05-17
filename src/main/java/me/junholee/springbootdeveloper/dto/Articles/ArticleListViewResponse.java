@@ -24,7 +24,7 @@ public class ArticleListViewResponse {
         this.content=article.getContent();
         this.user = article.getUser();
         this.createdAt=article.getCreatedAt();
-        this.likeCount = article.getLikeCount();
+        this.likeCount = article.getLikes().size();
         this.viewCount = article.getViewCount();
         this.articleType = article.getArticleType();
     }

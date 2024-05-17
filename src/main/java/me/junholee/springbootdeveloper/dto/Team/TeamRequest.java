@@ -55,9 +55,11 @@ public class TeamRequest {
             String team_crest = (String) jsonTeam.get("crest");
             String team_shortName = (String) jsonTeam.get("shortName");
             String team_venue = (String) jsonTeam.get("venue");
+            String clubColors = (String) jsonTeam.get("clubColors");
 
             Team team = Team.builder()
                     .team_crest(team_crest)
+                    .clubColors(clubColors)
                     .team_shortName(team_shortName)
                     .id((long) team_id)
                     .team_name(team_name)

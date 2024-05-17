@@ -18,6 +18,17 @@ public class PlayerService {
     @Autowired
     public PlayerService(PlayerRepository playerRepository) {this.playerRepository = playerRepository;}
 
+    public PlayerResponseDTO findById(long id) {
+        Player player = playerRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("not found Player"));
+        return new PlayerResponseDTO(player);
+    }
+
+    public List<PlayerResponseDTO> convertList(List<Player> players){
+        return players.stream()
+                .map(PlayerResponseDTO::new)
+                .collect(Collectors.toList());
+    }
     public Player save(Player player) { return playerRepository.save(player);}
 
     public List<Player> findAll(){ return playerRepository.findAll(); }
@@ -48,5 +59,39 @@ public class PlayerService {
         player.sort(Comparator.comparing(Player::getPlayer_rating).reversed());
         List<Player> topPlayer = player.subList(0,Math.min(player.size(),num));
         return topPlayer.stream().map(TopRatingResponseDTO::new).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<GkResponseDTO> findGK(List<Player> playerList){
+        playerList.sort(Comparator.comparing(Player::getPlayerNumber));
+        return playerList.stream()
+                .filter(player -> "Goalkeepers".equals(player.getPlayerType()) && player.getPlayerNumber() != 0) // 필터링 조건 추가
+                .map(GkResponseDTO::new)
+                .collect(Collectors.toList());
+    }
+    @Transactional
+    public List<DfResponseDTO> findDF(List<Player> playerList){
+        playerList.sort(Comparator.comparing(Player::getPlayerNumber));
+        return playerList.stream()
+                .filter(player -> "Defenders".equals(player.getPlayerType()) && player.getPlayerNumber() != 0) // 필터링 조건 추가
+                .map(DfResponseDTO::new)
+                .collect(Collectors.toList());
+    }
+    @Transactional
+    public List<MfResponseDTO> findMF(List<Player> playerList){
+        playerList.sort(Comparator.comparing(Player::getPlayerNumber)); // 등번호로 정렬
+
+        return playerList.stream()
+                .filter(player -> "Midfielders".equals(player.getPlayerType()) && player.getPlayerNumber() != 0) // 필터링 조건 추가
+                .map(MfResponseDTO::new)
+                .collect(Collectors.toList()); // 리스트로 수집
+    }
+    @Transactional
+    public List<FwResponseDTO> findFW(List<Player> playerList){
+        playerList.sort(Comparator.comparing(Player::getPlayerNumber));
+        return playerList.stream()
+                .filter(player -> "Forwards".equals(player.getPlayerType()) && player.getPlayerNumber() != 0) // 필터링 조건 추가
+                .map(FwResponseDTO::new)
+                .collect(Collectors.toList());
     }
 }

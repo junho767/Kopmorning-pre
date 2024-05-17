@@ -8,87 +8,93 @@
 </head>
 
 <body>
+
 <header>
-    <div class="logo">
-        <a th:href="@{/}"><img src="/img/LIV_Logo.png"></a>
-        <p>KOP<br>MORNING!</p>
-    </div>
-    <nav class="ml2">
-        <a th:href="@{/}">HOME</a>
-        <a th:href="@{/story}">TEAM</a>
-        <a th:href="@{/articles}">ARTICLE</a>
-        <a th:href="@{/league}">LEAGUE</a>
-        <a th:href="@{/notice}">NOTICE</a>
-    </nav>
-    <div class="login">
-        <div sec:authorize="isAnonymous()">
-            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
-            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
+    <div class="alignCenter header-box">
+        <div class="logo">
+            <a th:href="@{/}"><img src="/img/LIV-LOGO.png"></a>
         </div>
-        <div class="user-info" sec:authorize="isAuthenticated()">
-            <div th:unless="${user.picture.startsWith('https://')}">
-                <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+        <nav class="ml2">
+            <a th:href="@{/}">HOME</a>
+            <a th:href="@{/story}">TEAM</a>
+            <a th:href="@{/articles}">ARTICLE</a>
+            <a th:href="@{/league}">LEAGUE</a>
+            <a th:href="@{/notice}">NOTICE</a>
+        </nav>
+        <div class="login">
+            <div sec:authorize="isAnonymous()">
+                <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
+                <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
             </div>
-            <div th:if="${user.picture.startsWith('https://')}">
-                <img class="mt10 w60 h60 border-circle" th:src="${user.picture}">
-            </div>
-            <div class="alignCenter column">
-                <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
-                <div class="ml2">
-                    <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
-                    <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+            <div class="user-info" sec:authorize="isAuthenticated()">
+                <div th:unless="${user.picture.startsWith('https://')}">
+                    <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+                </div>
+                <div th:if="${user.picture.startsWith('https://')}">
+                    <img class="mt10 w60 h60 border-circle" th:src="${user.picture}" onerror="this.url='/img/default-img.png';">
+                </div>
+                <div>
+                    <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
+                    <div class="ml2">
+                        <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
+                        <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </header>
-<div class="listContainer">
-    <div class="tap_nav">
-        <a th:href="@{/articles}">전체</a>
-        <a th:href="@{/articles/free}">자유 게시판</a>
-        <a th:href="@{/articles/news}">뉴스 게시판</a>
-        <a th:href="@{/articles/liverpool}">리버풀 게시판</a>
-    </div>
-    <div class="top">
-        <p th:text="${category == null ? '전체' : category}"></p>
-        <div class="search-box">
-            <input type="text" class="searchInput" id="searchInput">
-            <button type="button" id="search-btn" class="button position-a right175">
-                <i class="fas fa-search"></i>
-            </button>
+<section class="alignCenter">
+    <div class="listContainer alignCenter">
+        <div class="alignCenter side-nav">
+            <div class="alignCenter tap-nav">
+                <a th:href="@{/articles}">전체</a>
+                <a th:href="@{/articles/free}">자유 게시판</a>
+                <a th:href="@{/articles/news}">뉴스 게시판</a>
+                <a th:href="@{/articles/liverpool}">리버풀 게시판</a>
+            </div>
         </div>
-        <button type="button" id="write-btn" class="custom-btn btn-5">글 쓰기</button>
-    </div>
-    <div class="articleList">
-        <div>
-            <ul>
-                <li class="w60 title">탭</li>
-                <li class="w550 title">제목</li>
-                <li class="w230 title">글쓴이</li>
-                <li class="w170 title">날짜</li>
-                <li class="w55 title">추천</li>
-                <li class="w55 title">조회</li>
-            </ul>
-        </div>
-        <div>
-            <ul>
-                <th:block th:each="item : ${articlePages}">
-                    <input type="hidden" th:value="${item.id}">
-                    <li th:text="${item.articleType}" class="font-size12 w60 list"></li>
-                    <li class="w550 list">
-                        <a th:href="@{/articles/{id}(id=${item.id})}" th:text="${item.title}"></a>
-                    </li>
-                    <li class="w230 list" th:text="${item.user.nickname != null ? item.user.nickname : item.user.username}"></li>
-                    <li th:text="${#temporals.format(item.createdAt, 'MM-dd HH:mm')}" class="w170 list"></li>
-                    <li class="w55 list" th:text="${item.likeCount}"></li>
-                    <li class="w55 list" th:text="${item.viewCount}"></li>
-                </th:block>
-            </ul>
-        </div>
-    </div>
-    <div class="paging">
-        <a th:href="@{/articles(page=1, keyword=${keyword})}"> << 처음 </a>    <!-- 첫번째 페이지로 이동, 검색어가 있을 경우 &keyword={keyword} 추가 -->
-        <div>
+        <div class="articleList">
+            <div class="top">
+                <p th:text="${category == null ? '전체' : category}"></p>
+                <div class="search-box">
+                    <input type="text" class="searchInput" id="searchInput">
+                    <button type="button" id="search-btn" class="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button type="button" id="write-btn" class="custom-btn btn-5">글 쓰기</button>
+                </div>
+            </div>
+            <div class="h600">
+                <div>
+                    <ul>
+                        <li class="w60 title">탭</li>
+                        <li class="w550 title">제목</li>
+                        <li class="w230 title">글쓴이</li>
+                        <li class="w170 title">날짜</li>
+                        <li class="w55 title">추천</li>
+                        <li class="w55 title">조회</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <th:block th:each="item : ${articlePages}">
+                            <input type="hidden" th:value="${item.id}">
+                            <li th:text="${item.articleType}" class="font-size12 w60 list"></li>
+                            <li class="w550 list">
+                                <a th:href="@{/articles/{id}(id=${item.id})}" th:text="${item.title}"></a>
+                            </li>
+                            <li class="w230 list" th:text="${item.user.nickname != null ? item.user.nickname : item.user.username}"></li>
+                            <li th:text="${#temporals.format(item.createdAt, 'MM-dd HH:mm')}" class="w170 list"></li>
+                            <li class="w55 list" th:text="${item.likeCount}"></li>
+                            <li class="w55 list" th:text="${item.viewCount}"></li>
+                        </th:block>
+                    </ul>
+                </div>
+            </div>
+            <div class="paging">
+                <a th:href="@{/articles(page=1, keyword=${keyword})}"> << 처음 </a>    <!-- 첫번째 페이지로 이동, 검색어가 있을 경우 &keyword={keyword} 추가 -->
+                <div>
             <span th:each="page : ${#numbers.sequence(startPage, endPage)}"> <!-- 페이지 번호 링크(현재 페이지는 숫자만) -->
             <span th:if="${page == articlePages.number + 1}" th:text="${page}"></span> <!-- 현재페이지는 링크 없이 숫자만 -->
                 <!-- 현재페이지 링크 X, 다른 페이지번호에는 링크를 보여준다 -->
@@ -96,10 +102,16 @@
                th:href="@{/articles(page=${page}, keyword=${keyword})}"
                th:text="${page}"></a>
         </span>
+                </div>
+                <a th:href="@{/articles(page=${articlePages.totalPages}, keyword=${keyword})}"> 마지막 >> </a> <!-- 마지막 페이지로 이동, 검색어가 있을 경우 &keyword={keyword} 추가 -->
+            </div>
         </div>
-        <a th:href="@{/articles(page=${articlePages.totalPages}, keyword=${keyword})}"> 마지막 >> </a> <!-- 마지막 페이지로 이동, 검색어가 있을 경우 &keyword={keyword} 추가 -->
+
     </div>
-</div>
+</section>
+<footer>
+
+</footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/article.js"></script>
 <script src="/js/token.js"></script>

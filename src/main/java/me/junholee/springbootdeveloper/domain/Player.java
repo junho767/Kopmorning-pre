@@ -28,11 +28,11 @@ public class Player {
     @Column(name = "player_injured")
     private String player_injured;
 
-    @Column(name = "player_number")
-    private int player_number;
+    @Column(name = "playerNumber")
+    private int playerNumber;
 
-    @Column(name = "player_type")
-    private String player_type;
+    @Column(name = "playerType")
+    private String playerType;
 
     @Column(name = "player_match_played")
     private int player_match_played;
@@ -70,6 +70,9 @@ public class Player {
     @Column(name = "player_age")
     private int player_age;
 
+    @Column(name = "playerNationality")
+    private String playerNationality;
+
     @Builder
     public Player(Team team,int player_age ,long player_key, String player_image, String player_name, String player_injured, int player_number, String player_type, int player_match_played, int player_goals, float player_rating, int player_substitutes_on_bench, int player_assists, int player_passes, int player_dribble_attempts, int player_dribble_succ, int player_key_passes, int player_tackles, String player_birthdate) {
         this.team = team;
@@ -78,8 +81,8 @@ public class Player {
         this.player_image = player_image;
         this.player_name = player_name;
         this.player_injured = player_injured;
-        this.player_number = player_number;
-        this.player_type = player_type;
+        this.playerNumber = player_number;
+        this.playerType = player_type;
         this.player_match_played = player_match_played;
         this.player_goals = player_goals;
         this.player_rating = player_rating;
@@ -91,6 +94,9 @@ public class Player {
         this.player_key_passes = player_key_passes;
         this.player_tackles = player_tackles;
         this.player_birthdate = player_birthdate;
+    }
+    public void updateNationality(String Nationality){
+        this.playerNationality = Nationality;
     }
 }
 

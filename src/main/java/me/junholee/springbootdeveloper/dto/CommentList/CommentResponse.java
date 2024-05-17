@@ -27,6 +27,6 @@ public class CommentResponse {
         this.createdDate = comment.getCreatedDate();
         this.user = comment.getUser();
         this.image = comment.getUser().getPicture();
-        this.likesCount = comment.getLikeCount();
+        this.likesCount = comment.getLikes().size();
     }
 }

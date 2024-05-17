@@ -8,34 +8,35 @@
 
 <body>
 <header>
-    <div class="logo">
-        <a th:href="@{/}"><img src="/img/LIV_Logo.png"></a>
-        <p>KOP<br>MORNING!</p>
-    </div>
-    <nav class="ml2">
-        <a th:href="@{/}">HOME</a>
-        <a th:href="@{/story}">TEAM</a>
-        <a th:href="@{/articles}">ARTICLE</a>
-        <a th:href="@{/league}">LEAGUE</a>
-        <a th:href="@{/notice}">NOTICE</a>
-    </nav>
-    <div class="login">
-        <div sec:authorize="isAnonymous()">
-            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
-            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
+    <div class="alignCenter header-box">
+        <div class="logo">
+            <a th:href="@{/}"><img src="/img/LIV-LOGO.png"></a>
         </div>
-        <div class="user-info" sec:authorize="isAuthenticated()">
-            <div th:unless="${user.picture.startsWith('https://')}">
-                <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+        <nav class="ml2">
+            <a th:href="@{/}">HOME</a>
+            <a th:href="@{/story}">TEAM</a>
+            <a th:href="@{/articles}">ARTICLE</a>
+            <a th:href="@{/league}">LEAGUE</a>
+            <a th:href="@{/notice}">NOTICE</a>
+        </nav>
+        <div class="login">
+            <div sec:authorize="isAnonymous()">
+                <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
+                <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
             </div>
-            <div th:if="${user.picture.startsWith('https://')}">
-                <img class="mt10 w60 h60 border-circle" th:src="${user.picture}">
-            </div>
-            <div class="alignCenter column">
-                <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
-                <div class="ml2">
-                    <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
-                    <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+            <div class="user-info" sec:authorize="isAuthenticated()">
+                <div th:unless="${user.picture.startsWith('https://')}">
+                    <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+                </div>
+                <div th:if="${user.picture.startsWith('https://')}">
+                    <img class="mt10 w60 h60 border-circle" th:src="${user.picture}" onerror="this.url='/img/default-img.png';">
+                </div>
+                <div>
+                    <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
+                    <div class="ml2">
+                        <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
+                        <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,7 +45,7 @@
 <section>
     <div class="info-table">
         <div class="top">
-            <div>
+            <div class="alignCenter">
                 <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/dark/47.png">
                 <p>Premier League</p>
             </div>

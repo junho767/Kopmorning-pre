@@ -8,34 +8,35 @@
 
 <body>
 <header>
-    <div class="logo">
-        <a th:href="@{/}"><img src="/img/LIV_Logo.png"></a>
-        <p>KOP<br>MORNING!</p>
-    </div>
-    <nav class="ml2">
-        <a th:href="@{/}">HOME</a>
-        <a th:href="@{/story}">TEAM</a>
-        <a th:href="@{/articles}">ARTICLE</a>
-        <a th:href="@{/league}">LEAGUE</a>
-        <a th:href="@{/notice}">NOTICE</a>
-    </nav>
-    <div class="login">
-        <div sec:authorize="isAnonymous()">
-            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
-            <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
+    <div class="alignCenter header-box">
+        <div class="logo">
+            <a th:href="@{/}"><img src="/img/LIV-LOGO.png"></a>
         </div>
-        <div class="user-info" sec:authorize="isAuthenticated()">
-            <div th:unless="${user.picture.startsWith('https://')}">
-                <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+        <nav class="ml2">
+            <a th:href="@{/}">HOME</a>
+            <a th:href="@{/story}">TEAM</a>
+            <a th:href="@{/articles}">ARTICLE</a>
+            <a th:href="@{/league}">LEAGUE</a>
+            <a th:href="@{/notice}">NOTICE</a>
+        </nav>
+        <div class="login">
+            <div sec:authorize="isAnonymous()">
+                <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">로그인</button>
+                <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
             </div>
-            <div th:if="${user.picture.startsWith('https://')}">
-                <img class="mt10 w60 h60 border-circle" th:src="${user.picture}" onerror="this.url='/img/default-img.png';">
-            </div>
-            <div>
-                <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
-                <div class="ml2">
-                    <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
-                    <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+            <div class="user-info" sec:authorize="isAuthenticated()">
+                <div th:unless="${user.picture.startsWith('https://')}">
+                    <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+                </div>
+                <div th:if="${user.picture.startsWith('https://')}">
+                    <img class="mt10 w60 h60 border-circle" th:src="${user.picture}" onerror="this.url='/img/default-img.png';">
+                </div>
+                <div>
+                    <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
+                    <div class="ml2">
+                        <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
+                        <button type="button" class="button" onclick="location.href='/logout'">로그아웃</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,24 +45,126 @@
 <section>
     <div class="info-table">
         <div class="top">
-            <div class="dpFlex">
+            <div class="alignCenter">
                 <img th:src="${team.crest}">
-                <p class="alignCenter" th:text="${team.name}"></p>
+                <p th:text="${team.name}"></p>
             </div>
-            <div class="alignCenter fontWhite font-size30">
-                <p th:text="|감독 ${team.coach_name} 국적 ${team.nationality}"></p>
-                <p th:text="|${team.venue}|"></p>
+            <div class="alignCenter">
+                <table class="coach-table fontWhite">
+                    <tr>
+                        <th class="font-size20" colspan="2">감독</th>
+                        <th class="font-size20">경기장</th>
+                    </tr>
+                    <tr>
+                        <td class="font-size20" th:text="${team.coach_name}"></td>
+                        <td><div id="countryName" th:text="${team.coachNationality}" style="display: none;"></div>
+                            <div id="flagContainer"></div></td>
+                        <td class="font-size20" th:text="${team.venue}"></td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="bottom">
-            <div class="">
-
+            <div class="team-nav">
+<!--                <a th:href="@{/schedule}">경기 일정</a>-->
+<!--                <a th:href="@{/}">통계</a>-->
+            </div>
+            <div class="playerList">
+                <div class="GK-box">
+                    <p class="fontWhite font-size30">GK</p>
+                    <div th:each="GK, iterStat : ${GK}">
+                        <input type="hidden" th:value="${GK.id}">
+                        <img class="circle" th:src="${GK.image}" onerror="this.src='/img/default-img.png';">
+                        <a th:href="@{/player/id(id = ${GK.id})}" class="w150" th:text="${GK.name}"></a>
+                        <div th:id="'GKCountry' + ${iterStat.index}" th:text="${GK.nationality}" style="display: none;"></div>
+                        <div class="flagContainer" th:id="'GKFlagContainer' + ${iterStat.index}"></div>
+                    </div>
+                </div>
+                <div class="DF-box">
+                    <p class="fontWhite font-size30">DF</p>
+                    <div th:each="DF, iterStat : ${DF}">
+                        <input type="hidden" th:value="${DF.id}">
+                        <img class="circle" th:src="${DF.image}" onerror="this.src='/img/default-img.png';">
+                        <a th:href="@{/player/id(id = ${DF.id})}" class="w150" th:text="${DF.name}"></a>
+                        <div th:id="'DFCountry' + ${iterStat.index}" th:text="${DF.nationality}" style="display: none;"></div>
+                        <div class="flagContainer" th:id="'DFFlagContainer' + ${iterStat.index}"></div>
+                    </div>
+                </div>
+                <div class="MF-box">
+                    <p class="fontWhite font-size30">MF</p>
+                    <div th:each="MF, iterStat : ${MF}">
+                        <input type="hidden" th:value="${MF.id}">
+                        <img class="circle" th:src="${MF.image}" onerror="this.src='/img/default-img.png';">
+                        <a th:href="@{/player/id(id = ${MF.id})}" class="w150" th:text="${MF.name}"></a>
+                        <div th:id="'MFCountry' + ${iterStat.index}" th:text="${MF.nationality}" style="display: none;"></div>
+                        <div class="flagContainer" th:id="'MFFlagContainer' + ${iterStat.index}"></div>
+                    </div>
+                </div>
+                <div class="FW-box">
+                    <p class="fontWhite font-size30">FW</p>
+                    <div th:each="FW, iterStat : ${FW}">
+                        <input type="hidden" th:value="${FW.id}">
+                        <img class="circle" th:src="${FW.image}" onerror="this.src='/img/default-img.png';">
+                        <a th:href="@{/player/id(id = ${FW.id})}" class="w150" th:text="${FW.name}"></a>
+                        <div th:id="'FWCountry' + ${iterStat.index}" th:text="${FW.nationality}" style="display: none;"></div>
+                        <div class="flagContainer" th:id="'FWFlagContainer' + ${iterStat.index}"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 </section>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/article.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // 코치 국기 표시
+        let coachCountryName = document.getElementById("countryName").innerText;
+        if (coachCountryName === 'England') {
+            coachCountryName = 'United Kingdom';
+        }
+        fetchFlag(coachCountryName, "flagContainer");
+
+        // 선수 국기 표시
+        const categories = ['GK', 'DF', 'MF', 'FW'];
+        categories.forEach(category => {
+            const count = document.querySelectorAll(`[id^="${category}Country"]`).length;
+            for (let i = 0; i < count; i++) {
+                updateFlag(`${category}Country${i}`, `${category}FlagContainer${i}`);
+            }
+        });
+    });
+
+    function updateFlag(countryElementId, flagContainerId) {
+        let countryName = document.getElementById(countryElementId).innerText;
+        if (countryName === 'England') {
+            countryName = 'United Kingdom';
+        }
+        fetchFlag(countryName, flagContainerId);
+    }
+
+    function fetchFlag(countryName, flagContainerId) {
+        // Restcountries API를 사용하여 국가 정보를 가져옴
+        fetch(`https://restcountries.com/v3.1/name/${countryName}`)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                if (data.length > 0) {
+                    const flagUrl = data[0].flags.svg; // SVG 포맷의 국기 이미지 URL 가져오기
+                    displayFlag(flagUrl, flagContainerId);
+                }
+            })
+    }
+
+    function displayFlag(flagUrl, flagContainerId) {
+        const flagContainer = document.getElementById(flagContainerId);
+        flagContainer.innerHTML = `<img src="${flagUrl}" alt="Country Flag" style="width:40px; height:auto;">`;
+    }
+
+</script>
 <script src="/js/token.js"></script>
 </body>
 </html>

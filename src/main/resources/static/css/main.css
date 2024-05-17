@@ -22,17 +22,21 @@ li{
 html {
     height:100%;
 }
+th,td{
+    padding:15px;
+}
 body {
     height:100%;
     margin:0;
     border:0;
     padding:0;
-    overflow: hidden;
     font-family: 'KCC-Hanbit';
     background-image: url('/img/Anfield-gpt.png');
     background-size: cover; /* 이미지가 컨테이너 전체에 꽉 차도록 설정 */
     background-position: center; /* 이미지를 중앙에 위치시킵니다 */
     background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
 }
 .custom-btn {
   width: 130px;
@@ -96,12 +100,26 @@ body {
 .right175 {right:175px;}
 .bg-white{ background-color:white;}
 .dpFlex { display:flex; }
-.jsSB { justify-content: space-between; }
+.jsSB { justify-content: space-between !important; }
 .column { flex-direction: column; }
+.alignTop{
+    display:flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content:center;
+    flex-direction:column; /* 수평 중앙 정렬 */
+    margin:auto;
+}
 .alignCenter{
     display:flex;
     align-items: center; /* 수직 중앙 정렬 */
     justify-content: center; /* 수평 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin: auto; /* 중앙에 배치 */
+}
+.alignColumn{
+    display:flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    flex-direction:column; /* 수평 중앙 정렬 */
     text-align: center; /* 텍스트 중앙 정렬 */
     margin: auto; /* 중앙에 배치 */
 }
@@ -115,7 +133,6 @@ body {
 .font-size30{ font-size:30px !important; }
 .pd5{ padding:5px; }
 .pd8{ padding:8px; }
-.fw { color:white; }
 .w1p{ width:1%; }
 .w9p{ width:9%; }
 .w10p { width:10%; }
@@ -123,6 +140,7 @@ body {
 .w50p { width:50%; }
 .w60p { width:60%; }
 .w70p { width:70%; }
+.w80p { width:80%; }
 .w10 { width:10px !important;}
 .w15 { width:15px; }
 .w20 { width:20px !important;}
@@ -130,16 +148,16 @@ body {
 .w35 { width:35px; }
 .w40 { width:40px; }
 .w45 { width:45px; }
-.w50 { width:50px; }
+.w50 { width:50px !important; }
 .w55 { width:55px; }
 .w60 { width:60px; }
 .w70 { width:70px; }
 .w80 { width:80px; }
 .w85 { width:85px; }
 .w100 { width:100px; }
-.w120 { width:120px; }
+.w120 { width:120px !important; }
 .w140 { width:140px; }
-.w150 { width:150px; }
+.w150 { width:150px !important; }
 .w170 { width:170px; }
 .w180 { width:180px; }
 .w190 { width:190px; }
@@ -153,26 +171,36 @@ body {
 .w1000 { width:1000px; }
 .w100p { width:100%; }
 .h50p { height: 50%; }
+.h100p { height: 100%; }
 .h10 { height:10px !important; }
 .h20 { height:20px !important;}
 .h15 { height:15px; }
 .h20 { height:20px; }
 .h30 { height:30px; }
+.h50 { height:50px !important; }
 .h60 { height:60px; }
+.h70 { height:70px !important; }
+.h120 { height:120px !important;}
 .h140 { height:140px; }
+.h150 { height:150px !important;}
+.h600 { height:600px; }
 .mb0{ margin-bottom:0.5rem; }
+.mb1{ margin-bottom:1rem; }
 .mr1{ margin-right:1rem; }
+.mr2{ margin-right:2rem; }
 .ml0 { margin-left:0.5rem; }
 .ml1 { margin-left:1rem; }
 .ml2 { margin-left:2rem; }
 .mt10 { margin-top: 10px; }
+.mt5{ margin-top:5rem !important;}
 
 .border-bottom1 { border-bottom: 1px solid black; }
-.border-circle { border-radius : 50% ; }
+.circle { border-radius : 50% !important; }
 .wrap {
     position:relative;
     top:0;
-    width:100%;height:100%;
+    width:100%;
+    height:100%;
     transition: 0.5s;
 }
 .container {
@@ -188,24 +216,26 @@ body {
 }
 .container {
     width: 100%;
-    height: 100vh; /* 뷰포트 높이에 맞춤 */
+    height: 100%; /* 뷰포트 높이에 맞춤 */
     overflow: hidden;
     position: relative;
 }
-
-header{
-    position: fixed;
+.header-box{
     top: 0; /* 상단에 위치 */
-    width: 100%; /* 컨테이너 너비와 동일 */
-    height: 120px; /* 헤더의 높이 설정 */
-    background: rgba(0, 0, 0, 0.5); /* 투명한 검정색 배경 */
-    display: flex;
-    justify-content: space-around;
-    align-items: center; /* 세로 중앙 정렬 */
+    position:fixed;
+    z-index: 1000;
     padding: 0 20px; /* 양쪽 패딩 */
     box-sizing: border-box; /* 패딩 포함 너비 계산 */
-    z-index: 1000; /* 다른 요소 위에 렌더링 */
+    width:100%;
+    background: rgba(0, 0, 0); /* 투명한 검정색 배경 */
+    justify-content:space-around !important;
+    header:70px;
 }
+header{
+    width: 100%; /* 컨테이너 너비와 동일 */
+    height: 130px; /* 헤더의 높이 설정 */
+}
+
 nav{
     width:600px;
     display:flex;
@@ -229,24 +259,16 @@ nav > a:hover{
     z-index: 1000;
 }
 footer{
-    position:absolute;
-    height: 150px;
+    height: 10%;
     width:100%;
-    background: rgba(0, 0, 0, 0.5); /* 투명한 검정색 배경 */
-    bottom: 0px;
+    background: rgba(0, 0, 0); /* 투명한 검정색 배경 */
+    bottom: 0;
     z-index: 1000; /* 다른 요소 위에 렌더링 */
 }
-.logo{
-    display:flex;
+.logo img{
     width: 150px;
-    align-items:center;
+    height:auto;
 }
-.logo p {
-    color : white;
-    font-size: 1.6em;
-    font-family: "Abril Fatface", cursive;
-}
-
 .login{
     display: flex;
     width:300px;
@@ -347,16 +369,18 @@ footer{
     justify-content:flex-end;
     margin-right:5px;
 }
+
 .listContainer{
-    text-align:center;
-    align-items:center;
     border-radius:5%;
+    margin-top:40px;
     background-color: rgba(255,255,255,0.9); /* 투명도 50%의 흰색 */
-    position:absolute;
-    width: 1200px;
-    height: 85%;
-    left: 20%;
-    top: 13%;
+    width: 1500px;
+    height: 750px;
+}
+.listContainer > .side-nav{
+    width:300px;
+    height:100%;
+    border-right:3px solid black;
 }
 .title{
     line-height: 40px;
@@ -381,26 +405,35 @@ footer{
     text-decoration-style: solid; /* 밑줄 스타일 */
 }
 .articleList {
+    height: 680px;
+    width:1200px;
+}
+.listContainer .tap-nav{
     height: 700px;
-    width:100%;
+    width: 200px;
+    flex-direction:column !important;
 }
-.listContainer .tap_nav{
+.listContainer .tap-nav a{
     display:flex;
-    align-items: center;
-    justify-content : space-evenly;
-    width:100%;
-    height: 5%;
-}
-.listContainer .tap_nav a{
-    width: 30%;
-    color: while;
-    background-image:red;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin: auto; /* 중앙에 배치 */
+    width: 100%;
+    height:20%;
+    padding:10px;
+    margin:5px;
+    color: black;
     border-radius : 10px;
 }
+.listContainer .tap-nav a:nth-child(1) { background-color: red; }
+.listContainer .tap-nav a:nth-child(2) { background-color: blue; }
+.listContainer .tap-nav a:nth-child(3) { background-color: green; }
+.listContainer .tap-nav a:nth-child(4) { background-color: black; }
 .listContainer .top{
     display:flex;
-    justify-content:flex-end;
-    padding-top: 20px;
+    justify-content:space-between;
+    margin:auto;
     width:95%;
     height: 50px;
 }
@@ -410,7 +443,6 @@ footer{
     font-size:20px;
 }
 .searchInput{
-    position: relative;
     width:250px;
     height: 40px;
     border-radius: 10px;
@@ -431,9 +463,10 @@ footer{
 }
 .paging{
     display: flex;
+    justify-content:center;
     align-items:end;
     justify-content: space-around;
-    width:500px;
+    width: 100%;
 }
 .paging a{
     color: black;
@@ -456,15 +489,14 @@ footer{
     transition-duration: 0.5s;
 }
 section{
-    position:absolute;
     width: 100%;
-    height: 1300px;
-    top: 12%;
+    height: 80%;
+    margin-top: 20px;
 }
 article{
     width: 1200px;
     margin:auto;
-    max-height: 800px;
+    max-height: 900px;
     height: auto;
     background-color: rgba(255,255,255,0.9); /* 투명도 50%의 흰색 */
     border-bottom: 3px solid black;
@@ -477,7 +509,7 @@ section::-webkit-scrollbar {
 }
 article .titleContainer{
     width: 100%;
-    height: 200px;
+    height: 220px;
     border-bottom: 3px solid black;
 }
 article .titleContainer .top{
@@ -513,7 +545,7 @@ article .titleContainer .top > p{
     align-items: center;     /* 수직 방향으로 중앙 정렬 */
 }
 table {
-    width: 180px;
+    width: 300px;
     border-collapse: collapse; /* 테이블의 경계선을 하나로 합침 */
     text-align: center; /* 테이블 내 텍스트를 가운데 정렬 */
 }
@@ -659,23 +691,21 @@ input[type="file"]:hover {
     background-color: #666; /* 호버 시 배경색 변경 */
 }
 .info-table{
-    width: 80%;
-    max-height: 1000px;
+    width: 1500px;
+    max-height: 900px;
     margin:auto;
     background: rgba(26, 26, 26, 1.0);
     border-radius: 20px;
 }
 .info-table > .top{
-    margin: 20px;
-    padding-left: 50px;
     width:100%;
-    height: 20%;
+    height: 150px;
     border-bottom: 1px solid black;
     display:flex;
     align-items:center;
 }
 .info-table > .top img{
-    width: 130px;
+    width: 75px;
     height: auto;
 }
 .info-table > .top p{
@@ -683,14 +713,60 @@ input[type="file"]:hover {
     font-size: 30px;
 }
 .info-table > .bottom {
-    width:100%;
-    height:700px;
+    width:1500px;
+    height:800px;
     display:flex;
 }
 .standing-box{
     margin:10px;
     width: 50%;
     font-size: 20px;
+}
+.playerList{
+    overflow-y:auto;
+    width:1200px;
+    max-height:750px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    display:flex;
+}
+.team-nav{
+    width:300px;
+    height:auto;
+}
+.GK-box,
+.DF-box,
+.MF-box,
+.FW-box{
+    width:235px;
+    height:auto;
+    padding:15px;
+}
+.GK-box div,
+.DF-box div,
+.MF-box div,
+.FW-box div{
+    display:flex;
+    align-items:center;
+    padding:10px;
+}
+.GK-box div img,
+.DF-box div img,
+.MF-box div img,
+.FW-box div img{
+    width:40px;
+    height:auto;
+}
+.GK-box div a,
+.DF-box div a,
+.MF-box div a,
+.FW-box div a{
+    margin-left: 10px;
+    font-size:15px;
+    color: white;
+}
+.flagContainer{
+    display:flex;
 }
 .standing-box div{
     text-align:center;
@@ -759,12 +835,13 @@ input[type="file"]:hover {
 
 .stat-box{
     width:50%;
-    height:95%;
+    height:80%;
     margin: 8px;
 }
 .rank-box{
     width:48%;
     margin-right:10px;
+    margin-top:20px;
     padding:10px;
     background-color: #1a1a2e;
     border-radius:20px;
@@ -807,6 +884,85 @@ input[type="file"]:hover {
     width: 40px; /* 원하는 너비 */
     height: 40px; /* 원하는 높이 */
 }
+.2x2table{
+    width:400px !important;
+    height:100px !important;
+}
 
+.player-table > .top{
+    border-bottom: 1px solid black;
+}
+
+.player-card {
+    background-color: #fff;
+    width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin:auto;
+}
+
+.player-info {
+    padding: 20px;
+    text-align: center;
+    background-color: #e0e0e0;
+}
+
+.team-logo {
+    width: 50px;
+    float: left;
+    margin-left:20px;
+}
+
+.player-photo {
+    width: 100px;
+    border-radius: 50%;
+}
+.player-number{
+    width: 70px;
+    float: right;
+    top:0;
+}
+.player-name {
+    margin: 10px 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.player-details {
+    margin-left: 15px;
+    font-size: 16px;
+    color: #555;
+}
+
+.country-flag {
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.player-stats {
+    padding: 20px;
+    color: #fff;
+}
+
+.player-stats h3 {
+    margin-top: 0;
+}
+
+.player-stats table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.player-stats th, .player-stats td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.player-stats td:last-child {
+    text-align: right;
+}
 
 

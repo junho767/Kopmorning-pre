@@ -263,15 +263,4 @@ public class BlogViewController {
 
         return "story";
     }
-
-    @GetMapping("/player")
-    public String getPlayer(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
-
-        if(principalDetails != null) {
-            User user= userService.findByEmail(principalDetails.getUser().getEmail());
-            model.addAttribute("user", user);
-        }
-
-        return "player";
-    }
 }

@@ -20,10 +20,5 @@ public class StandingService {
 
     public List<Standings> findAll(){
         return standingRepository.findAll();
-//        return standingRepository.findAll(Sort.by(Sort.Direction.ASC, "position"));
-        // position 필드를 기준으로 오름차순하여 정렬.
     }
-//    public Standings findByid(int id){
-//        return standingRepository.findById(id).orElse(null);
-//    }
 }

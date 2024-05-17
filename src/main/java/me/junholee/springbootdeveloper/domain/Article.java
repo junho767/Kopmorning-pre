@@ -34,8 +34,6 @@ public class Article {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int viewCount;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
-    private int likeCount;
 
     @CreatedDate
     @Column(name = "created_at")
@@ -55,6 +53,10 @@ public class Article {
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id asc")
     private List<ArticleImage> articleImage;
+
+    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private List<Likes> likes;
 
     @Column(name = "articleType",nullable = false)
     private String articleType;

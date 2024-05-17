@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,8 +36,9 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @Column(columnDefinition = "integer default 0", nullable = false)
-    private int likeCount;
+    private List<Likes> likes;
 
     public void CommentUpdate(String comment){
         this.comment = comment;

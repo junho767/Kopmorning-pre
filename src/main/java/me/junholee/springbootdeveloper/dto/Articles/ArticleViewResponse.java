@@ -8,6 +8,7 @@ import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.CommentList.CommentResponse;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ public class ArticleViewResponse {
         this.createdAt = article.getCreatedAt();
         this.user = article.getUser();
         this.comment = article.getComment().stream().map(CommentResponse::new).collect(Collectors.toList());
-        this.likeCount = article.getLikeCount();
+        this.likeCount = article.getLikes().size();
         this.viewCount = article.getViewCount();
         this.imageUrl = article.getArticleImage().stream().map(ArticleImage::getUrl).collect(Collectors.toList());
         this.articleType = article.getArticleType();

@@ -38,8 +38,12 @@ public class Team {
     @JoinColumn(name = "coach_id")
     private Coach coach;
 
+    @Column(name = "clubColors")
+    private String clubColors;
+
     @Builder
-    public Team(long id, String team_name, String team_tla, String team_shortName, String team_crest, String venue, Coach coach){
+    public Team(long id, String team_name, String team_tla, String team_shortName, String team_crest, String venue, Coach coach, String clubColors){
+        this.clubColors = clubColors;
         this.id = id;
         this.team_name = team_name;
         this.team_tla = team_tla;

@@ -22,12 +22,10 @@ public class LikeService {
         Article article = blogService.findById(id);
         // 해당 유저 정보와 글이 없다면 좋아요 증가  및 Like DB에 생성
         if(!likeRepository.existsByUserAndArticle(user,article)){
-            article.setLikeCount(article.getLikeCount()+1);
             likeRepository.save(new Likes(user,article));
         }
         // 해당 유저 정보와 글이 있다면 좋아요 감소 및 Like DB에서 삭제
         else{
-            article.setLikeCount(article.getLikeCount()-1);
             likeRepository.deleteByUserAndArticle(user,article);
         }
     }
@@ -35,12 +33,10 @@ public class LikeService {
         Comment comment = commentService.findById(id);
         // 해당 유저 정보와 글이 없다면 좋아요 증가  및 Like DB에 생성
         if(!likeRepository.existsByUserAndComment(user,comment)){
-            comment.setLikeCount(comment.getLikeCount()+1);
             likeRepository.save(new Likes(user,comment));
         }
         // 해당 유저 정보와 글이 있다면 좋아요 감소 및 Like DB에서 삭제
         else{
-            comment.setLikeCount(comment.getLikeCount()-1);
             likeRepository.deleteByUserAndComment(user,comment);
         }
     }

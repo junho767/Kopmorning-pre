@@ -30,15 +30,18 @@ public class PlayerRequest {
         String api_url = "https://apiv3.apifootball.com/?action=get_teams&league_id=152";
         String apiKey = "91f7214ad9ff0500ece16da3c413f6d25ac0e88dd92b14b2c288a7e353d1570f";
         String url = api_url + "&APIkey=" + apiKey;
-        RequestEntity<Void> req = RequestEntity.get(new URI(url)).build();
-        ResponseEntity<String> resultBody = restTemplate.exchange(req, String.class);
+        RequestEntity<Void> player_req = RequestEntity.get(new URI(url)).build();
+
+        ResponseEntity<String> resultBody = restTemplate.exchange(player_req, String.class);
         String jsonString = resultBody.getBody();
-        JSONParser jsonParser = new JSONParser();
-        JSONArray jsonArray = (JSONArray) jsonParser.parse(jsonString);
+        JSONParser jsonParser1 = new JSONParser();
+        JSONArray jsonArray1 = (JSONArray) jsonParser1.parse(jsonString);
+
+
 
         for(int i=0 ; i<20 ; i++){
             Team team;
-            JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+            JSONObject jsonObject = (JSONObject) jsonArray1.get(i);
 
             JSONObject jsonVenue = (JSONObject) jsonObject.get("venue");
             JSONArray jsonPlayers = (JSONArray) jsonObject.get("players");
