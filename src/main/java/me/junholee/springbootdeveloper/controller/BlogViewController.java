@@ -213,7 +213,6 @@ public class BlogViewController {
         Article article = blogService.findById(id);
 
         ArticleViewResponse dto = new ArticleViewResponse(article);
-
         List<String> articleImages = dto.getImageUrl();
         if(articleImages != null && !articleImages.isEmpty()){
             model.addAttribute("article_image",articleImages);
@@ -222,7 +221,6 @@ public class BlogViewController {
             User user= userService.findByEmail(principalDetails.getUser().getEmail());
             model.addAttribute("user", user);
         }
-
         List<CommentResponse> commentList = dto.getComment();
         if (commentList != null && !commentList.isEmpty()) {
             model.addAttribute("comment", commentList);

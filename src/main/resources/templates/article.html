@@ -62,13 +62,16 @@
                     <tr>
                         <th><button type="button" id="LikeUp-btn" class="button font-black font-size16">추천</button></th>
                         <th>방문</th>
-                        <th><button type="button" class="button font-black font-size16"
+                        <th th:if="${user != null and user.email == article.user.email}">
+                            <button type="button" class="button font-black font-size16"
                                     th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${article.id})}'|">수정</button></th>
                     </tr>
                     <tr>
                         <th th:text="${article.likeCount}"></th>
                         <th th:text="${article.viewCount}"></th>
-                        <th><button type="button" id="delete-btn" class="button font-black font-size16">삭제</button></th>
+                        <th th:if="${user != null and user.email == article.user.email}">
+                            <button type="button" id="delete-btn" class="button font-black font-size16">삭제</button>
+                        </th>
                     </tr>
                 </table>
             </div>
@@ -96,8 +99,8 @@
                         <p class="w70 ml0" th:text="${comment.user.nickname == null} ? ${comment.user.username} : ${comment.user.nickname}"></p>
                         <button type="button" class="button Like-comment-btn"><img class="w15 h15" src="/img/green-check.png"></button>
                         <p th:text="| 좋아요 (${comment.likesCount})|"></p>
-                        <button type="button" class="button delete-comment-btn"><img class="w15 h15" src="/img/delete.png"></button>
-                        <button type="button" class="button modify-comment-btn"><img class="w15 h15" src="/img/pencil.png"></button>
+                        <button th:if="${user != null and user.email == comment.user.email}" type="button" class="button delete-comment-btn"><img class="w15 h15" src="/img/delete.png"></button>
+                        <button th:if="${user != null and user.email == comment.user.email}" type="button" class="button modify-comment-btn"><img class="w15 h15" src="/img/pencil.png"></button>
                         <button type="button" style="display: none;" class="button save-comment-btn"><img class="w15 h15" src="/img/green-check.png"></button>
                         <button type="button" style="display: none;" class="button cancel-comment-btn"><img class="w15 h15" src="/img/red-x.png"></button>
                     </div>
