@@ -45,12 +45,12 @@
 <section>
     <div class="mt5 player-card">
         <div class="player-info"
-             th:style="'background: linear-gradient(to right, ' + ${color1} + ', ' + ${color2} + ');'">
+             th:style="'background: linear-gradient(to right, ' + ${color1} + ' 0%, ' + ${color1} + ' 50%, ' + ${color2} + ' 100%);'">
             <img th:src="${player.teamCrest}" alt="Team Logo" class="team-logo">
             <img th:src="${player.image}" alt="Player Photo" class="player-photo" onerror="this.src='/img/default-img.png'">
             <div class="player-number">
                 <p class="font-size14" th:text="${player.type}"></p>
-                <p class="font-size30" th:text="${player.number}"></p>
+                <p class="font-size25" th:text="|No. ${player.number}|"></p>
             </div>
             <h2 class="player-name" th:text="${player.name}"></h2>
             <div class="alignCenter">

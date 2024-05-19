@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-public class CommentResponse {
+public class CommentResponseDTO {
     private Long id;
     private String username;
     private String comment;
@@ -19,7 +19,7 @@ public class CommentResponse {
     private String image;
     private int likesCount;
 
-    public CommentResponse(Comment comment){
+    public CommentResponseDTO(Comment comment){
         this.id = comment.getId();
         this.username = comment.getUser().getUsername();
         this.comment = comment.getComment();

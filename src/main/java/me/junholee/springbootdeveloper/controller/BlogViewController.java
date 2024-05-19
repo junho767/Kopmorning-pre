@@ -7,12 +7,13 @@ import me.junholee.springbootdeveloper.domain.Match;
 import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleListViewResponse;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleViewResponse;
-import me.junholee.springbootdeveloper.dto.CommentList.CommentResponse;
+import me.junholee.springbootdeveloper.dto.CommentList.CommentResponseDTO;
 import me.junholee.springbootdeveloper.dto.Match.MatchRespones;
 import me.junholee.springbootdeveloper.dto.Standing.StandingsResponseDTO;
 import me.junholee.springbootdeveloper.service.Blog.BlogService;
 import me.junholee.springbootdeveloper.service.Football.MatchService;
 import me.junholee.springbootdeveloper.service.Football.StandingService;
+import me.junholee.springbootdeveloper.service.Like.LikeService;
 import me.junholee.springbootdeveloper.service.Member.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -35,6 +37,7 @@ public class BlogViewController {
     private final StandingService standingService;
     private final MatchService matchService;
     private final UserService userService;
+    private final LikeService likeService;
     @GetMapping("/articles")
     public String getArticles(@PageableDefault(page = 1)Pageable pageable,
                               String keyword,
@@ -211,17 +214,20 @@ public class BlogViewController {
     public String getArticle(@PathVariable Long id, Model model,@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         Article article = blogService.findById(id);
-
         ArticleViewResponse dto = new ArticleViewResponse(article);
+        List<CommentResponseDTO> commentList = dto.getComment();
         List<String> articleImages = dto.getImageUrl();
+
         if(articleImages != null && !articleImages.isEmpty()){
             model.addAttribute("article_image",articleImages);
         }
+
         if(principalDetails != null) {
             User user= userService.findByEmail(principalDetails.getUser().getEmail());
             model.addAttribute("user", user);
+            model.addAttribute("likesArticle",likeService.existArticleAndUSer(article,user));
         }
-        List<CommentResponse> commentList = dto.getComment();
+
         if (commentList != null && !commentList.isEmpty()) {
             model.addAttribute("comment", commentList);
         } else {

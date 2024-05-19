@@ -6,6 +6,7 @@ import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.Comment;
 import me.junholee.springbootdeveloper.domain.Likes;
 import me.junholee.springbootdeveloper.domain.User;
+import me.junholee.springbootdeveloper.dto.CommentList.CommentResponseDTO;
 import me.junholee.springbootdeveloper.repository.LikeRepository;
 import me.junholee.springbootdeveloper.service.Blog.BlogService;
 import me.junholee.springbootdeveloper.service.Comment.CommentService;
@@ -31,13 +32,18 @@ public class LikeService {
     }
     public void commentLike(User user, Long id){
         Comment comment = commentService.findById(id);
+        CommentResponseDTO commentResponseDTO = new CommentResponseDTO(comment);
         // 해당 유저 정보와 글이 없다면 좋아요 증가  및 Like DB에 생성
-        if(!likeRepository.existsByUserAndComment(user,comment)){
+        if(!likeRepository.existsByUserAndComment(user,commentResponseDTO)){
             likeRepository.save(new Likes(user,comment));
         }
         // 해당 유저 정보와 글이 있다면 좋아요 감소 및 Like DB에서 삭제
         else{
             likeRepository.deleteByUserAndComment(user,comment);
         }
+    }
+
+    public boolean existArticleAndUSer(Article article, User user){
+        return likeRepository.existsByUserAndArticle(user, article);
     }
 }

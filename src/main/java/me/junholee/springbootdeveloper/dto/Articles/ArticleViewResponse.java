@@ -5,10 +5,9 @@ import lombok.NoArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.ArticleImage;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.CommentList.CommentResponse;
+import me.junholee.springbootdeveloper.dto.CommentList.CommentResponseDTO;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,7 @@ public class ArticleViewResponse {
     private String content;
     private LocalDateTime createdAt;
     private User user;
-    private List<CommentResponse> comment;
+    private List<CommentResponseDTO> comment;
     private List<String> imageUrl;
     private int likeCount;
     private int viewCount;
@@ -33,7 +32,7 @@ public class ArticleViewResponse {
         this.content = article.getContent();
         this.createdAt = article.getCreatedAt();
         this.user = article.getUser();
-        this.comment = article.getComment().stream().map(CommentResponse::new).collect(Collectors.toList());
+        this.comment = article.getComment().stream().map(CommentResponseDTO::new).collect(Collectors.toList());
         this.likeCount = article.getLikes().size();
         this.viewCount = article.getViewCount();
         this.imageUrl = article.getArticleImage().stream().map(ArticleImage::getUrl).collect(Collectors.toList());

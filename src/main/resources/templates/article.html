@@ -30,7 +30,7 @@
                 <div th:if="${user.picture.startsWith('https://')}">
                     <img class="mt10 w60 h60 border-circle" th:src="${user.picture}" onerror="this.url='/img/default-img.png';">
                 </div>
-                <div>
+                <div class="alignColumn">
                     <p class="ml1" th:text="|${user.nickname == null ? user.username : user.nickname}님 어서오세요!|"></p>
                     <div class="ml2">
                         <button type="button" class="button" onclick="location.href='/myprofil'">내 정보</button>
@@ -46,22 +46,27 @@
         <input type="hidden" id="article-id" th:value="${article.id}">
         <div class="titleContainer">
             <div class="top">
-                <span th:text="${article.title}"></span>
+                <span th:text="${article.articleType}"></span>
                 <p th:text="|Posted on ${#temporals.format(article.createdAt, 'YY년 MM월 dd일 HH:mm')}|"></p>
             </div>
             <div class="author">
                 <div>
-                    <p class="font-black font-size20">작성자 :</p>
+                    <p>작성자 :</p>
                     <img class="ml0 w60 h60 border-circle"
                          th:src="${article.user.picture.startsWith('https://') ? article.user.picture : '/profileImage/' + article.user.picture}"
                          alt="User Image">
-                    <a class="ml0 font-black font-size20" href="#" th:text="${article.user.nickname != null ? article.user.nickname : article.user.username}"></a>
+                    <a class="ml0" href="#" th:text="${article.user.nickname != null ? article.user.nickname : article.user.username}"></a>
                 </div>
-                <p th:text="${article.articleType}"></p>
+                <p class="font-size20" th:text="${article.title}"></p>
                 <table>
                     <tr>
-                        <th><button type="button" id="LikeUp-btn" class="button font-black font-size16">추천</button></th>
-                        <th>방문</th>
+                        <th>
+                            <button type="button" id="LikeUp-btn" class="button font-black font-size16">
+                            <img class="w30 h30" th:if="${likesArticle} == true" src="/img/thumbs-up-solid.png">
+                            <img class="w30 h30" th:unless="${likesArticle} == true" src="/img/thumbs-up-regular.png">
+                            </button>
+                        </th>
+                        <th>조회수</th>
                         <th th:if="${user != null and user.email == article.user.email}">
                             <button type="button" class="button font-black font-size16"
                                     th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${article.id})}'|">수정</button></th>
@@ -85,26 +90,26 @@
 
         <div class="commentContainer">
             <div class="comment-top">
-                <p>댓글<span class="ml1 w100" th:text="|(${comment.size()})|">(0)</span></p>
-                <div class="dpFlex">
+                <p class="ml1">댓글<span class="ml1" th:text="|(${comment.size()})|">(0)</span></p>
+                <div class="alignCenter w100p">
                     <textarea style="width:90%;" id="comment" placeholder="댓글 작성.."></textarea>
-                    <button type="button" class="button font-black" id="writeComment">댓글 달기</button>
+                    <button type="button" class="button font-black ml0" id="writeComment">댓글 달기</button>
                 </div>
             </div>
             <div class="ml0 comment-list" th:each="comment, commentIndex : ${comment}">
                 <input type="hidden" id="comment-id" th:value="${comment.id}">
                 <div class="mt10 dpFlex jsSB">
                     <div class="dpFlex">
-                        <img class="w30 h30 boarder-circle" th:src="${comment.user.picture.startsWith('https://') ? comment.user.picture : '/profileImage/' + comment.user.picture}">
-                        <p class="w70 ml0" th:text="${comment.user.nickname == null} ? ${comment.user.username} : ${comment.user.nickname}"></p>
-                        <button type="button" class="button Like-comment-btn"><img class="w15 h15" src="/img/green-check.png"></button>
+                        <img class="w30 h30 boarder-circle" th:src="${comment.user.picture.startsWith('https://') ? comment.user.picture : '/profileImage/' + comment.user.picture}" onerror="this.src='/img/default-img.png'">
+                        <p class="w120 ml0" th:text="${comment.user.nickname == null} ? ${comment.user.username} : ${comment.user.nickname}"></p>
+                        <button type="button" class="button Like-comment-btn"><img class="w15 h15" src="/img/thumbs-up-regular.png"></button>
                         <p th:text="| 좋아요 (${comment.likesCount})|"></p>
                         <button th:if="${user != null and user.email == comment.user.email}" type="button" class="button delete-comment-btn"><img class="w15 h15" src="/img/delete.png"></button>
                         <button th:if="${user != null and user.email == comment.user.email}" type="button" class="button modify-comment-btn"><img class="w15 h15" src="/img/pencil.png"></button>
                         <button type="button" style="display: none;" class="button save-comment-btn"><img class="w15 h15" src="/img/green-check.png"></button>
                         <button type="button" style="display: none;" class="button cancel-comment-btn"><img class="w15 h15" src="/img/red-x.png"></button>
                     </div>
-                    <span class="w100" th:text="${#temporals.format(comment.createdDate,'HH : mm')}"></span>
+                    <span class="w100 mt1" th:text="${#temporals.format(comment.createdDate,'HH : mm')}"></span>
                 </div>
                 <div class="comment-layout">
                     <pre class="comment-content" th:text="${comment.comment}"></pre>

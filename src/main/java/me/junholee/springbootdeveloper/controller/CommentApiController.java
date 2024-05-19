@@ -3,7 +3,7 @@ package me.junholee.springbootdeveloper.controller;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Comment;
 import me.junholee.springbootdeveloper.dto.CommentList.CommentRequest;
-import me.junholee.springbootdeveloper.dto.CommentList.CommentResponse;
+import me.junholee.springbootdeveloper.dto.CommentList.CommentResponseDTO;
 import me.junholee.springbootdeveloper.service.Comment.CommentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +20,14 @@ public class CommentApiController {
         return ResponseEntity.ok(commentService.commentSave(principal.getName(), id,request));
     }
     @DeleteMapping("/comment/{id}")
-    public ResponseEntity<Void> CommentDelete(@RequestBody CommentResponse commentResponse){
-        commentService.delete(commentResponse.getId());
+    public ResponseEntity<Void> CommentDelete(@RequestBody CommentResponseDTO commentResponseDTO){
+        commentService.delete(commentResponseDTO.getId());
         return ResponseEntity.ok().build();
     }
     @PutMapping("/comment/{id}")
-    public ResponseEntity<Comment> CommentUpdate(@RequestBody CommentResponse commentResponse){
-        System.out.println(commentResponse.getComment()+commentResponse.getId());
-        Comment comment = commentService.CommentUpdate(commentResponse.getId(),commentResponse.getComment());
+    public ResponseEntity<Comment> CommentUpdate(@RequestBody CommentResponseDTO commentResponseDTO){
+        System.out.println(commentResponseDTO.getComment()+ commentResponseDTO.getId());
+        Comment comment = commentService.CommentUpdate(commentResponseDTO.getId(), commentResponseDTO.getComment());
         return ResponseEntity.ok().body(comment);
     }
 }

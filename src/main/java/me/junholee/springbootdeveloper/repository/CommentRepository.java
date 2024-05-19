@@ -1,6 +1,7 @@
 package me.junholee.springbootdeveloper.repository;
 
 import me.junholee.springbootdeveloper.domain.Comment;
+import me.junholee.springbootdeveloper.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

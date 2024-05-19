@@ -23,7 +23,7 @@ html {
     height:100%;
 }
 th,td{
-    padding:15px;
+    padding:10px;
 }
 body {
     height:100%;
@@ -130,6 +130,7 @@ body {
 .font-size14{ font-size:14px; }
 .font-size16{ font-size:16px !important; }
 .font-size20{ font-size:20px !important; }
+.font-size25{ font-size:25px !important; }
 .font-size30{ font-size:30px !important; }
 .pd5{ padding:5px; }
 .pd8{ padding:8px; }
@@ -154,7 +155,6 @@ body {
 .w70 { width:70px; }
 .w80 { width:80px; }
 .w85 { width:85px; }
-.w100 { width:100px; }
 .w120 { width:120px !important; }
 .w140 { width:140px; }
 .w150 { width:150px !important; }
@@ -193,9 +193,8 @@ body {
 .ml2 { margin-left:2rem; }
 .mt10 { margin-top: 10px; }
 .mt5{ margin-top:5rem !important;}
-
 .border-bottom1 { border-bottom: 1px solid black; }
-.circle { border-radius : 50% !important; }
+.border-circle { border-radius : 50% !important; }
 .wrap {
     position:relative;
     top:0;
@@ -300,9 +299,12 @@ footer{
 .user-info {
     width:300px;
     display:flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    margin: auto; /* 중앙에 배치 */
 }
 .user-info p{
-    font-size: 18px;
+    font-size: 16px;
     color:white;
 }
 .slider {
@@ -534,10 +536,12 @@ article .titleContainer .top > p{
     justify-content:space-between;
     height : 100px;
 }
-.author p{
-    font-size:20px;
+.author p,
+.author a{
+    font-size:16px;
     display:flex;
     align-items:center;
+    color:black;
 }
 .author div{
     display: flex;
