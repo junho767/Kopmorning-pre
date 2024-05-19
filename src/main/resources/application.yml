@@ -13,7 +13,7 @@ spring:
     suffix: .html   # 파일 확장자
     cache: false
   datasource:
-    url: jdbc:mariadb://3.39.233.26:3306/blog
+    url: jdbc:mariadb://52.19.154.43/blog
     username: root
     password: 1234
 #    url: jdbc:mariadb://localhost:3307/blog
