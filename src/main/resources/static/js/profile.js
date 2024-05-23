@@ -19,19 +19,19 @@ document.addEventListener('DOMContentLoaded', function() {
         inputNickname.style.border = '1px solid #ccc';
         inputNickname.style.borderRadius = '20px';
         inputNickname.style.padding = '5px';
-        inputNickname.style.width = '275px';
+        inputNickname.style.width = '250px';
 
         inputYear.style.display = 'block';
         inputYear.style.border = '1px solid #ccc';
         inputYear.style.borderRadius = '20px';
         inputYear.style.padding = '5px';
-        inputYear.style.width = '275px';
+        inputYear.style.width = '250px';
 
         inputReason.style.display = 'block';
         inputReason.style.border = '1px solid #ccc';
         inputReason.style.borderRadius = '20px';
         inputReason.style.padding = '5px';
-        inputReason.style.width = '275px';
+        inputReason.style.width = '250px';
 
         // 버튼을 보여줌
         completeBtn.style.display = 'block';
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             location.reload();
         }
         function fail(){
-            alert("실패ㅠ");
+            alert("실패!");
             location.reload();
         }
         httpRequest('POST', '/api/myProFil', body, success ,fail);

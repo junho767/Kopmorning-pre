@@ -27,6 +27,7 @@
                 <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
             </div>
             <div class="user-info" sec:authorize="isAuthenticated()">
+                <div id="user-data" data-authenticated="${authenticated}"></div>
                 <div th:unless="${user.picture.startsWith('https://')}">
                     <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
                 </div>
@@ -65,10 +66,10 @@
                     <button type="button" id="write-btn" class="custom-btn btn-5">글 쓰기</button>
                 </div>
             </div>
-            <div class="h600">
+            <div class="h550">
                 <div>
                     <ul>
-                        <li class="w60 title">탭</li>
+                        <li class="w100 title">탭</li>
                         <li class="w550 title">제목</li>
                         <li class="w230 title">글쓴이</li>
                         <li class="w170 title">날짜</li>
@@ -80,7 +81,7 @@
                     <ul>
                         <th:block th:each="item : ${articlePages}">
                             <input type="hidden" th:value="${item.id}">
-                            <li th:text="${item.articleType}" class="font-size12 w60 list"></li>
+                            <li th:text="${item.articleType}" class="font-size12 w100 list"></li>
                             <li class="w550 list">
                                 <a th:href="@{/articles/{id}(id=${item.id})}" th:text="${item.title}"></a>
                             </li>
@@ -96,7 +97,7 @@
                 <a th:href="@{/articles(page=1, keyword=${keyword})}"> << 처음 </a>    <!-- 첫번째 페이지로 이동, 검색어가 있을 경우 &keyword={keyword} 추가 -->
                 <div>
             <span th:each="page : ${#numbers.sequence(startPage, endPage)}"> <!-- 페이지 번호 링크(현재 페이지는 숫자만) -->
-            <span th:if="${page == articlePages.number + 1}" th:text="${page}"></span> <!-- 현재페이지는 링크 없이 숫자만 -->
+            <span style="font-weight:bold; font-size:20px;" th:if="${page == articlePages.number + 1}" th:text="${page}"></span> <!-- 현재페이지는 링크 없이 숫자만 -->
                 <!-- 현재페이지 링크 X, 다른 페이지번호에는 링크를 보여준다 -->
             <a th:unless="${page == articlePages.number + 1}"
                th:href="@{/articles(page=${page}, keyword=${keyword})}"
@@ -110,7 +111,13 @@
     </div>
 </section>
 <footer>
-
+    <p>Blog owner's info and social media links</p>
+    <p>&copy; 2024 Liverpool F.C. Fan Blog. All rights reserved.</p>
+    <nav>
+        <ul>
+            <li><a href="#">Site Map</a></li>
+        </ul>
+    </nav>
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/article.js"></script>

@@ -3,8 +3,8 @@ package me.junholee.springbootdeveloper.controller;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.config.oauth.PrincipalDetails;
 import me.junholee.springbootdeveloper.domain.Player;
-import me.junholee.springbootdeveloper.domain.Team;
 import me.junholee.springbootdeveloper.domain.User;
+import me.junholee.springbootdeveloper.dto.Match.MatchResponesDTO;
 import me.junholee.springbootdeveloper.dto.Player.*;
 import me.junholee.springbootdeveloper.dto.Standing.StandingsResponseDTO;
 import me.junholee.springbootdeveloper.dto.Team.TeamResponseDTO;
@@ -17,12 +17,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -111,6 +109,38 @@ public class FootBallViewController {
     }
     @GetMapping("/schedule/{id}")
     public String getSchedule(@RequestParam("id") long id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        List<MatchResponesDTO> matchList= matchService.findHomeTeamOrAwayTeam(id);
+        model.addAttribute("paramId",id);
+        model.addAttribute("match",matchList);
+        if(principalDetails != null) {
+            User user= userService.findByEmail(principalDetails.getUser().getEmail());
+            model.addAttribute("user", user);
+        }
+
         return "schedule";
+    }
+    @GetMapping("/stat/{id}")
+    public String getStat(@RequestParam("id") long id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        TeamResponseDTO team = teamService.findById(id);
+        List<Player> playerList = playerService.findTeamPlayer(id);
+
+        List<PlayerResponseDTO> playerResponseDTO = playerService.convertList(playerList);
+        List<TopScoreResponseDTO> top_score = new ArrayList<>(playerService.scoreSort(playerList,5));
+        List<TopAssistResponseDTO> top_assist = new ArrayList<>(playerService.assistSort(playerList,5));
+        List<TopKeyPassResponseDTO> top_keyPasses = new ArrayList<>(playerService.keyPassesSort(playerList,5));
+        List<TopRatingResponseDTO> top_rating = new ArrayList<>(playerService.ratingSort(playerList, 5));
+        model.addAttribute("playerList",playerResponseDTO);
+        model.addAttribute("topScore",top_score);
+        model.addAttribute("topAssist",top_assist);
+        model.addAttribute("topKeyPass",top_keyPasses);
+        model.addAttribute("topRating",top_rating);
+        model.addAttribute("team",team);
+        if(principalDetails != null) {
+            User user= userService.findByEmail(principalDetails.getUser().getEmail());
+            model.addAttribute("user", user);
+        }
+        model.addAttribute("player",playerList);
+        return "stat";
     }
 }

@@ -8,7 +8,9 @@ import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleListViewResponse;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleViewResponse;
 import me.junholee.springbootdeveloper.dto.CommentList.CommentResponseDTO;
-import me.junholee.springbootdeveloper.dto.Match.MatchRespones;
+import me.junholee.springbootdeveloper.dto.Match.MatchResponesDTO;
+import me.junholee.springbootdeveloper.dto.NewsRequest;
+import me.junholee.springbootdeveloper.dto.NewsResponseDTO;
 import me.junholee.springbootdeveloper.dto.Standing.StandingsResponseDTO;
 import me.junholee.springbootdeveloper.service.Blog.BlogService;
 import me.junholee.springbootdeveloper.service.Football.MatchService;
@@ -27,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -38,6 +39,7 @@ public class BlogViewController {
     private final MatchService matchService;
     private final UserService userService;
     private final LikeService likeService;
+    private final NewsRequest newsRequest;
     @GetMapping("/articles")
     public String getArticles(@PageableDefault(page = 1)Pageable pageable,
                               String keyword,
@@ -161,10 +163,15 @@ public class BlogViewController {
     @GetMapping("/")
     public String getMain(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
+        List<NewsResponseDTO> newsList = newsRequest.fetchArticles();
+        List<NewsResponseDTO> limitList = newsList.subList(0,Math.min(newsList.size(),5));
+        model.addAttribute("news",limitList);
+
         if(principalDetails != null) {
             User user= userService.findByEmail(principalDetails.getUser().getEmail());
             model.addAttribute("user", user);
         }
+
 
         return "index";
     }
@@ -173,7 +180,7 @@ public class BlogViewController {
     public String getMatch(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
         Match match = matchService.findById(id);
-        MatchRespones matchInfo = new MatchRespones(match);
+        MatchResponesDTO matchInfo = new MatchResponesDTO(match);
 
         if(principalDetails != null) {
             User user= userService.findByEmail(principalDetails.getUser().getEmail());

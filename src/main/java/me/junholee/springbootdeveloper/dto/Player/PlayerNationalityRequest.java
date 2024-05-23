@@ -18,7 +18,7 @@ import java.net.URISyntaxException;
 //주로 생성자를 자동으로 생성하는 데 사용됩니다.
 // 이 애노테이션을 사용하면 클래스의 필드를 기반으로한 생성자를 자동으로 생성해 줍니다.
 @Component
-public class PlyerNationalityRequest {
+public class PlayerNationalityRequest {
     private final PlayerRepository playerRepository;
     public void PlayerNationalityRequest() throws ParseException, URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();

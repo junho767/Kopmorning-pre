@@ -42,6 +42,37 @@
         </div>
     </div>
 </header>
+<section>
+    <div class="info-table">
+        <div class="matchList">
+            <div class="match-box" th:each="match : ${match}">
+                <input type="hidden" id="match-id" th:value="${match.id}">
+                <div class="match-info">
+                    <img class="w30 h30" src="https://images.fotmob.com/image_resources/logo/leaguelogo/dark/47.png">
+                    <p th:text="${match.match_time}"></p>
+                    <p th:text="|Round ${match.match_day}"></p>
+                </div>
+                <div class="team">
+                    <div class="team-info">
+                        <img th:src="${match.homeTeam.team_crest}">
+                        <p th:text="${match.homeTeam.team_tla}"></p>
+                    </div>
+                    <div class="score alignCenter"
+                         th:classappend="${match.winner} == ${paramId} ? 'winner' : (${match.winner} == 0 ? 'draw' : 'loser')">
+                        <p th:text="${match.home_score}"></p>
+                        <p>-</p>
+                        <p th:text="${match.away_score}"></p>
+                    </div>
+                    <div class="team-info">
+                        <p th:text="${match.awayTeam.team_tla}"></p>
+                        <img th:src="${match.awayTeam.team_crest}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/article.js"></script>
 <script src="/js/token.js"></script>

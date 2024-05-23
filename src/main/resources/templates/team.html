@@ -66,45 +66,46 @@
         </div>
         <div class="bottom">
             <div class="team-nav">
-<!--                <a th:href="@{/schedule}">경기 일정</a>-->
-<!--                <a th:href="@{/}">통계</a>-->
+                <a th:href="@{/schedule/id(id=${team.id})}">경기 일정</a>
+                <a th:href="@{/stat/id(id=${team.id})}">통계</a>
+                <a th:href="@{/team/id(id=${team.id})}">스쿼드</a>
             </div>
             <div class="playerList">
                 <div class="GK-box">
-                    <p class="fontWhite font-size30">GK</p>
+                    <p style="color:yellow;">GK</p>
                     <div th:each="GK, iterStat : ${GK}">
                         <input type="hidden" th:value="${GK.id}">
-                        <img class="circle" th:src="${GK.image}" onerror="this.src='/img/default-img.png';">
+                        <img class="border-circle" th:src="${GK.image}" onerror="this.src='/img/default-img.png';">
                         <a th:href="@{/player/id(id = ${GK.id})}" class="w150" th:text="${GK.name}"></a>
                         <div th:id="'GKCountry' + ${iterStat.index}" th:text="${GK.nationality}" style="display: none;"></div>
                         <div class="flagContainer" th:id="'GKFlagContainer' + ${iterStat.index}"></div>
                     </div>
                 </div>
                 <div class="DF-box">
-                    <p class="fontWhite font-size30">DF</p>
+                    <p style="color:rgb(173, 216, 230);">DF</p>
                     <div th:each="DF, iterStat : ${DF}">
                         <input type="hidden" th:value="${DF.id}">
-                        <img class="circle" th:src="${DF.image}" onerror="this.src='/img/default-img.png';">
+                        <img class="border-circle" th:src="${DF.image}" onerror="this.src='/img/default-img.png';">
                         <a th:href="@{/player/id(id = ${DF.id})}" class="w150" th:text="${DF.name}"></a>
                         <div th:id="'DFCountry' + ${iterStat.index}" th:text="${DF.nationality}" style="display: none;"></div>
                         <div class="flagContainer" th:id="'DFFlagContainer' + ${iterStat.index}"></div>
                     </div>
                 </div>
                 <div class="MF-box">
-                    <p class="fontWhite font-size30">MF</p>
+                    <p style="color:green;">MF</p>
                     <div th:each="MF, iterStat : ${MF}">
                         <input type="hidden" th:value="${MF.id}">
-                        <img class="circle" th:src="${MF.image}" onerror="this.src='/img/default-img.png';">
+                        <img class="border-circle" th:src="${MF.image}" onerror="this.src='/img/default-img.png';">
                         <a th:href="@{/player/id(id = ${MF.id})}" class="w150" th:text="${MF.name}"></a>
                         <div th:id="'MFCountry' + ${iterStat.index}" th:text="${MF.nationality}" style="display: none;"></div>
                         <div class="flagContainer" th:id="'MFFlagContainer' + ${iterStat.index}"></div>
                     </div>
                 </div>
                 <div class="FW-box">
-                    <p class="fontWhite font-size30">FW</p>
+                    <p style="color:red;">FW</p>
                     <div th:each="FW, iterStat : ${FW}">
                         <input type="hidden" th:value="${FW.id}">
-                        <img class="circle" th:src="${FW.image}" onerror="this.src='/img/default-img.png';">
+                        <img class="border-circle" th:src="${FW.image}" onerror="this.src='/img/default-img.png';">
                         <a th:href="@{/player/id(id = ${FW.id})}" class="w150" th:text="${FW.name}"></a>
                         <div th:id="'FWCountry' + ${iterStat.index}" th:text="${FW.nationality}" style="display: none;"></div>
                         <div class="flagContainer" th:id="'FWFlagContainer' + ${iterStat.index}"></div>
@@ -115,7 +116,15 @@
     </div>
 
 </section>
-
+<footer>
+    <p>Blog owner's info and social media links</p>
+    <p>&copy; 2024 Liverpool F.C. Fan Blog. All rights reserved.</p>
+    <nav>
+        <ul>
+            <li><a href="#">Site Map</a></li>
+        </ul>
+    </nav>
+</footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/article.js"></script>
 <script>

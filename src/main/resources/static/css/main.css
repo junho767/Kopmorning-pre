@@ -21,6 +21,7 @@ li{
 }
 html {
     height:100%;
+    overflow-y:auto;
 }
 th,td{
     padding:10px;
@@ -30,13 +31,12 @@ body {
     margin:0;
     border:0;
     padding:0;
-    font-family: 'KCC-Hanbit';
-    background-image: url('/img/Anfield-gpt.png');
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    background-image:url('/img/Anfield-gpt.png');
     background-size: cover; /* 이미지가 컨테이너 전체에 꽉 차도록 설정 */
     background-position: center; /* 이미지를 중앙에 위치시킵니다 */
     background-repeat: no-repeat; /* 이미지가 반복되지 않도록 설정 */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
 }
 .custom-btn {
   width: 130px;
@@ -99,6 +99,7 @@ body {
 .position-a{ position:absolute; }
 .right175 {right:175px;}
 .bg-white{ background-color:white;}
+.bg-black{ background-color:black;}
 .dpFlex { display:flex; }
 .jsSB { justify-content: space-between !important; }
 .column { flex-direction: column; }
@@ -184,6 +185,7 @@ body {
 .h140 { height:140px; }
 .h150 { height:150px !important;}
 .h600 { height:600px; }
+.h550 { height:550px; }
 .mb0{ margin-bottom:0.5rem; }
 .mb1{ margin-bottom:1rem; }
 .mr1{ margin-right:1rem; }
@@ -243,26 +245,19 @@ nav > a{
     text-align:center;
     width:25%;
     color: white;
-    font-size: 15px;
+    font-size: 14px;
 }
 nav > a:hover{
-    font-size:17px;
+    font-size:16px;
     color: #ff3300;
     transition-duration: 0.5s;
 }
-.videoList{
-    position:absolute;
-    top:30%;
-    display: flex;
-    margin:10px;
-    z-index: 1000;
-}
-footer{
-    height: 10%;
-    width:100%;
-    background: rgba(0, 0, 0); /* 투명한 검정색 배경 */
-    bottom: 0;
-    z-index: 1000; /* 다른 요소 위에 렌더링 */
+footer {
+    height:150px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
 }
 .logo img{
     width: 150px;
@@ -320,20 +315,22 @@ footer{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    animation: zoomOut 7s infinite;
+    animation: zoomOut 5s infinite;
 }
 .profile-container{
-    text-align:center;
-    align-items:center;
-    background-color: rgba(52, 58, 64, 0.9); /* 50% 투명도 */
+    background-color: #444; /* 배경색 */
     border:3px solid black;
     border-radius: 20px;
     position:absolute;
     width: 400px;
-    height: 600px;
     left: 50%;
     margin-left: -150px;
     top: 17%;
+}
+.profile-container img{
+    width:150px;
+    height:150px;
+    border-radius:50%;
 }
 .profile{
     display: flex;
@@ -341,30 +338,34 @@ footer{
     height: 340px;
     margin: 15px 5px 5px 5px;
 }
-.profile .left{
-    width: 90px;
-    height: 100%;
+.profile > .left{
+    padding:10px;
     border-right: 1px solid white;
+    text-align:center;
 }
-.profile .left > p{
+.profile > .left > p{
     margin-bottom: 30px;
-    color: white;
+    font-weight:bold;
+    color:white;
 }
-.profile .right{
-    width: 300px;
-    height: 100%;
+.profile > .right{
+    padding:10px;
 }
-.profile .right > p{
+.profile > .right > p{
     margin-bottom: 30px;
     margin-left: 10px;
     text-align: left;
-    color: white;
+    color:white;
 }
 .profile .right > input{
     margin-bottom: 30px;
     margin-left: 10px;
     text-align: left;
     color: black;
+}
+.profile .right img{
+    width:15px;
+    height:15px;
 }
 .profile .right .btn{
     display:flex;
@@ -377,11 +378,11 @@ footer{
     margin-top:40px;
     background-color: rgba(255,255,255,0.9); /* 투명도 50%의 흰색 */
     width: 1500px;
-    height: 750px;
+    height: 700px;
 }
 .listContainer > .side-nav{
-    width:300px;
-    height:100%;
+    width:200px;
+    height:80%;
     border-right:3px solid black;
 }
 .title{
@@ -392,8 +393,8 @@ footer{
     border-bottom: 1px solid black;
 }
 .list{
-    line-height:50px;
-    height:50px;
+    line-height:45px;
+    height:45px;
     color : black;
     border-bottom: 1px solid black;
 }
@@ -407,43 +408,48 @@ footer{
     text-decoration-style: solid; /* 밑줄 스타일 */
 }
 .articleList {
-    height: 680px;
-    width:1200px;
+    height: 100%;
+    width:1300px;
 }
-.listContainer .tap-nav{
-    height: 700px;
-    width: 200px;
-    flex-direction:column !important;
-}
-.listContainer .tap-nav a{
-    display:flex;
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: center; /* 수평 중앙 정렬 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    margin: auto; /* 중앙에 배치 */
-    width: 100%;
-    height:20%;
-    padding:10px;
-    margin:5px;
-    color: black;
-    border-radius : 10px;
-}
-.listContainer .tap-nav a:nth-child(1) { background-color: red; }
-.listContainer .tap-nav a:nth-child(2) { background-color: blue; }
-.listContainer .tap-nav a:nth-child(3) { background-color: green; }
-.listContainer .tap-nav a:nth-child(4) { background-color: black; }
-.listContainer .top{
+.articleList > .top {
     display:flex;
     justify-content:space-between;
-    margin:auto;
-    width:95%;
+    margin:0 0 0 40px;
+    padding-top :10px;
+    width:90%;
     height: 50px;
 }
-.listContainer .top p{
+.articleList > .top p{
     margin:10px;
     padding-right: 350px;
     font-size:20px;
 }
+.tap-nav {
+    display:flex;
+    flex-direction:column;
+    align-content:center;
+    align-items:center;
+}
+.tap-nav a{
+    width:120px;
+    height:50px;
+    margin: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: #f0f4f8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: black;
+    font-weight: bold;
+    padding: 30px 20px 10px 20px;
+    border-radius: 3px;
+    transition: background-color 0.3s, color 0.3s;
+}
+.tap-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important; /* 호버 시 밝기 증가 */
+    color: #ff3300 !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
+}
+
 .searchInput{
     width:250px;
     height: 40px;
@@ -469,6 +475,7 @@ footer{
     align-items:end;
     justify-content: space-around;
     width: 100%;
+    padding-bottom:20px;
 }
 .paging a{
     color: black;
@@ -481,6 +488,7 @@ footer{
 }
 .paging div span, a{
     padding:5px;
+    text-align:center;
 }
 .paging a:hover{
     font-size:17px;
@@ -512,7 +520,8 @@ section::-webkit-scrollbar {
 article .titleContainer{
     width: 100%;
     height: 220px;
-    border-bottom: 3px solid black;
+    border:1px solid black;
+     box-sizing: border-box; /* 패딩과 테두리가 전체 높이와 너비에 포함되도록 설정 */
 }
 article .titleContainer .top{
     background-color:#C0C0C0;
@@ -520,7 +529,6 @@ article .titleContainer .top{
     justify-content:space-between;
     align-items:center;
     padding: 20px 30px;
-    border-bottom : 1px dotted black;
     height:50px;
 }
 article .titleContainer .top > span{
@@ -556,13 +564,14 @@ table {
 .contentContainer{
     height: auto;      /* 높이를 내용에 따라 자동 조절 */
     min-height: 400px; /* 최소 높이를 100px로 설정 (필요에 따라 조절) */
-    border: 1px solid #ccc; /* 시각적으로 구분하기 위한 테두리 (필요에 따라 제거 또는 변경) */
     padding: 10px;     /* 패딩을 추가하여 내용과 테두리 사이 간격을 설정 */
     box-sizing: border-box; /* 패딩과 테두리가 전체 높이와 너비에 포함되도록 설정 */
     display: flex;
     justify-content: center; /* 수평 중앙 정렬 */
     align-items: center;     /* 수직 중앙 정앙 */
     flex-direction: column;  /* 요소를 세로로 쌓음 */
+    border:1px solid black;
+    box-sizing: border-box; /* 패딩과 테두리가 전체 높이와 너비에 포함되도록 설정 */
 }
 .contentContainer pre{
     padding:10px;
@@ -578,11 +587,13 @@ table {
 .articleImageContainer{
     display: flex;
     align-items:center;
-    height : 300px;
+    border: 1px solid black;
+    box-sizing: border-box;
 }
-.articleImageContainer img{
-    width: 250px;
-    height: 141px;
+.article-image {
+    max-width: 100%;
+    height: auto; /* 이미지 비율을 유지하며 조정 */
+    display: block;
 }
 .modal-background {
     position: fixed;
@@ -627,6 +638,7 @@ table {
     height:auto;
     min-height:200px;
     border:1px solid black;
+     box-sizing: border-box; /* 패딩과 테두리가 전체 높이와 너비에 포함되도록 설정 */
 }
 .comment-top{
     display:flex;
@@ -656,16 +668,29 @@ table {
 }
 /* 폼과 내부 요소 스타일링 */
 .article-Form {
-    width:80%;
-    margin:auto;
+    width:50%;
+    margin: 40px auto auto auto;
     background-color: #2d2d2d; /* 짙은 회색으로 배경 변경 */
     padding: 25px;
     border-radius: 10px; /* 모서리를 더욱 둥글게 */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6); /* 그림자를 더 깊게 조정 */
 }
 
-.titleInput, .contentInput {
+.titleInput{
     width: 100%;
+    height:50px;
+    padding: 12px; /* 패딩 증가 */
+    margin-top: 12px; /* 상단 여백 조정 */
+    border: 1px solid #444; /* 경계선 추가, 색상은 어두운 회색 */
+    border-radius: 5px; /* 모서리 둥근 정도 변경 */
+    background-color: #fff; /* 배경색을 흰색으로 변경 */
+    color: #333; /* 글자색을 어두운 회색으로 변경 */
+    box-sizing: border-box;
+    transition: all 0.3s ease; /* 부드러운 전환 효과 */
+}
+.contentInput {
+    width: 100%;
+    height:600px;
     padding: 12px; /* 패딩 증가 */
     margin-top: 12px; /* 상단 여백 조정 */
     border: 1px solid #444; /* 경계선 추가, 색상은 어두운 회색 */
@@ -695,15 +720,16 @@ input[type="file"]:hover {
     background-color: #666; /* 호버 시 배경색 변경 */
 }
 .info-table{
-    width: 1500px;
-    max-height: 900px;
+    width: 95%;
+    max-height: 700px;
     margin:auto;
     background: rgba(26, 26, 26, 1.0);
     border-radius: 20px;
+    padding:10px;
 }
 .info-table > .top{
     width:100%;
-    height: 150px;
+    height: 120px;
     border-bottom: 1px solid black;
     display:flex;
     align-items:center;
@@ -717,9 +743,9 @@ input[type="file"]:hover {
     font-size: 30px;
 }
 .info-table > .bottom {
-    width:1500px;
-    height:800px;
+    height:580px;
     display:flex;
+    justify-content:space-between;
 }
 .standing-box{
     margin:10px;
@@ -728,23 +754,50 @@ input[type="file"]:hover {
 }
 .playerList{
     overflow-y:auto;
-    width:1200px;
     max-height:750px;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
     display:flex;
 }
-.team-nav{
-    width:300px;
-    height:auto;
+.team-nav {
+    width: 10%; /* 왼쪽 20% 차지 */
+    background-color: #444; /* 배경색 */
+    margin:10px;
+    padding: 20px; /* 내부 여백 */
+    border-radius: 10px; /* 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+.team-nav a {
+    display: block; /* 블록 요소로 설정 */
+    color: #fff; /* 글씨 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+    padding: 10px 0; /* 위아래 여백 */
+    font-size: 18px; /* 글꼴 크기 */
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+}
+
+.team-nav a:hover {
+    background-color: #333; /* 호버 시 배경색 */
+    border-radius: 5px; /* 둥근 모서리 */
 }
 .GK-box,
 .DF-box,
 .MF-box,
 .FW-box{
-    width:235px;
+    margin:10px;
+    width:300px;
     height:auto;
-    padding:15px;
+    color:white;
+    max-height:650px;
+    overflow-y:auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    font-size:30px;
+    background-color: #444; /* 배경색 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .GK-box div,
 .DF-box div,
@@ -769,6 +822,14 @@ input[type="file"]:hover {
     font-size:15px;
     color: white;
 }
+.GK-box div a:hover,
+.DF-box div a:hover,
+.MF-box div a:hover,
+.FW-box div a:hover{
+    background-color: #333; /* 호버 시 배경색 */
+    border-radius: 5px; /* 둥근 모서리 */
+}
+
 .flagContainer{
     display:flex;
 }
@@ -778,7 +839,7 @@ input[type="file"]:hover {
     font-size:16px;
 }
 .standings{
-    max-height:600px;
+    max-height:500px;
     overflow-y:auto;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
@@ -836,21 +897,68 @@ input[type="file"]:hover {
 .league-position span:nth-child(1)::before { background-color: #adff2f; } /* 챔피언스 리그 - 파란색 */
 .league-position span:nth-child(2)::before { background-color: #ff8c00; } /* 유로파 리그 - 녹색 */
 .league-position span:nth-child(3)::before { background-color: red; } /* 강등권 - 빨간색 */
+.team-player {
+    font-size:12px;
+    background-color: #444; /* 배경색 */
+    width: 85%;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
 
+.team-player ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+
+.team-player ul.header {
+    font-weight: bold;
+    color:white;
+    font-size:16px !important;
+}
+
+.team-player ul.header li {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+}
+
+.team-player ul.test {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.team-player ul.test li {
+    flex: 1;
+    text-align: center;
+    color:white;
+    padding: 10px;
+}
 .stat-box{
-    width:50%;
-    height:80%;
+    width:40%;
+    height:90%;
     margin: 8px;
 }
 .rank-box{
-    width:48%;
+    width:50%;
     margin-right:10px;
     margin-top:20px;
     padding:10px;
-    background-color: #1a1a2e;
+    background-color: rgb(47, 79, 79); /* Dark Slate Gray */
     border-radius:20px;
 }
-.top-score{
+.top-score,
+.top-assist,
+.top-rating,
+.top-keyPass{
     display:flex;
     align-items:center;
     width:100%;
@@ -864,29 +972,12 @@ input[type="file"]:hover {
     height: 40px;
     border-radius: 50%;
 }
-.top-assist{
-    display:flex;
-    align-items:center;
-    width:100%;
-    height:19%;
-}
-.top-keyPass{
-    display:flex;
-    align-items:center;
-    width:100%;
-    height:19%;
-}
-.top-rating{
-    display:flex;
-    align-items:center;
-    width:100%;
-    height:19%;
-}
+
 .bg-circle-red{
     background-color: red; /* 원하는 배경색으로 변경 */
     border-radius: 50%; /* 동그랗게 만들기 */
-    width: 40px; /* 원하는 너비 */
-    height: 40px; /* 원하는 높이 */
+    width: 35px; /* 원하는 너비 */
+    height: 35px; /* 원하는 높이 */
 }
 .2x2table{
     width:400px !important;
@@ -969,4 +1060,164 @@ input[type="file"]:hover {
     text-align: right;
 }
 
+.news-list{
+    background-color:rgba(255,255,255,0.5);
+    display:flex;
+    flex-direction:column;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position:absolute;
+    bottom:0;
+    left:0%;
+    z-index: 1000;
+}
+.news-list > .top {
+    padding:10px 0 0 0;
+    display:flex;
+    justify-content:space-between;
+}
+.news-list > .top > p{
+    padding-left:20px;
+    font-size:30px;
+}
+.news-list > .top > a {
+    color:black;
+    font-size: 20px;
+    padding-right:20px;
+}
+.news-box{
+    margin:20px;
+    padding:10px;
+    background-color: rgb(255, 0, 0,0.4);
+    width:25%;
+    border-radius:10px;
+}
+.news-box img{
+    width:310xp;
+    height:150px;
+}
+.category{
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    text-align:left;
+}
+.time{
+    text-align:left;
+    font-size: 12px;
+    color: black;
+}
+.ellipsis {
+    text-align:left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 35ch; /* 10 characters width */
+    display: inline-block;
+    color: black;
+}
+.matchList {
+    display: flex;
+    flex-wrap: wrap; /* 여러 줄로 나눠서 배치되도록 설정 */
+    gap: 20px; /* 박스 사이의 간격 설정 */
+    justify-content: space-between; /* 박스 사이의 여유 공간 분배 */
+    overflow-y:auto;
+    max-height: 850px;
+}
 
+.match-box {
+    flex: 0 0 calc(33.333% - 20px); /* 각 박스의 너비를 계산 (간격 포함) */
+    box-sizing: border-box; /* 패딩과 테두리를 포함한 크기 계산 */
+    border: 2px solid #ddd; /* 박스의 테두리 */
+    border-radius: 10px; /* 둥근 모서리 */
+    padding: 20px; /* 내부 여백 */
+    background-color: rgb(60, 60, 60); /* 박스 배경색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    transition: transform 0.2s ease-in-out; /* 마우스 오버 시 애니메이션 효과 */
+}
+
+.match-box:hover {
+    cursor: pointer;
+}
+
+.match-info {
+    text-align: center; /* 중앙 정렬 */
+    margin-bottom: 10px; /* 아래 여백 */
+}
+
+.match-info p {
+    margin: 5px 0; /* 문단 간격 */
+    font-size: 14px; /* 글꼴 크기 */
+    color: #D3D3D3; /* 글꼴 색상 */
+}
+
+.team {
+    display: flex; /* 플렉스 박스 레이아웃 */
+    align-items: center; /* 수직 정렬 */
+    justify-content: space-between; /* 양 끝 정렬 */
+    margin-top: 10px; /* 팀 정보와 경기 정보 간격 */
+}
+
+.team-info {
+    display: flex; /* 플렉스 박스 레이아웃 */
+    align-items: center; /* 수직 정렬 */
+}
+
+.team-info img {
+    width: 50px; /* 이미지 너비 */
+    height: 50px; /* 이미지 높이 */
+    border-radius: 50%; /* 둥근 이미지 */
+    margin-right: 10px; /* 이미지와 텍스트 사이 간격 */
+}
+
+.team-info p {
+    font-size: 16px; /* 팀명 글꼴 크기 */
+    color: #D3D3D3; /* 팀명 글꼴 색상 */
+}
+
+.score {
+    display: flex; /* 플렉스 박스 레이아웃 */
+    align-items: center; /* 수직 정렬 */
+    font-size: 18px; /* 점수 글꼴 크기 */
+    font-weight: bold; /* 점수 글꼴 굵기 */
+    color: #D3D3D3; /* 점수 색상 */
+}
+.winner {
+    background-color: #4CAF50; /* 초록색 배경 */
+    color: white; /* 흰색 글씨 */
+    padding: 10px; /* 내부 여백 */
+    border: 2px solid #388E3C; /* 테두리 색상 */
+    border-radius: 5px; /* 둥근 모서리 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+}
+
+.draw {
+    background-color: #9E9E9E; /* 회색 배경 */
+    color: white; /* 흰색 글씨 */
+    padding: 10px; /* 내부 여백 */
+    border: 2px solid #757575; /* 테두리 색상 */
+    border-radius: 5px; /* 둥근 모서리 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+}
+
+.loser {
+    background-color: #F44336; /* 빨간색 배경 */
+    color: white; /* 흰색 글씨 */
+    padding: 10px; /* 내부 여백 */
+    border: 2px solid #D32F2F; /* 테두리 색상 */
+    border-radius: 5px; /* 둥근 모서리 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+}
+
+.alignCenter p {
+    margin: 0 5px; /* 점수 간격 */
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+}

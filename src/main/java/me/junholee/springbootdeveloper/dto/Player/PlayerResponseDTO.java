@@ -8,9 +8,9 @@ import me.junholee.springbootdeveloper.domain.Team;
 @NoArgsConstructor
 @Getter
 public class PlayerResponseDTO {
+    private long id;
     private String image; // 플레이어 사진
     private String name; // 플레이어 이름
-    private String injured; // 부상 여부
     private String type; // 포지션(전체적인)
     private String birthdate; // 생년월일
     private String nationality;
@@ -26,10 +26,12 @@ public class PlayerResponseDTO {
     private int keyPasses; // 키패스 횟수
     private int tackles; // 태클 시도 횟수
     private int age; // 나이
+    private String injured; // 부상 여부
     private String teamCrest;
     private String teamColors;
 
     public PlayerResponseDTO(Player player){
+        this.id = player.getPlayer_key();
         this.nationality = player.getPlayerNationality();
         this.teamCrest = player.getTeam().getTeam_crest();
         this.teamColors = player.getTeam().getClubColors();

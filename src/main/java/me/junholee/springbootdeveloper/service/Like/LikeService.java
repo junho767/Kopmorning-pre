@@ -42,7 +42,6 @@ public class LikeService {
             likeRepository.deleteByUserAndComment(user,comment);
         }
     }
-
     public boolean existArticleAndUSer(Article article, User user){
         return likeRepository.existsByUserAndArticle(user, article);
     }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>블로그 글 목록</title>
+    <title>팀 역사</title>
     <link rel="stylesheet" href="/css/main.css"> <!-- ref=" stylesheet"은 외부 리소스 가져오는 것-->
 </head>
 
@@ -46,56 +46,64 @@
     <div class="info-table">
         <div class="top">
             <div class="alignCenter">
-                <img src="https://images.fotmob.com/image_resources/logo/leaguelogo/dark/47.png">
-                <p>Premier League</p>
+                <img th:src="${team.crest}">
+                <p th:text="${team.name}"></p>
             </div>
-            <div class="alignCenter fontWhite font-size30">
-                PL 2023-24 Season
+            <div class="alignCenter">
+                <table class="coach-table fontWhite">
+                    <tr>
+                        <th class="font-size20" colspan="2">감독</th>
+                        <th class="font-size20">경기장</th>
+                    </tr>
+                    <tr>
+                        <td class="font-size20" th:text="${team.coach_name}"></td>
+                        <td><div id="countryName" th:text="${team.coachNationality}" style="display: none;"></div>
+                            <div id="flagContainer"></div></td>
+                        <td class="font-size20" th:text="${team.venue}"></td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="bottom">
-            <div class="standing-box">
-                <div class="dpFlex mb0">
-                    <p class="w10p">순위</p>
-                    <p class="w20p">클럽</p>
-                    <p class="w10p">경기</p>
-                    <p class="w10p">승</p>
-                    <p class="w10p">무</p>
-                    <p class="w10p">패</p>
-                    <p class="w10p">+/-</p>
-                    <p class="w10p">=</p>
-                    <p class="w10p">승점</p>
-                </div>
-                <div class="standings">
-                    <div class="standings-list" th:each="team : ${standing}">
-                        <input type="hidden" id="team-id" th:value="${team.id}">
-                        <p th:class="${team.position < 5} ?
-                        'w1p top-position' :
-                        (${team.position == 5 || team.position == 6} ?
-                        'w1p middle-position' :
-                        (${team.position > 17} ? 'w1p bottom-position' :
-                        'w1p'))" >
-                        </p>
-                        <p class="w9p" th:text="${team.position}"></p>
-                        <a th:href="@{/team/id(id=${team.id})}" class="dpFlex justifyCenter w20p">
-                            <img th:src="@{${team.team.team_crest}}" alt="no"/>
-                            <p th:text="${team.team.team_tla}"></p>
-                        </a>
-                        </p>
-                        <p class="w10p" th:text="${team.played_games}"></p>
-                        <p class="w10p" th:text="${team.won}"></p>
-                        <p class="w10p" th:text="${team.draw}"></p>
-                        <p class="w10p" th:text="${team.lost}"></p>
-                        <p class="w10p" th:text="|${team.goals_for}-${team.goals_against}"></p>
-                        <p class="w10p" th:text="${team.goal_difference}"></p>
-                        <p class="w10p" th:text="${team.points}"></p>
-                    </div>
-                </div>
-                <div class="dpFlex justifyCenter alignCenter league-position">
-                    <span>챔피언스 리그</span>
-                    <span>유로파 리그</span>
-                    <span>강등권</span>
-                </div>
+            <div class="team-nav">
+                <a th:href="@{/schedule/id(id=${team.id})}">경기 일정</a>
+                <a th:href="@{/stat/id(id=${team.id})}">통계</a>
+                <a th:href="@{/team/id(id=${team.id})}">스쿼드</a>
+            </div>
+            <div class="team-player">
+                <ul class="header">
+                    <li>이름</li>
+                    <li>국적</li>
+                    <li>등번호</li>
+                    <li>경기수</li>
+                    <li>득점</li>
+                    <li>평점</li>
+                    <li>교체</li>
+                    <li>도움</li>
+                    <li>패스</li>
+                    <li>키패스</li>
+                    <li>드리블 시도</li>
+                    <li>드리블 성공</li>
+                    <li>태클</li>
+                    <li>나이</li>
+                </ul>
+                <ul th:each="player : ${playerList}" class="test">
+                    <input type="hidden" id="player-id" th:value="${player.id}">
+                    <li th:text="${player.name}">Name</li>
+                    <li th:text="${player.nationality}">Nationality</li>
+                    <li th:text="${player.number}">Number</li>
+                    <li th:text="${player.matchPlayed}">Matches Played</li>
+                    <li th:text="${player.goals}">Goals</li>
+                    <li th:text="${player.rating}">Rating</li>
+                    <li th:text="${player.substitutesOnBench}">Substitutes</li>
+                    <li th:text="${player.assists}">Assists</li>
+                    <li th:text="${player.passes}">Passes</li>
+                    <li th:text="${player.keyPasses}">Key Passes</li>
+                    <li th:text="${player.dribbleAttempts}">Dribble Attempts</li>
+                    <li th:text="${player.dribbleSucc}">Dribble Success</li>
+                    <li th:text="${player.tackles}">Tackles</li>
+                    <li th:text="${player.age}">Age</li>
+                </ul>
             </div>
             <div class="stat-box">
                 <div class="mb0 dpFlex h50p">
@@ -163,6 +171,7 @@
             </div>
         </div>
     </div>
+
 </section>
 <footer>
     <p>Blog owner's info and social media links</p>

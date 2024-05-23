@@ -65,10 +65,10 @@
                     <button type="button" id="write-btn" class="custom-btn btn-5">글 쓰기</button>
                 </div>
             </div>
-            <div class="h600">
+            <div class="h550">
                 <div>
                     <ul>
-                        <li class="w60 title">탭</li>
+                        <li class="w100 title">탭</li>
                         <li class="w550 title">제목</li>
                         <li class="w230 title">글쓴이</li>
                         <li class="w170 title">날짜</li>
@@ -80,7 +80,7 @@
                     <ul>
                         <th:block th:each="item : ${articlePages}">
                             <input type="hidden" th:value="${item.id}">
-                            <li th:text="${item.articleType}" class="font-size12 w60 list"></li>
+                            <li th:text="${item.articleType}" class="font-size12 w100 list"></li>
                             <li class="w550 list">
                                 <a th:href="@{/articles/{id}(id=${item.id})}" th:text="${item.title}"></a>
                             </li>
