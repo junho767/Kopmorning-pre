@@ -3,8 +3,8 @@ package me.junholee.springbootdeveloper.controller;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.config.oauth.PrincipalDetails;
 import me.junholee.springbootdeveloper.domain.Player;
-import me.junholee.springbootdeveloper.domain.Team;
 import me.junholee.springbootdeveloper.domain.User;
+import me.junholee.springbootdeveloper.dto.Match.MatchResponesDTO;
 import me.junholee.springbootdeveloper.dto.Player.*;
 import me.junholee.springbootdeveloper.dto.Standing.StandingsResponseDTO;
 import me.junholee.springbootdeveloper.dto.Team.TeamResponseDTO;
@@ -17,12 +17,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -111,6 +109,16 @@ public class FootBallViewController {
     }
     @GetMapping("/schedule/{id}")
     public String getSchedule(@RequestParam("id") long id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        List<MatchResponesDTO> matchList= matchService.findHomeTeamOrAwayTeam(id);
+        model.addAttribute("paramId",id);
+        model.addAttribute("match",matchList);
+        if(principalDetails != null) {
+            User user= userService.findByEmail(principalDetails.getUser().getEmail());
+            model.addAttribute("user", user);
+        }
+
         return "schedule";
     }
+
 }

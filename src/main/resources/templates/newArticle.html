@@ -47,7 +47,7 @@
             <input type="hidden" id="article-id" th:value="${article.id}">
             <input type="hidden" name="redirectPath" id="redirectPath">
             <div th:if="${article.id} == null">
-                <label class="font-white" for="articleSelect"> 카테고리 </label>
+                <label class="fontWhite" for="articleSelect"> 카테고리 </label>
                 <select name="articleSelect" id="articleSelect">
                     <option value="" disabled selected>선택하기</option>
                     <option value="자유 게시판">자유 게시판</option>
@@ -56,7 +56,7 @@
                 </select>
             </div>
             <div th:if="${article.id} != null">
-                <p th:text="${article.articleType}" class="font-white"></p>
+                <p th:text="${article.articleType}" class="fontWhite"></p>
             </div>
             <input type="text" class="titleInput" placeholder="제목" id="title" name="title" th:value="${article.title}" maxlength="25">
             <textarea rows="10" class="contentInput" placeholder="내용" id="content" name="content" th:text="${article.content}"></textarea>

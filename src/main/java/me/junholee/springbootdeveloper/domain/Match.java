@@ -16,29 +16,26 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Match {
 
 
+    @Id
     @Column(name = "id")
-    private int id;
-
-    @Column(name="league")
-    private String league;
+    private long id;
 
     @Column(name = "status")
     private String status;
 
-    @Id
     @Column(name = "match_day")
     private int match_day;
 
     @ManyToOne
-    @JoinColumn(name = "home_team_id")
-    private Team home_team;
+    @JoinColumn(name = "HomeTeamId")
+    private Team homeTeam;
 
     @ManyToOne
-    @JoinColumn(name = "away_team_id")
-    private Team away_team;
+    @JoinColumn(name = "AwayTeamId")
+    private Team awayTeam;
 
     @Column(name = "winner")
-    private String winner;
+    private long winner;
 
     @Column(columnDefinition = "integer default 0")
     private int home_score;
@@ -50,16 +47,15 @@ public class Match {
     private String match_time;
 
     @Builder
-    public Match(int away_score, int home_score, String winner, int id, String league, String status, int match_day, Team home_team, Team away_team, String match_time){
-        this.match_time = match_time;
+    public Match(int away_score, int home_score, long winner, long id, String status, int match_day, Team homeTeam, Team awayTeam, String match_time){
         this.id = id;
-        this.league = league;
-        this.status = status;
-        this.match_day = match_day;
-        this.home_team = home_team;
-        this.away_team = away_team;
+        this.match_time = match_time;
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
         this.home_score = home_score;
         this.away_score = away_score;
+        this.match_day = match_day;
+        this.status = status;
         this.winner = winner;
     }
 }
