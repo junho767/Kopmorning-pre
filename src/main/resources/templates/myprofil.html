@@ -43,39 +43,39 @@
         </div>
     </div>
 </header>
-<div class="profile-container">
-    <h2 class="fw left">내 정보</h2>
+<div class="profile-container alignColumn">
+    <h2 style="color:white;">내 정보</h2>
     <div th:unless="${user.picture.startsWith('https://')}">
-        <img class="w140 h140 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
+        <img th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
     </div>
-    <div  th:if="${user.picture.startsWith('https://')}">
-        <img class="w140 h140 border-circle" th:src="${user.picture}">
+    <div th:if="${user.picture.startsWith('https://')}">
+        <img th:src="${user.picture}">
     </div>
     <form th:action="@{/image/upload}" th:method="post" enctype="multipart/form-data">
-        <input class="fw" id="profileImage" type="file" name="file" accept="image/*" required>
+        <input id="profileImage" type="file" name="file" accept="image/*" required>
         <button class="button" type="submit" id="image-modify">이미지 수정</button>
     </form>
     <div class="profile">
         <div class="left">
             <p>아이디</p>
             <p>이메일</p>
-            <p class="pd5">닉네임</p>
-            <p class="pd5">년도는</p>
-            <p class="pd5">이유는</p>
+            <p>닉네임</p>
+            <p>년도는</p>
+            <p>이유는</p>
             <button type="button" class="button modify-btn">수정하기</button>
         </div>
         <div class="right">
             <p th:text="${user.username}"></p>
             <p th:text="${user.email}"></p>
-            <p class="pd5" id="nickname" th:text="${user.nickname}"></p>
-            <input id="inputNickname" type="text" style="display:none;" placeholder="닉네임 입력...">
-            <p class="pd5" id="year" th:text="${user.year == null ? '[미입력]' : user.year}"></p>
-            <input id="inputYear" type="number" style="display:none;" placeholder="년도 입력...">
-            <p class="pd5" id="reason" th:text="${user.reason == null ? '[미입력]' : user.reason}"></p>
-            <input id="inputReason" type="text" style="display:none;" placeholder="이유 입력...">
+            <p id="nickname" th:text="${user.nickname}"></p>
+            <input id="inputNickname" type="text" style="display:none;" placeholder="닉네임 입력(6자)" maxlength="6">
+            <p id="year" th:text="${user.year == null ? '[미입력]' : user.year}"></p>
+            <input id="inputYear" type="number" style="display:none;" placeholder="년도 입력(1990~2024)" min="1990" max="2024" >
+            <p id="reason" th:text="${user.reason == null ? '[미입력]' : user.reason}"></p>
+            <input id="inputReason" type="text" style="display:none;" placeholder="이유 입력(100자)" maxlength="100">
             <div class="btn">
-                <button style="display:none;" type="button" id="completeBtn" class="button"><img class="w15 h15" src="/img/green-check.png"/>완료</button>
-                <button style="display:none;" type="button" id="cancelBtn" class="button ml0"><img class="w15 h15" src="/img/red-x.png"/>취소</button>
+                <button style="display:none;" type="button" id="completeBtn" class="button"><img src="/img/green-check.png"/>완료</button>
+                <button style="display:none;" type="button" id="cancelBtn" class="button ml0"><img src="/img/red-x.png"/>취소</button>
             </div>
         </div>
     </div>
@@ -84,7 +84,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/article.js"></script>
 <script src="/js/profile.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="sweetalert2.all.min.js"></script>
 </body>
 </html>

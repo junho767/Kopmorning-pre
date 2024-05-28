@@ -2,42 +2,56 @@
 <html xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
 	<title>콥모닝</title>
-
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
     <link href="/css/login.css" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div class="form-structor">
-	<div class="signup">
-		<h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
-		<form action="/join" method="post">
-			<div class="form-holder">
-				<input type="text" class="input" name="username" placeholder="Username"/> <br/>
-				<input type="password" class="input" name="password" placeholder="Password"/> <br/>
-				<input type="email" class="input" name="email" placeholder="Email"/> <br/>
-			</div>
-			<button class="submit-btn">회원가입</button>
+<div class="container right-panel-active">
+	<!-- Sign Up -->
+	<div class="container__form container--signup">
+		<form action="/join" method="post" class="form">
+			<h2 class="form__title">회원가입</h2>
+			<input type="text" class="input" name="username" placeholder="Username"/>
+			<input type="password" class="input" name="password" placeholder="Password"/>
+			<input type="email" class="input" name="email" placeholder="Email"/>
+			<button class="btn">회원가입</button>
 		</form>
 	</div>
-	<div class="login slide-up">
-		<div class="center">
-			<h2 class="form-title" id="login"><span>or</span>Log in</h2>
-			<form action="/login" method="post">
-				<div class="form-holder">
-					<input type="text" class="input" name="username" placeholder="ID" />
-					<input type="password" class="input" name="password" placeholder="Password" />
-				</div>
-				<button class="submit-btn">로그인</button>
-			</form>
+
+	<!-- Sign In -->
+	<div class="container__form container--signin">
+		<form action="/login" method="post" class="form">
+			<h2 class="form__title">로그인</h2>
+			<input type="text" class="input" name="username" placeholder="ID"/>
+			<input type="password" class="input" name="password" placeholder="Password"/>
+			<a href="#" class="link">Forgot your password?</a>
+			<button class="btn">로그인</button>
 			<div class="oauth-signIn">
 				<a href="/oauth2/authorization/google">
 					<img class="google_logo" src="/img/google_sign_in.png">
 				</a>
 			</div>
+		</form>
+
+	</div>
+
+	<!-- Overlay -->
+	<div class="container__overlay">
+		<div class="overlay">
+			<div class="overlay__panel overlay--left">
+				<button class="btn" id="signIn">로그인</button>
+			</div>
+			<div class="overlay__panel overlay--right">
+				<button class="btn" id="signUp">회원가입</button>
+			</div>
 		</div>
 	</div>
+</div>
+<!-- 아이디 ,비밀번호 찾는 div -->
+<div style="display:none;">
+
 </div>
 </body>
 <script src="/js/login.js"></script>

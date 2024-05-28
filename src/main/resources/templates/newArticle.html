@@ -62,7 +62,7 @@
             <textarea rows="10" class="contentInput" placeholder="내용" id="content" name="content" th:text="${article.content}"></textarea>
             <input type="file" name="files" class="form-control" id="files" multiple/>
             <button th:if="${article.id} != null" type="button" id="modify-btn" class="button font-black">수정</button>
-            <button th:if="${article.id} == null" type="submit" class="button font-black">등록</button>
+            <button th:if="${article.id} == null" type="submit" id="submit-btn" class="button font-black">등록</button>
         </form>
     </div>
 </section>

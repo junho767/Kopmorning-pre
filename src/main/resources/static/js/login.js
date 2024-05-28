@@ -1,28 +1,11 @@
-console.clear();
+const signInBtn = document.getElementById("signIn");
+const signUpBtn = document.getElementById("signUp");
+const container = document.querySelector(".container");
 
-const loginBtn = document.getElementById('login');
-const signupBtn = document.getElementById('signup');
-
-loginBtn.addEventListener('click', (e) => {
-	let parent = e.target.parentNode.parentNode;
-	Array.from(e.target.parentNode.parentNode.classList).find((element) => {
-		if(element !== "slide-up") {
-			parent.classList.add('slide-up')
-		}else{
-			signupBtn.parentNode.classList.add('slide-up')
-			parent.classList.remove('slide-up')
-		}
-	});
+signInBtn.addEventListener("click", () => {
+	container.classList.remove("right-panel-active");
 });
 
-signupBtn.addEventListener('click', (e) => {
-	let parent = e.target.parentNode;
-	Array.from(e.target.parentNode.classList).find((element) => {
-		if(element !== "slide-up") {
-			parent.classList.add('slide-up')
-		}else{
-			loginBtn.parentNode.parentNode.classList.add('slide-up')
-			parent.classList.remove('slide-up')
-		}
-	});
+signUpBtn.addEventListener("click", () => {
+	container.classList.add("right-panel-active");
 });

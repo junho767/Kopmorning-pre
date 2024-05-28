@@ -47,22 +47,33 @@
         </header>
 
         <div class="news-list" id="news-list">
-            <a class="more" href="https://www.liverpoolfc.com/news?categoryId=186">More</a>
-            <a th:href="${news.url}" class="news-box" th:each=" news : ${news}">
-                <img th:src="${news.image}">
-                <div>
-                    <p class="category" th:text="${news.category}"></p>
-                    <p class="ellipsis" th:text="${news.title}"></p>
-                    <p class="time" th:text="${news.time}"></p>
-                </div>
-            </a>
+            <div class="top">
+                <p>Latest News</p>
+                <a class="more" href="https://www.liverpoolfc.com/news?categoryId=186">More > </a>
+            </div>
+            <div class="alignCenter">
+                <a th:href="${news.url}" class="news-box" th:each=" news : ${news}">
+                    <img th:src="${news.image}">
+                    <div>
+                        <p class="category" th:text="${news.category}"></p>
+                        <p class="ellipsis" th:text="${news.title}"></p>
+                        <p class="time" th:text="${news.time}"></p>
+                    </div>
+                </a>
+            </div>
         </div>
         <div class="slider">
             <div class="slides" id="slide1" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),url('/img/salah_wallpaper.jpg');"></div>
             <div class="slides" id="slide2" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),url('/img/fc24_wallpaper.jpeg');"></div>
             <div class="slides" id="slide3" style="background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),url('/img/gerrard.jpg');"></div>
         </div>
+
     </div>
+    <footer>
+        <p>Blog owner's info and social media links</p>
+        <p>&copy; 2024 Liverpool F.C. Fan Blog. All rights reserved.</p>
+        <a href="https://github.com/junho767/Kopmorning-capstone">Git Hub</a>
+    </footer>
 </div>
 <script type="text/javascript" src="/js/slide.js"></script>
 </body>

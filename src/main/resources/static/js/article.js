@@ -42,13 +42,42 @@ if(modifyBtn){
     });
 }
 
+const submitBtn = document.getElementById('submit-btn');
+if(submitBtn){
+    submitBtn.addEventListener('click', function(event){
+        event.preventDefault();
+        let title = document.getElementById('title').value;
+        let content = document.getElementById('content').value;
+        let articleSelect = document.getElementById('articleSelect').value;
+        if(!title){
+            alert('제목이 비어있습니다.');
+            return;
+        }
+        if(!content){
+            alert('내용이 비어있습니다.');
+            return;
+        }
+        if(!articleSelect){
+            alert('카테고리를 선택해주세요.');
+            return;
+        }
+        document.getElementById('articleForm').submit();
+    })
+}
+
 //이전 주소 저장
 const writeBtn = document.getElementById('write-btn');
+const isAuthenticated = document.getElementById('user-data');
 if(writeBtn){
     writeBtn.addEventListener('click', function() {
-        // 현재 페이지의 경로를 세션 스토리지에 저장
-        sessionStorage.setItem('previousPage', window.location.pathname);
-        window.location.href = '/new-article';
+        if (isAuthenticated) {
+           sessionStorage.setItem('previousPage', window.location.pathname);
+           window.location.href = '/new-article';
+        }
+        else {
+           alert('로그인 후 이용해주세요.');
+           return;
+        }
     });
 }
 
