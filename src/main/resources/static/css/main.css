@@ -166,6 +166,7 @@ body {
 .w200 { width:200px; }
 .w230 { width:230px; }
 .w260 { width:260px; }
+.w400 { width:400px; }
 .w500 { width:500px; }
 .w550 { width:550px; }
 .w600 { width:600px; }
@@ -253,11 +254,31 @@ nav > a:hover{
     transition-duration: 0.5s;
 }
 footer {
-    height:150px;
+    height:160px;
     background-color: #333;
     color: white;
     text-align: center;
+    align-items:center;
     padding: 10px 0;
+}
+footer > div{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px 0;
+}
+footer > div >img {
+    width:30px;
+    height:30px;
+    margin-right:10px;
+}
+footer p,a{
+    color:white;
+}
+footer a:hover{
+    transition=direction:0.5s;
+    color:red;
+    font-size:18px;
 }
 .logo img{
     width: 150px;
@@ -745,7 +766,6 @@ input[type="file"]:hover {
 .info-table > .bottom {
     height:580px;
     display:flex;
-    justify-content:space-between;
 }
 .standing-box{
     margin:10px;
@@ -753,6 +773,7 @@ input[type="file"]:hover {
     font-size: 20px;
 }
 .playerList{
+    margin-left:20px;
     overflow-y:auto;
     max-height:750px;
     scrollbar-width: none; /* Firefox */
@@ -760,7 +781,7 @@ input[type="file"]:hover {
     display:flex;
 }
 .team-nav {
-    width: 10%; /* 왼쪽 20% 차지 */
+    width: 10%;
     background-color: #444; /* 배경색 */
     margin:10px;
     padding: 20px; /* 내부 여백 */
@@ -1117,11 +1138,15 @@ input[type="file"]:hover {
     color: black;
 }
 .matchList {
+    margin-top:10px;
+    width:90%;
     display: flex;
     flex-wrap: wrap; /* 여러 줄로 나눠서 배치되도록 설정 */
     gap: 20px; /* 박스 사이의 간격 설정 */
     justify-content: space-between; /* 박스 사이의 여유 공간 분배 */
     overflow-y:auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
     max-height: 850px;
 }
 
@@ -1220,4 +1245,198 @@ input[type="file"]:hover {
 
 .fade-in.visible {
     opacity: 1;
+}
+
+.history {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.history h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #e62429;
+}
+
+.layout {
+    margin-top:50px;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+
+.champions-wall {
+    width:600px;
+    height:350px;
+    padding: 20px; /* 이미지와 테두리 사이의 여백을 조절 */
+    border: 15px solid #8B4513; /* 브라운 색상 테두리 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6); /* 진한 그림자 효과 */
+    background-color: #000; /* 흰색 배경 */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.champions-wall img {
+    width: 580px;
+    height:330px;
+    display: block;
+}
+.champions-list {
+    background: linear-gradient(135deg, #c8102e 0%, #d3192c 100%);
+    border-radius: 10px;
+    padding: 20px;
+    color: #fff;
+    width:670px;
+    font-family: 'Arial', sans-serif;
+}
+.champions-list h2 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+.champions-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height:70px;
+}
+
+.champions-list li {
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), -5px -5px 15px rgba(50, 50, 50, 0.2);
+    font-size:11px;
+    background: #c8102e;
+    border-radius: 5px;
+    padding: 3px;
+    width:95px;
+    margin: 10px 5px;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.champions-list li:hover {
+    transform: scale(1.05);
+    background: #a70d1c;
+}
+
+.champions-list .league::before {
+    content: '🏆 ';
+}
+
+.champion-years {
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    color: #c8102e;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.champion-years span {
+    background: #c8102e;
+    color: #fff;
+    border-radius: 3px;
+    padding: 3px 5px;
+    margin: 3px;
+    display: inline-block;
+}
+.champion-years.active {
+    display: block; /* 활성화되면 표시 */
+}
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y:auto;
+    max-height:700px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.event {
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    padding: 20px;
+    width:250px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), -5px -5px 15px rgba(50, 50, 50, 0.2);
+    cursor: pointer;
+}
+
+.event:hover {
+    background: #e62429;
+}
+.event h2 {
+    margin: 0 0 10px 0;
+    font-size: 2em;
+    color: #e62429;
+}
+
+.event p {
+    margin: 0;
+    font-size: 1.2em;
+    color: #f0f0f0;
+}
+.details-container {
+    width: 650px;
+    padding: 20px;
+    margin-right:30px;
+    background: linear-gradient(145deg, #1a1a1a, #121212);
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2), -5px -5px 15px rgba(50, 50, 50, 0.2);
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.details {
+    display: none;
+}
+.details h1 {
+    margin: 0 0 10px 0;
+    font-size: 2em;
+    color: #e62429;
+}
+.details h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.5em;
+    color: #e62429;
+}
+.details p{
+    margin: 0;
+    font-size: 1.2em;
+    color: #f0f0f0;
+}
+.details img{
+    width:90%;
+    height:300px;
+    padding:20px;
+}
+
+.details.active {
+    display: block;
+}
+
+.trophy-box {
+    background-color: #333;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.trophy-box h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.5em;
+    color: #e62429;
+}
+
+.trophy-box p {
+    margin: 0;
+    font-size: 1em;
+    color: #f0f0f0;
 }

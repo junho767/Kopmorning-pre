@@ -111,6 +111,8 @@ public class FootBallViewController {
     public String getSchedule(@RequestParam("id") long id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
         List<MatchResponesDTO> matchList= matchService.findHomeTeamOrAwayTeam(id);
+        TeamResponseDTO team =teamService.findById(id);
+        model.addAttribute("team",team);
         model.addAttribute("paramId",id);
         model.addAttribute("match",matchList);
         if(principalDetails != null) {
