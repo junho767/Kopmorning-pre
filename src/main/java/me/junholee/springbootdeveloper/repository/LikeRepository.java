@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface LikeRepository extends JpaRepository<Likes,Long> {
     boolean existsByUserAndArticle(User user, Article article);
     void deleteByUserAndArticle(User user, Article article);
-    boolean existsByUserAndComment(User user, CommentResponseDTO comment);
+    boolean existsByUserAndComment(User user, Comment comment);
     void deleteByUserAndComment(User user, Comment comment);
 }

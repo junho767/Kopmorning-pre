@@ -16,7 +16,6 @@
             <a th:href="@{/story}">TEAM</a>
             <a th:href="@{/articles}">ARTICLE</a>
             <a th:href="@{/league}">LEAGUE</a>
-            <a th:href="@{/notice}">NOTICE</a>
         </nav>
         <div class="login">
             <div sec:authorize="isAnonymous()">
@@ -24,6 +23,7 @@
                 <button class="button" th:onclick="'window.location.href = \'' + @{/loginForm} + '\''">회원가입</button>
             </div>
             <div class="user-info" sec:authorize="isAuthenticated()">
+                <div id="user-data" data-authenticated="${authenticated}"></div>
                 <div th:unless="${user.picture.startsWith('https://')}">
                     <img class="mt10 w60 h60 border-circle" th:src="@{'/profileImage/'+ ${user.picture}}" alt="User Image">
                 </div>
@@ -119,6 +119,16 @@
         </div>
     </article>
 </section>
+<footer>
+    <p>Blog owner's info and social media links</p>
+    <div>
+        <img src="/img/email_icon.png">Email: <a href="mailto:junho767@naver.com">junho767@naver.com</a>, <a href="mailto:worms773789@gmail.com">worms773789@gmail.com</a>
+    </div>
+    <div>
+        <img src="/img/Github_icon.png">GitHub: <a href="https://github.com/junho767/Kopmorning-capstone">Kopmorning-capstone</a>
+    </div>
+    <p>&copy; 2024 Liverpool F.C. Fan Blog. All rights reserved.</p>
+</footer>
 <div class="modal-background" id="image-modal">
     <div class="modal-content">
         <button class="close-modal">&times; Close</button>

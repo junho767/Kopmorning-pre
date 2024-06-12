@@ -3,7 +3,7 @@ package me.junholee.springbootdeveloper.dto.Team;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Coach;
 import me.junholee.springbootdeveloper.domain.Team;
-import me.junholee.springbootdeveloper.service.CoachService;
+import me.junholee.springbootdeveloper.service.Football.CoachService;
 import me.junholee.springbootdeveloper.service.Football.TeamService;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
@@ -36,18 +36,33 @@ public class TeamRequest {
 
         for(int i=0; i< teams.size() ; i++){
 
+            int coach_id=0;
+            String coach_name = null;
+            String coach_nationality=null;
+            String coach_dateOfBirth=null;
             JSONObject jsonTeam = (JSONObject) teams.get(i);
             JSONObject jsonCoach = (JSONObject) jsonTeam.get("coach");
-            int id = (int) jsonCoach.get("id");
+            if(jsonCoach.get("id") == null){
+                coach_name = "공석";
+                coach_nationality = "공석";
+                coach_dateOfBirth = "공석";
+            }
+            else{
+                coach_id = (int) jsonCoach.get("id");
+                coach_name = (String) jsonCoach.get("lastName");
+                coach_nationality = (String) jsonCoach.get("nationality");
+                coach_dateOfBirth = (String) jsonCoach.get("dateOfBirth");
+            }
             Coach coach = Coach.builder()
-                    .id((long) id)
-                    .name((String) jsonCoach.get("name"))
-                    .Last_name((String) jsonCoach.get("lastName"))
-                    .nationality((String) jsonCoach.get("nationality"))
-                    .dateOfBirth((String) jsonCoach.get("dateOfBirth"))
+                    .coach_id(coach_id)
+                    .name(coach_name)
+                    .Last_name(coach_name)
+                    .nationality(coach_nationality)
+                    .dateOfBirth(coach_dateOfBirth)
                     .build();
 
             coachService.CoachSave(coach);
+
 
             String team_name = (String) jsonTeam.get("name");
             int team_id = (int) jsonTeam.get("id");

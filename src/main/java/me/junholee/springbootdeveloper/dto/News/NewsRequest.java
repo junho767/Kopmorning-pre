@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto;
+package me.junholee.springbootdeveloper.dto.News;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,7 +15,7 @@ import java.util.List;
 public class NewsRequest {
     private static final String URL = "https://www.liverpoolfc.com/news?categoryId=186";
 
-    @Scheduled(fixedRate = 6000000)
+    @Scheduled(fixedRate = 800000)
     public List<NewsResponseDTO> fetchArticles() {
         List<NewsResponseDTO> newslist = new ArrayList<>();
         try {

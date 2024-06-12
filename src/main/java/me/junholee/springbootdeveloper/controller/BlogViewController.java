@@ -9,8 +9,8 @@ import me.junholee.springbootdeveloper.dto.Articles.ArticleListViewResponse;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleViewResponse;
 import me.junholee.springbootdeveloper.dto.CommentList.CommentResponseDTO;
 import me.junholee.springbootdeveloper.dto.Match.MatchResponesDTO;
-import me.junholee.springbootdeveloper.dto.NewsRequest;
-import me.junholee.springbootdeveloper.dto.NewsResponseDTO;
+import me.junholee.springbootdeveloper.dto.News.NewsRequest;
+import me.junholee.springbootdeveloper.dto.News.NewsResponseDTO;
 import me.junholee.springbootdeveloper.dto.Standing.StandingsResponseDTO;
 import me.junholee.springbootdeveloper.service.Blog.BlogService;
 import me.junholee.springbootdeveloper.service.Football.MatchService;
@@ -162,7 +162,15 @@ public class BlogViewController {
     }
     @GetMapping("/")
     public String getMain(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
-
+        List<MatchResponesDTO> matchList = matchService.findHomeTeamOrAwayTeam(64);
+        MatchResponesDTO nextMatch = matchService.nextMatch(matchList);
+        MatchResponesDTO recentMatch = matchService.recentMatch(matchList);
+        if(nextMatch != null){
+            model.addAttribute("nextMatch",nextMatch);
+        }
+        if(recentMatch != null){
+            model.addAttribute("resentMatch",recentMatch);
+        }
         List<NewsResponseDTO> newsList = newsRequest.fetchArticles();
         List<NewsResponseDTO> limitList = newsList.subList(0,Math.min(newsList.size(),5));
         model.addAttribute("news",limitList);

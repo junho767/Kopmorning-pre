@@ -17,8 +17,11 @@ import lombok.Setter;
 public class Coach {
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int coach_id;
 
     @Column(name = "name")
     private String name;
@@ -33,8 +36,8 @@ public class Coach {
     private String nationality;
 
     @Builder
-    public Coach(long id, String name,String Last_name, String dateOfBirth, String nationality){
-        this.id = id;
+    public Coach(int coach_id, String name,String Last_name, String dateOfBirth, String nationality){
+        this.coach_id = coach_id;
         this.name = name;
         this.Last_name = Last_name;
         this.dateOfBirth = dateOfBirth;

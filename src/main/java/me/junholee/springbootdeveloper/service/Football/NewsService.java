@@ -1,7 +1,7 @@
-package me.junholee.springbootdeveloper.service;
+package me.junholee.springbootdeveloper.service.Football;
 
-import me.junholee.springbootdeveloper.dto.NewsRequest;
-import me.junholee.springbootdeveloper.dto.NewsResponseDTO;
+import me.junholee.springbootdeveloper.dto.News.NewsRequest;
+import me.junholee.springbootdeveloper.dto.News.NewsResponseDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

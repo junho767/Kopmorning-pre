@@ -32,9 +32,8 @@ public class LikeService {
     }
     public void commentLike(User user, Long id){
         Comment comment = commentService.findById(id);
-        CommentResponseDTO commentResponseDTO = new CommentResponseDTO(comment);
         // 해당 유저 정보와 글이 없다면 좋아요 증가  및 Like DB에 생성
-        if(!likeRepository.existsByUserAndComment(user,commentResponseDTO)){
+        if(!likeRepository.existsByUserAndComment(user,comment)){
             likeRepository.save(new Likes(user,comment));
         }
         // 해당 유저 정보와 글이 있다면 좋아요 감소 및 Like DB에서 삭제

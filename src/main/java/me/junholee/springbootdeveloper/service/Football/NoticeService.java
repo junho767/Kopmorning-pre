@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.service;
+package me.junholee.springbootdeveloper.service.Football;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;

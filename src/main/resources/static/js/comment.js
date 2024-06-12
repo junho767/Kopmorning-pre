@@ -1,8 +1,13 @@
 
 //댓글 작성
 const writeComment = document.getElementById('writeComment');
+
 if (writeComment) {
     writeComment.addEventListener('click', event => {
+        if(!isAuthenticated){
+            alert("로그인 후 이용해주세요.");
+            return;
+        }
         let id = document.getElementById('article-id').value;
         body = JSON.stringify({
             comment: document.getElementById('comment').value
@@ -18,38 +23,10 @@ if (writeComment) {
     });
 }
 
-//댓글 삭제
-//const deleteCommentButtons = document.querySelectorAll('.delete-comment-btn');
-//deleteCommentButtons.forEach(function(deleteCommentButton) {
-//    deleteCommentButton.addEventListener('click', function() {
-//        let id = this.parentElement.querySelector('.comment-id').value;
-//        swal.fire({
-//            title: "삭제하시겠습니까?",
-//            icon: "question",
-//            showCancelButton: true,
-//            confirmButtonColor: "#6495ed",
-//            cancelButtonColor: "#d33",
-//            confirmButtonText: "Yes"
-//        }).then((result) => {
-//            if (result.isConfirmed) {
-//                const body = JSON.stringify({ id: id });
-//                httpRequest('DELETE', `/api/comment/${id}`, body, success, fail);
-//            }
-//        });
-//
-//        function success() {
-//            location.reload();
-//        }
-//
-//        function fail() {
-//            alert('ERROR');
-//            location.reload();
-//        }
-//    });
-//});
 
 //댓글 수정 [수정본]
 document.addEventListener('DOMContentLoaded', function() {
+    const isAuthenticated = document.getElementById('user-data');
     // 수정 버튼
     document.querySelectorAll('.modify-comment-btn').forEach(function(ModifyButton) {
         ModifyButton.addEventListener('click', function() {
@@ -154,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const body = JSON.stringify({ id: id });
 
                     function success() {
-                        swal.fire("Deleted!", "Your comment has been deleted.", "success");
+                        swal.fire("성공!");
                         setTimeout(() => {
                             location.reload();
                         }, 1000);

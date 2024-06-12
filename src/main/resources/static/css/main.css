@@ -276,9 +276,8 @@ footer p,a{
     color:white;
 }
 footer a:hover{
-    transition=direction:0.5s;
+    transition-direction:1s;
     color:red;
-    font-size:18px;
 }
 .logo img{
     width: 150px;
@@ -342,11 +341,8 @@ footer a:hover{
     background-color: #444; /* 배경색 */
     border:3px solid black;
     border-radius: 20px;
-    position:absolute;
     width: 400px;
-    left: 50%;
-    margin-left: -150px;
-    top: 17%;
+    height:750px;
 }
 .profile-container img{
     width:150px;
@@ -527,7 +523,7 @@ section{
 article{
     width: 1200px;
     margin:auto;
-    max-height: 900px;
+    max-height: 750px;
     height: auto;
     background-color: rgba(255,255,255,0.9); /* 투명도 50%의 흰색 */
     border-bottom: 3px solid black;
@@ -1080,7 +1076,34 @@ input[type="file"]:hover {
 .player-stats td:last-child {
     text-align: right;
 }
-
+.nextMatch{
+    width:400px;
+    height:200px;
+    border-radius:10px;
+    position:absolute;
+    text-align:center;
+    align-items:center;
+    top:30%;
+    left:0;
+    background-color:white;
+    display:flex;
+    flex-direction:column;
+    z-index:1000;
+}
+.recent{
+    width:400px;
+    height:200px;
+    border-radius:10px;
+    position:absolute;
+    text-align:center;
+    align-items:center;
+    top:30%;
+    left:25%;
+    background-color:white;
+    display:flex;
+    flex-direction:column;
+    z-index:1000;
+}
 .news-list{
     background-color:rgba(255,255,255,0.5);
     display:flex;
@@ -1133,7 +1156,7 @@ input[type="file"]:hover {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 35ch; /* 10 characters width */
+    width: 30ch; /* 10 characters width */
     display: inline-block;
     color: black;
 }

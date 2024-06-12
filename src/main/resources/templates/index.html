@@ -20,7 +20,6 @@
                     <a th:href="@{/story}">TEAM</a>
                     <a th:href="@{/articles}">ARTICLE</a>
                     <a th:href="@{/league}">LEAGUE</a>
-                    <a th:href="@{/notice}">NOTICE</a>
                 </nav>
                 <div class="login">
                     <div sec:authorize="isAnonymous()">
@@ -45,7 +44,47 @@
                 </div>
             </div>
         </header>
-
+        <div class="nextMatch">
+            <h3>다음 경기</h3>
+            <div th:unless="${nextMatch}==null" class="team">
+                <div class="team-info">
+                    <img th:src="${nextMatch.homeTeam.team_crest}">
+                    <p th:text="${nextMatch.homeTeam.team_tla}"></p>
+                </div>
+                <div class="score alignCenter"
+                     th:classappend="${nextMatch.winner} == ${paramId} ? 'winner' : (${nextMatch.winner} == 0 ? 'draw' : 'loser')">
+                    <p th:text="${nextMatch.home_score}"></p>
+                    <p>-</p>
+                    <p th:text="${nextMatch.away_score}"></p>
+                </div>
+                <div class="team-info">
+                    <p th:text="${nextMatch.awayTeam.team_tla}"></p>
+                    <img th:src="${nextMatch.awayTeam.team_crest}">
+                </div>
+            </div>
+            <div th:if="${nextMatch}==null" class="team">
+                <h2>시즌 종료</h2>
+            </div>
+        </div>
+        <div class="recent">
+            <h3>최근 경기</h3>
+            <div th:unless="${resentMatch}==null" class="team">
+                <div class="team-info">
+                    <img th:src="${resentMatch.homeTeam.team_crest}">
+                    <p th:text="${resentMatch.homeTeam.team_tla}"></p>
+                </div>
+                <div class="score alignCenter"
+                     th:classappend="${resentMatch.winner} == 64 ? 'winner' : (${resentMatch.winner} == 0 ? 'draw' : 'loser')">
+                    <p th:text="${resentMatch.home_score}"></p>
+                    <p>-</p>
+                    <p th:text="${resentMatch.away_score}"></p>
+                </div>
+                <div class="team-info">
+                    <p th:text="${resentMatch.awayTeam.team_tla}"></p>
+                    <img th:src="${resentMatch.awayTeam.team_crest}">
+                </div>
+            </div>
+        </div>
         <div class="news-list" id="news-list">
             <div class="top">
                 <p>Latest News</p>
