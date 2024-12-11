@@ -30,23 +30,10 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "picture")
-    private String picture;
-
-    @Column(name = "reason")
-    private String reason;
-
     @Column(name = "nickname")
     private String nickname;
 
-    @Column(nullable = true)
-    private Long year;
-
     @Enumerated(EnumType.STRING)
-    @Setter
     private Role role;
 
     @CreatedDate
@@ -55,37 +42,4 @@ public class User {
 
     private String provider;    // oauth2를 이용할 경우 어떤 플랫폼을 이용하는지
     private String providerId;  // oauth2를 이용할 경우 아이디값
-
-    @Builder(builderClassName = "UserDetailRegister", builderMethodName = "userDetailRegister")
-    public User(String username, String password, String email, String picture, Role role) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.picture = picture;
-        this.role = role;
-    }
-
-    @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")
-    public User(String username, String picture,String nickname ,String password, String email, Role role, String provider, String providerId) {
-        this.nickname = nickname;
-        this.username = username;
-        this.password = password;
-        this.picture = picture;
-        this.email = email;
-        this.role = role;
-        this.provider = provider;
-        this.providerId = providerId;
-    }
-
-    public User update(String picture) {
-        this.picture = picture;
-        return this;
-    }
-
-    public User modify_User(String nickname, String reason, long year) {
-        this.nickname = nickname;
-        this.reason = reason;
-        this.year = year;
-        return this;
-    }
 }

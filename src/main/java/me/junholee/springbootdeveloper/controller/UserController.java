@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import me.junholee.springbootdeveloper.config.oauth.PrincipalDetails;
 import me.junholee.springbootdeveloper.domain.Role;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.User1.UpdateUserRequest;
+import me.junholee.springbootdeveloper.dto.User.UpdateUserRequest;
 import me.junholee.springbootdeveloper.repository.UserRepository;
 import me.junholee.springbootdeveloper.service.Member.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

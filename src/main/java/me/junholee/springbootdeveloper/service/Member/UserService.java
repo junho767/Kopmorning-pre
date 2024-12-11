@@ -3,7 +3,7 @@ package me.junholee.springbootdeveloper.service.Member;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.User1.UpdateUserRequest;
+import me.junholee.springbootdeveloper.dto.User.UpdateUserRequest;
 import me.junholee.springbootdeveloper.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,10 +1,9 @@
-package me.junholee.springbootdeveloper.dto.User1;
+package me.junholee.springbootdeveloper.dto.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor
 @AllArgsConstructor
