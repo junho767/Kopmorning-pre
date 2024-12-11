@@ -12,12 +12,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @SpringBootApplication
 @RequiredArgsConstructor
 @EnableScheduling // 스케줄링 활성화.
-public class SpringBootDeveloperApplication {
+public class MainApplication {
     @Bean
     public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
     public static void main(String[] args){
-        SpringApplication.run(SpringBootDeveloperApplication.class, args);
+        SpringApplication.run(MainApplication.class, args);
     }
 }
