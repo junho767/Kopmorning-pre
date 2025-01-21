@@ -1,15 +1,13 @@
 package me.junholee.springbootdeveloper.service.Blog;
 
 import lombok.RequiredArgsConstructor;
-import me.junholee.springbootdeveloper.dto.Articles.ArticleViewResponse;
-import me.junholee.springbootdeveloper.dto.ImageDTO.ImageResponseDTO;
+import me.junholee.springbootdeveloper.dto.Image.ImageResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 import me.junholee.springbootdeveloper.domain.Image;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.ImageDTO.ImageUploadDTO;
+import me.junholee.springbootdeveloper.dto.Image.ImageUploadDTO;
 import me.junholee.springbootdeveloper.repository.ImageRepository;
 import me.junholee.springbootdeveloper.repository.UserRepository;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor

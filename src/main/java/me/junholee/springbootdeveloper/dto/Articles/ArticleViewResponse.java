@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.ArticleImage;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.CommentList.CommentResponseDTO;
+import me.junholee.springbootdeveloper.dto.Comment.CommentResponseDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;

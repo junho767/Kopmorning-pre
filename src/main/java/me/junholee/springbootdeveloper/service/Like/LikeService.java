@@ -6,7 +6,6 @@ import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.Comment;
 import me.junholee.springbootdeveloper.domain.Likes;
 import me.junholee.springbootdeveloper.domain.User;
-import me.junholee.springbootdeveloper.dto.CommentList.CommentResponseDTO;
 import me.junholee.springbootdeveloper.repository.LikeRepository;
 import me.junholee.springbootdeveloper.service.Blog.BlogService;
 import me.junholee.springbootdeveloper.service.Comment.CommentService;

@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto.ImageDTO;
+package me.junholee.springbootdeveloper.dto.Image;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto.CommentList;
+package me.junholee.springbootdeveloper.dto.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +8,6 @@ import me.junholee.springbootdeveloper.domain.Comment;
 import me.junholee.springbootdeveloper.domain.User;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Data
 @AllArgsConstructor

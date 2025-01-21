@@ -7,11 +7,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Date;
@@ -22,10 +24,14 @@ import java.util.Set;
 public class TokenProvider {
 
     private final JwtProperties jwtProperties;
-    public String generateToken(User user, Duration expiredAt) {
-        Date now = new Date();
-        return makeToken(new Date(now.getTime() + expiredAt.toMillis()), user);
-    }
+
+//    @Value("${JWT_SECRET}")
+//    private Key key;
+//
+//    public String generateToken(User user, Duration expiredAt) {
+//        Date now = new Date();
+//        return makeToken(new Date(now.getTime() + expiredAt.toMillis()), user);
+//    }
 
     private String makeToken(Date expiry, User user) {
         Date now = new Date();

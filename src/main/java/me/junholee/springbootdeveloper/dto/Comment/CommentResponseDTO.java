@@ -1,4 +1,4 @@
-package me.junholee.springbootdeveloper.dto.CommentList;
+package me.junholee.springbootdeveloper.dto.Comment;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -5,22 +5,18 @@ import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.config.oauth.PrincipalDetails;
 import me.junholee.springbootdeveloper.domain.Article;
 import me.junholee.springbootdeveloper.domain.User;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import me.junholee.springbootdeveloper.dto.Articles.AddArticleRequest;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleResponse;
 import me.junholee.springbootdeveloper.dto.Articles.UpdateArticleRequest;
-import me.junholee.springbootdeveloper.dto.ImageDTO.ArticleImageUploadDTO;
+import me.junholee.springbootdeveloper.dto.Image.ArticleImageUploadDTO;
 import me.junholee.springbootdeveloper.service.Blog.BlogService;
 import me.junholee.springbootdeveloper.service.Member.UserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.net.URI;
 import java.security.Principal;
 import java.util.List;
 
