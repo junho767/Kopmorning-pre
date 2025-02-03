@@ -3,17 +3,13 @@ package me.junholee.springbootdeveloper.controller;
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.config.oauth.PrincipalDetails;
 import me.junholee.springbootdeveloper.domain.Article;
-import me.junholee.springbootdeveloper.domain.Match;
 import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleListViewResponse;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleViewResponse;
-import me.junholee.springbootdeveloper.dto.CommentList.CommentResponseDTO;
-import me.junholee.springbootdeveloper.dto.Match.MatchResponesDTO;
+import me.junholee.springbootdeveloper.dto.Comment.CommentResponseDTO;
 import me.junholee.springbootdeveloper.dto.News.NewsRequest;
 import me.junholee.springbootdeveloper.dto.News.NewsResponseDTO;
-import me.junholee.springbootdeveloper.dto.Standing.StandingsResponseDTO;
 import me.junholee.springbootdeveloper.service.Blog.BlogService;
-import me.junholee.springbootdeveloper.service.Football.MatchService;
 import me.junholee.springbootdeveloper.service.Football.StandingService;
 import me.junholee.springbootdeveloper.service.Like.LikeService;
 import me.junholee.springbootdeveloper.service.Member.UserService;
@@ -35,8 +31,6 @@ import java.util.List;
 @Controller
 public class BlogViewController {
     private final BlogService blogService;
-    private final StandingService standingService;
-    private final MatchService matchService;
     private final UserService userService;
     private final LikeService likeService;
     private final NewsRequest newsRequest;
@@ -162,15 +156,6 @@ public class BlogViewController {
     }
     @GetMapping("/")
     public String getMain(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        List<MatchResponesDTO> matchList = matchService.findHomeTeamOrAwayTeam(64);
-        MatchResponesDTO nextMatch = matchService.nextMatch(matchList);
-        MatchResponesDTO recentMatch = matchService.recentMatch(matchList);
-        if(nextMatch != null){
-            model.addAttribute("nextMatch",nextMatch);
-        }
-        if(recentMatch != null){
-            model.addAttribute("resentMatch",recentMatch);
-        }
         List<NewsResponseDTO> newsList = newsRequest.fetchArticles();
         List<NewsResponseDTO> limitList = newsList.subList(0,Math.min(newsList.size(),5));
         model.addAttribute("news",limitList);
@@ -184,27 +169,27 @@ public class BlogViewController {
         return "index";
     }
 
-    @GetMapping("/match/{id}")
-    public String getMatch(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
-
-        Match match = matchService.findById(id);
-        MatchResponesDTO matchInfo = new MatchResponesDTO(match);
-
-        if(principalDetails != null) {
-            User user= userService.findByEmail(principalDetails.getUser().getEmail());
-            model.addAttribute("user", user);
-        }
-
-        List<StandingsResponseDTO> standingsList = standingService.findAll().stream()
-                .map(StandingsResponseDTO::new)
-                .toList();
-
-
-        model.addAttribute("standing",standingsList);
-        model.addAttribute("match",matchInfo);
-
-        return "match";
-    }
+//    @GetMapping("/match/{id}")
+//    public String getMatch(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+//
+//        Match match = matchService.findById(id);
+//        MatchResponesDTO matchInfo = new MatchResponesDTO(match);
+//
+//        if(principalDetails != null) {
+//            User user= userService.findByEmail(principalDetails.getUser().getEmail());
+//            model.addAttribute("user", user);
+//        }
+//
+//        List<StandingsResponseDTO> standingsList = standingService.findAll().stream()
+//                .map(StandingsResponseDTO::new)
+//                .toList();
+//
+//
+//        model.addAttribute("standing",standingsList);
+//        model.addAttribute("match",matchInfo);
+//
+//        return "match";
+//    }
     @GetMapping("/notice")
     public String getNotice(Model model){
         return "notice";

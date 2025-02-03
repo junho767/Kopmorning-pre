@@ -1,7 +1,7 @@
 package me.junholee.springbootdeveloper.service.Blog;
 
-import me.junholee.springbootdeveloper.dto.ImageDTO.ImageResponseDTO;
-import me.junholee.springbootdeveloper.dto.ImageDTO.ImageUploadDTO;
+import me.junholee.springbootdeveloper.dto.Image.ImageResponseDTO;
+import me.junholee.springbootdeveloper.dto.Image.ImageUploadDTO;
 
 public interface ImageService {
 

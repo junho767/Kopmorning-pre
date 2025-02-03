@@ -2,8 +2,8 @@ package me.junholee.springbootdeveloper.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.junholee.springbootdeveloper.domain.Comment;
-import me.junholee.springbootdeveloper.dto.CommentList.CommentRequest;
-import me.junholee.springbootdeveloper.dto.CommentList.CommentResponseDTO;
+import me.junholee.springbootdeveloper.dto.Comment.CommentRequest;
+import me.junholee.springbootdeveloper.dto.Comment.CommentResponseDTO;
 import me.junholee.springbootdeveloper.service.Comment.CommentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

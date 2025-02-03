@@ -1,58 +1,51 @@
 package me.junholee.springbootdeveloper.service.Football;
 
-import me.junholee.springbootdeveloper.domain.Match;
-import me.junholee.springbootdeveloper.dto.Match.MatchResponesDTO;
-import me.junholee.springbootdeveloper.repository.MatchRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
+import me.junholee.springbootdeveloper.Constant.FootBallRequestUrl;
+import me.junholee.springbootdeveloper.dto.Football.Match.Matches;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Service
+@RequiredArgsConstructor
 public class MatchService {
-    private final MatchRepository matchRepository;
-    @Autowired
-    public MatchService(MatchRepository matchRepository) {
-        this.matchRepository = matchRepository;
-    }
-    public Match saveMatch(Match match) {
-        return matchRepository.save(match);
+    private final ObjectMapper objectMapper;
+
+    @Value("${football.api.key}")
+    private String apiKey;
+
+    public List<Matches> getMatchList(long leagueId) {
+        try {
+            CloseableHttpClient client = HttpClientBuilder.create().build();
+            HttpGet request = new HttpGet(matchListRequestUrl(leagueId));
+            request.setHeader("X-Auth-Token", apiKey);
+            CloseableHttpResponse response = client.execute(request);
+
+            HttpEntity entity = response.getEntity();
+            String jsonResponse = EntityUtils.toString(entity);
+            JsonNode node = objectMapper.readTree(jsonResponse);
+            JsonNode matches = node.get("matches");
+
+            return Collections.singletonList(objectMapper.treeToValue(matches, Matches.class));
+
+        } catch (IOException e) {
+            throw new RuntimeException("API 호출 실패", e);
+        }
     }
 
-    public List<MatchResponesDTO> findHomeTeamOrAwayTeam(long id){
-        List<Match> match = matchRepository.findByHomeTeamIdOrAwayTeamId(id, id);
-        return match.stream().map(MatchResponesDTO::new).toList();
-    }
-    public MatchResponesDTO nextMatch(List<MatchResponesDTO> matchList){
-        LocalDate now = LocalDate.now();
-        for(MatchResponesDTO match : matchList){
-            String matchTime1 = match.getMatch_time();
-            String matchTime2 = matchTime1.substring(0,10);
-            LocalDate time = LocalDate.parse(matchTime2);
-            if(time.isAfter(now)){
-                return match;
-            }
-        }
-        return null;
-    }
-    public MatchResponesDTO recentMatch(List<MatchResponesDTO> matchList){
-        LocalDate now = LocalDate.now();
-        int index=0;
-        for(int i=0; i< matchList.size(); i++){
-            index=i;
-            String matchTime1 = matchList.get(i).getMatch_time();
-            String matchTime2 = matchTime1.substring(0,10);
-            LocalDate time = LocalDate.parse(matchTime2);
-            if(time.isAfter(now) && (Objects.equals(matchList.get(i - 1).getStatus(), "FINISHED"))){
-                return matchList.get(i-1);
-            }
-        }
-        return matchList.get(index);
-    }
-    public Match findById(int match_day){
-        return matchRepository.findById(match_day).orElse(null);
+    private String matchListRequestUrl(long leagueId) {
+        return String.format(FootBallRequestUrl.MATCH_LIST_REQUEST_URL, leagueId);
     }
 }

@@ -7,7 +7,7 @@ import me.junholee.springbootdeveloper.domain.User;
 import me.junholee.springbootdeveloper.dto.Articles.AddArticleRequest;
 import me.junholee.springbootdeveloper.dto.Articles.ArticleListViewResponse;
 import me.junholee.springbootdeveloper.dto.Articles.UpdateArticleRequest;
-import me.junholee.springbootdeveloper.dto.ImageDTO.ArticleImageUploadDTO;
+import me.junholee.springbootdeveloper.dto.Image.ArticleImageUploadDTO;
 import me.junholee.springbootdeveloper.repository.ArticleImageRepository;
 import me.junholee.springbootdeveloper.repository.BlogRepository;
 import org.springframework.beans.factory.annotation.Value;

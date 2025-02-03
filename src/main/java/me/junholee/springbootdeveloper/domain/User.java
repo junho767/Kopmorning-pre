@@ -4,18 +4,15 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity // JPA 엔티티 임을 선언
 @Getter
-@Entity
 @Setter
+@Builder // 빌더 패턴 제공
+@AllArgsConstructor // 모든 필드를 파라미터로 받는 생성자를 자동 생성
+@NoArgsConstructor // 파라미터가 없는 기본 생성자를 자동 생성
 @EntityListeners(AuditingEntityListener.class)
 public class User {
 
